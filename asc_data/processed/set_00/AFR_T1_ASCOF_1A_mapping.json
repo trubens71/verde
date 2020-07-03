@@ -1,0 +1,209 @@
+[
+  {
+    "column_name": "Geography code",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [{ "funder": { "org_unit": { "geography_code": true } } }]
+  },
+  {
+    "column_name": "LA code",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "funder": { "org_unit": { "local_authority_code": true } } }
+    ]
+  },
+  {
+    "column_name": "LA name",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "funder": { "org_unit": { "local_authority_name": true } } }
+    ]
+  },
+  {
+    "column_name": "Region code",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [{ "funder": { "org_unit": { "region_code": true } } }]
+  },
+  {
+    "column_name": "Region name",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [{ "funder": { "org_unit": { "region_name": true } } }]
+  },
+  {
+    "column_name": "Net Total Expenditure (x1000)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [{ "funder": { "expenditure": true } }]
+  },
+  {
+    "column_name": "Gross Total Expenditure (x1000)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [{ "funder": { "expenditure": true } }]
+  },
+  {
+    "column_name": "Gross Current Expenditure (x1000)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [{ "funder": { "expenditure": true } }]
+  },
+  {
+    "column_name": "Number of requests for support received from new clients (18 to 64)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "service_provision": { "num_requests": true } },
+      { "service_provision": { "user": { "demographics": { "age": true } } } }
+    ]
+  },
+  {
+    "column_name": "Number of requests for support received from new clients (65 and over)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "service_provision": { "num_requests": true } },
+      { "service_provision": { "user": { "demographics": { "age": true } } } }
+    ]
+  },
+  {
+    "column_name": "New clients with an episode of ST-Max care and a known sequel (18 to 64)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "service_provision": { "num_new_clients": true } },
+      { "service_provision": { "user": { "demographics": { "age": true } } } },
+      { "service_provision": { "service": { "service_type": true } } }
+    ]
+  },
+  {
+    "column_name": "New clients with an episode of ST-Max care and a known sequel (65 and over)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "service_provision": { "num_new_clients": true } },
+      { "service_provision": { "user": { "demographics": { "age": true } } } },
+      { "service_provision": { "service": { "service_type": true } } }
+    ]
+  },
+  {
+    "column_name": "Long Term Support during the year (18 to 64)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "service_provision": { "num_provisions": true } },
+      { "service_provision": { "user": { "demographics": { "age": true } } } },
+      { "service_provision": { "service": { "service_type": true } } }
+    ]
+  },
+  {
+    "column_name": "Long Term Support during the year (65 and over)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "service_provision": { "num_provisions": true } },
+      { "service_provision": { "user": { "demographics": { "age": true } } } },
+      { "service_provision": { "service": { "service_type": true } } }
+    ]
+  },
+  {
+    "column_name": "Support provided to carers during the year",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      { "service_provision": { "num_provisions": true } },
+      { "service_provision": { "unpaid_carer": {} } },
+      { "service_provision": { "service": { "service_type": true } } }
+    ]
+  },
+  {
+    "column_name": "Social care-related quality of life score (All)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "ASCOF, 2019, Table 1",
+      "strength": 0.65
+    },
+    "domain_map": [{ "user": { "quality_of_life": { "well-being": true } } }]
+  },
+  {
+    "column_name": "Social care-related quality of life score (Male)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "ASCOF, 2019, Table 1",
+      "strength": 0.65
+    },
+    "domain_map": [
+      { "user": { "quality_of_life": { "well-being": true } } },
+      { "user": { "demographics": { "gender": true } } }
+    ]
+  },
+  {
+    "column_name": "Social care-related quality of life score (Female)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "ASCOF, 2019, Table 1",
+      "strength": 0.65
+    },
+    "domain_map": [
+      { "user": { "quality_of_life": { "well-being": true } } },
+      { "user": { "demographics": { "gender": true } } }
+    ]
+  },
+  {
+    "column_name": "Social care-related quality of life score (18 to 64)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "ASCOF, 2019, Table 1",
+      "strength": 0.65
+    },
+    "domain_map": [
+      { "user": { "quality_of_life": { "well-being": true } } },
+      { "user": { "demographics": { "age": true } } }
+    ]
+  },
+  {
+    "column_name": "Social care-related quality of life score (65 and over)",
+    "source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "ASCOF, 2019, Table 1",
+      "strength": 0.65
+    },
+    "domain_map": [
+      { "user": { "quality_of_life": { "well-being": true } } },
+      { "user": { "demographics": { "age": true } } }
+    ]
+  }
+]
