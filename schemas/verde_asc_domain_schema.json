@@ -1,0 +1,170 @@
+{
+  "$schema": "https://smcse.city.ac.uk/student/aczd178/verde/schema/verde_meta_schema.json#",
+  "$id": "https://smcse.city.ac.uk/student/aczd178/verde/schema/verde_asc_domain_schema.json#",
+  "title": "Domain Model for Adult Social Care in England",
+  "description": "A standard model by which we can express data visualisation rules. Not intended for document validation",
+  "$comment": "Version 1: A trivial first version for sprint 1 proof of concept",
+  "definitions": {
+    "service": {
+      "type": "object",
+      "properties": {
+        "service_type": {
+          "type": "boolean",
+          "verde_rule_directive": {
+            "ordinal": ["ST-Max", "Long Term", "Unpaid Carer Support"]
+          }
+        },
+        "setting": {
+          "type": "boolean",
+          "verde_rule_directive": {
+            "ordinal": ["community", "home", "residential home", "nursing home"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "demographics": {
+      "type": "object",
+      "properties": {
+        "age": { "type": "boolean" },
+        "gender": {
+          "type": "boolean",
+          "verde_rule_directive": {
+            "ordinal": ["female", "non-binary", "male"]
+          }
+        },
+        "ethnicity": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "quality_of_life": {
+      "type": "object",
+      "properties": {
+        "well-being": { "type": "boolean" },
+        "independence-mobility": { "type": "boolean" },
+        "employment-income": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "org_unit": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "local_authority_name": { "type": "boolean" },
+            "local_authority_code": { "type": "boolean" },
+            "geography_code": { "type": "boolean" },
+            "region_name": { "type": "boolean" },
+            "region_code": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "central_gov_org_unit": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "nhs_org_unit": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "funder": {
+      "verde_rule_directive": {
+        "explains": [
+          { "user": { "quality_of_life": {} } },
+          { "service_provision": {} },
+          { "unpaid_carer": { "demographics": {} } },
+          { "unpaid_carer": { "quality_of_life": {} } }
+        ]
+      },
+      "type": "object",
+      "domain_meta": { "phase": "supply" },
+      "properties": {
+        "org_unit": { "$ref": "#/definitions/org_unit" },
+        "budget": { "type": "boolean", "domain_meta": { "phase": "supply" } },
+        "expenditure": {
+          "type": "boolean",
+          "domain_meta": { "phase": "supply" }
+        },
+        "income": { "type": "boolean", "domain_meta": { "phase": "supply" } },
+        "service_provision": { "$ref": "#/properties/service_provision" }
+      },
+      "additionalProperties": false
+    },
+    "service_provision": {
+      "verde_rule_directive": {
+        "explains": [
+          { "user": { "quality_of_life": {} } },
+          { "service_provision": {} },
+          { "unpaid_carer": { "demographics": {} } },
+          { "unpaid_carer": { "quality_of_life": {} } }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "service": { "$ref": "#/definitions/service" },
+        "user": { "$ref": "#/properties/user" },
+        "unpaid_carer": { "$ref": "#/properties/unpaid_carer" },
+        "num_requests": {
+          "type": "boolean",
+          "domain_meta": { "phase": "demand" }
+        },
+        "num_provisions": {
+          "type": "boolean",
+          "domain_meta": { "phase": "operate" }
+        },
+        "num_new_clients": {
+          "type": "boolean",
+          "domain_meta": { "phase": "operate" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "user": {
+      "verde_rule_directive": {
+        "explains": [
+          { "funder": {} },
+          { "service_provision": {} },
+          { "unpaid_carer": { "demographics": {} } }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "demographics": {
+          "$ref": "#/definitions/demographics",
+          "domain_meta": { "phase": "demand" }
+        },
+        "quality_of_life": {
+          "$ref": "#/definitions/quality_of_life",
+          "domain_meta": { "phase": "outcome" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "unpaid_carer": {
+      "type": "object",
+      "properties": {
+        "demographics": {
+          "$ref": "#/definitions/demographics",
+          "domain_meta": { "phase": "supply" }
+        },
+        "quality_of_life": {
+          "$ref": "#/definitions/quality_of_life",
+          "domain_meta": { "phase": "outcome" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
