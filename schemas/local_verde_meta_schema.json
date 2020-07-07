@@ -1,0 +1,114 @@
+{
+  "$schema": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_meta_schema.json#",
+  "$id": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_meta_schema.json#",
+  "title": "Verde meta-schema to validate visualisation design rules in domain specific schemas",
+  "definitions": {
+    "schemaArray": {
+      "allOf": [
+        {
+          "$ref": "http://json-schema.org/draft-07/schema#/definitions/schemaArray"
+        },
+        {
+          "items": {
+            "$ref": "#"
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "http://json-schema.org/draft-07/schema#"
+    }
+  ],
+  "properties": {
+    "additionalItems": {
+      "$ref": "#"
+    },
+    "additionalProperties": {
+      "$ref": "#"
+    },
+    "dependencies": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "$ref": "#"
+          },
+          {
+            "type": "array"
+          }
+        ]
+      }
+    },
+    "items": {
+      "anyOf": [
+        {
+          "$ref": "#"
+        },
+        {
+          "$ref": "#/definitions/schemaArray"
+        }
+      ]
+    },
+    "definitions": {
+      "additionalProperties": {
+        "$ref": "#"
+      }
+    },
+    "patternProperties": {
+      "additionalProperties": {
+        "$ref": "#"
+      }
+    },
+    "properties": {
+      "additionalProperties": {
+        "$ref": "#"
+      }
+    },
+    "if": {
+      "$ref": "#"
+    },
+    "then": {
+      "$ref": "#"
+    },
+    "else": {
+      "$ref": "#"
+    },
+    "allOf": {
+      "$ref": "#/definitions/schemaArray"
+    },
+    "anyOf": {
+      "$ref": "#/definitions/schemaArray"
+    },
+    "oneOf": {
+      "$ref": "#/definitions/schemaArray"
+    },
+    "not": {
+      "$ref": "#"
+    },
+    "contains": {
+      "$ref": "#"
+    },
+    "propertyNames": {
+      "$ref": "#"
+    },
+    "verde_rule_directive": {
+      "type": "object",
+      "properties": {
+        "explains": {
+          "type": "array",
+          "items": {
+            "$ref": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_asc_domain_schema.json#"
+          }
+        },
+        "ordinal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2
+        }
+      }
+    }
+  }
+}

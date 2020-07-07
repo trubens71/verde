@@ -1,7 +1,7 @@
 [
   {
     "column_name": "Geography code",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -9,7 +9,7 @@
   },
   {
     "column_name": "LA code",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -19,7 +19,7 @@
   },
   {
     "column_name": "LA name",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -29,7 +29,7 @@
   },
   {
     "column_name": "Region code",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -37,7 +37,7 @@
   },
   {
     "column_name": "Region name",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -45,7 +45,7 @@
   },
   {
     "column_name": "Net Total Expenditure (x1000)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -53,7 +53,7 @@
   },
   {
     "column_name": "Gross Total Expenditure (x1000)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -61,7 +61,7 @@
   },
   {
     "column_name": "Gross Current Expenditure (x1000)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -69,7 +69,7 @@
   },
   {
     "column_name": "Number of requests for support received from new clients (18 to 64)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -80,7 +80,7 @@
   },
   {
     "column_name": "Number of requests for support received from new clients (65 and over)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -91,7 +91,7 @@
   },
   {
     "column_name": "New clients with an episode of ST-Max care and a known sequel (18 to 64)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -103,7 +103,7 @@
   },
   {
     "column_name": "New clients with an episode of ST-Max care and a known sequel (65 and over)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -115,7 +115,7 @@
   },
   {
     "column_name": "Long Term Support during the year (18 to 64)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -127,7 +127,7 @@
   },
   {
     "column_name": "Long Term Support during the year (65 and over)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -139,7 +139,7 @@
   },
   {
     "column_name": "Support provided to carers during the year",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "Activity and Finance Report, 2019, Table 1"
     },
@@ -151,7 +151,7 @@
   },
   {
     "column_name": "Social care-related quality of life score (All)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "ASCOF, 2019, Table 1",
       "strength": 0.65
@@ -160,7 +160,7 @@
   },
   {
     "column_name": "Social care-related quality of life score (Male)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "ASCOF, 2019, Table 1",
       "strength": 0.65
@@ -172,7 +172,7 @@
   },
   {
     "column_name": "Social care-related quality of life score (Female)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "ASCOF, 2019, Table 1",
       "strength": 0.65
@@ -184,7 +184,7 @@
   },
   {
     "column_name": "Social care-related quality of life score (18 to 64)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "ASCOF, 2019, Table 1",
       "strength": 0.65
@@ -196,7 +196,7 @@
   },
   {
     "column_name": "Social care-related quality of life score (65 and over)",
-    "source_meta": {
+    "verde_source_meta": {
       "publisher": "NHS Digital",
       "publication": "ASCOF, 2019, Table 1",
       "strength": 0.65

@@ -4,10 +4,11 @@ import os
 import sys
 import re
 import json
+import jsonschema
 import itertools
 from draco.helper import read_data_to_asp
 from draco.js import cql2asp
-from draco.cli import draco_main_from_verde
+from draco.cli import draco_main_argv
 
 
 def fix_csv_column_headers(csv_file_path):
@@ -33,7 +34,7 @@ def fix_csv_column_headers(csv_file_path):
     df.to_csv(fixed_csv_file_path, index=False)
 
     column_map = dict(zip(old_columns, df.columns))
-    column_mapping_file_path = os.path.splitext(csv_file_path)[0] + '_colmap.json'
+    column_mapping_file_path = os.path.splitext(csv_file_path)[0] + '_colfixmap.json'
 
     with open(column_mapping_file_path, 'w') as f:
         logging.info('Saving column header mapping to {}'.format(column_mapping_file_path))
@@ -65,7 +66,6 @@ def create_cql_query_asp(input_file_path):
     :param input_file_path:
     :return: asp file path and asp list
     """
-    # //TODO refactor with create_schema_asp
 
     logging.info('Creating query asp from {}'.format(input_file_path))
     file_root, file_ext = os.path.splitext(input_file_path)
@@ -108,7 +108,33 @@ def run_trial(asp_list, prefix, postfix):
     write_list_to_file(asp, input_file_path, 'full asp')
 
     output_file_path = prefix + '.{}.vl.json'.format(postfix)
-    draco_main_from_verde([input_file_path, '--out', output_file_path])
+    draco_main_argv([input_file_path, '--out', output_file_path])
+
+
+def validate_json_doc(doc_file_path, schema_file_path):
+    """
+    Validate a JSON document against a schema
+    :param doc_file_path:
+    :param schema_file_path:
+    :return: success
+    """
+    logging.info('Validating {} against {}'.format(doc_file_path, schema_file_path))
+    with open(schema_file_path, 'r') as f:
+        schema = json.load(f)
+    with open(doc_file_path, 'r') as f:
+        doc = json.load(f)
+
+    success = False
+
+    try:
+        jsonschema.Draft7Validator(schema).validate(doc)
+    except jsonschema.ValidationError as ex:
+        logging.error(ex.message)
+    else:
+        logging.info('successfully validated')
+        success = True
+
+    return success
 
 
 def write_list_to_file(content_list, input_file_path, desc=''):

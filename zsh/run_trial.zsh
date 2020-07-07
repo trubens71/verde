@@ -7,7 +7,7 @@
 DRACO_ROOT=/Users/trubens/verde_repos/draco
 DATA_ROOT=/Users/trubens/verde_repos/verde/asc_data/processed/set_00
 
-DATA_FILE=AFR_T1_ASCOF_1A_fixhdr.json
+DATA_FILE=AFR_T1_ASCOF_1A_colfix.json
 QUERY_FILE=AFR_T1_ASCOF_1A.cql.json
 VERDE_RULE_FILE=AFR_T1_ASCOF_1A_rule1_v2.lp
 VL_FILE=AFR_T1_ASCOF_1A.vl.json
