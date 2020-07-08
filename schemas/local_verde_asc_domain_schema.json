@@ -1,6 +1,6 @@
 {
-  "$schema": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_meta_schema.json#",
-  "$id": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_asc_domain_schema.json#",
+  "$schema": "file:/Users/trubens/verde_repos/verde/schemas/verde_meta_schema.json#",
+  "$id": "file:/Users/trubens/verde_repos/verde/schemas/verde_asc_domain_schema.json#",
   "title": "Domain Model for Adult Social Care in England",
   "description": "A standard model by which we can express data visualisation rules. Not intended for document validation",
   "$comment": "Version 1: A trivial first version for sprint 1 proof of concept",
