@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "file:/Users/trubens/verde_repos/verde/schemas/verde_asc_domain_mapping_schema.json#",
+  "$id": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_asc_domain_mapping_schema.json#",
   "title": "Input data mapping to Domain Model for Adult Social Care in England",
   "description": "Used to validate a mapping from input data to the domain model.",
   "definitions": {
@@ -23,7 +23,7 @@
       "domain_map": {
         "type": "array",
         "items": {
-          "$ref": "file:/Users/trubens/verde_repos/verde/schemas/verde_asc_domain_schema.json#"
+          "$ref": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_asc_domain_schema.json#"
         }
       },
       "value_map": {

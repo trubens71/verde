@@ -1,8 +1,8 @@
 #!/bin/zsh
 
 SCHEMA_DIR='../schemas'
-REMOTE_URI='https://smcse.city.ac.uk/student/aczd178/verde/schema'
-LOCAL_URI='file:/Users/trubens/verde_repos/verde/schemas'
+REMOTE_URI='https://smcse.city.ac.uk/student/aczd178/verde/schema/verde_'
+LOCAL_URI='file:/Users/trubens/verde_repos/verde/schemas/local_verde_'
 
 for SCHEMA_FILE_PATH in `ls ${SCHEMA_DIR}/verde_*_schema.json`
 do

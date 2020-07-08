@@ -11,13 +11,22 @@
         "service_type": {
           "type": "boolean",
           "verde_rule_directive": {
-            "ordinal": ["ST-Max", "Long Term", "Unpaid Carer Support"]
+            "ordinal": [
+              "ST-Max",
+              "Long Term",
+              "Unpaid Carer Support"
+            ]
           }
         },
         "setting": {
           "type": "boolean",
           "verde_rule_directive": {
-            "ordinal": ["community", "home", "residential home", "nursing home"]
+            "ordinal": [
+              "community",
+              "home",
+              "residential home",
+              "nursing home"
+            ]
           }
         }
       },
@@ -26,23 +35,44 @@
     "demographics": {
       "type": "object",
       "properties": {
-        "age": { "type": "boolean" },
+        "age": {
+          "type": "boolean",
+          "verde_rule_directive": {
+            "explains": [
+              {
+                "funder": {}
+              }
+            ]
+          }
+        },
         "gender": {
           "type": "boolean",
           "verde_rule_directive": {
-            "ordinal": ["female", "non-binary", "male"]
+            "ordinal": [
+              "female",
+              "non-binary",
+              "male"
+            ]
           }
         },
-        "ethnicity": { "type": "boolean" }
+        "ethnicity": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     },
     "quality_of_life": {
       "type": "object",
       "properties": {
-        "well-being": { "type": "boolean" },
-        "independence-mobility": { "type": "boolean" },
-        "employment-income": { "type": "boolean" }
+        "well-being": {
+          "type": "boolean"
+        },
+        "independence-mobility": {
+          "type": "boolean"
+        },
+        "employment-income": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     },
@@ -51,25 +81,39 @@
         {
           "type": "object",
           "properties": {
-            "local_authority_name": { "type": "boolean" },
-            "local_authority_code": { "type": "boolean" },
-            "geography_code": { "type": "boolean" },
-            "region_name": { "type": "boolean" },
-            "region_code": { "type": "boolean" }
+            "local_authority_name": {
+              "type": "boolean"
+            },
+            "local_authority_code": {
+              "type": "boolean"
+            },
+            "geography_code": {
+              "type": "boolean"
+            },
+            "region_name": {
+              "type": "boolean"
+            },
+            "region_code": {
+              "type": "boolean"
+            }
           },
           "additionalProperties": false
         },
         {
           "type": "object",
           "properties": {
-            "central_gov_org_unit": { "type": "boolean" }
+            "central_gov_org_unit": {
+              "type": "boolean"
+            }
           },
           "additionalProperties": false
         },
         {
           "type": "object",
           "properties": {
-            "nhs_org_unit": { "type": "boolean" }
+            "nhs_org_unit": {
+              "type": "boolean"
+            }
           },
           "additionalProperties": false
         }
@@ -79,74 +123,99 @@
   "type": "object",
   "properties": {
     "funder": {
-      "verde_rule_directive": {
-        "explains": [
-          { "user": { "quality_of_life": {} } },
-          { "service_provision": {} },
-          { "unpaid_carer": { "demographics": {} } },
-          { "unpaid_carer": { "quality_of_life": {} } }
-        ]
-      },
       "type": "object",
-      "domain_meta": { "phase": "supply" },
+      "domain_meta": {
+        "phase": "supply"
+      },
       "properties": {
-        "org_unit": { "$ref": "#/definitions/org_unit" },
-        "budget": { "type": "boolean", "domain_meta": { "phase": "supply" } },
+        "org_unit": {
+          "$ref": "#/definitions/org_unit"
+        },
+        "budget": {
+          "type": "boolean",
+          "domain_meta": {
+            "phase": "supply"
+          }
+        },
         "expenditure": {
           "type": "boolean",
-          "domain_meta": { "phase": "supply" }
+          "domain_meta": {
+            "phase": "supply"
+          }
         },
-        "income": { "type": "boolean", "domain_meta": { "phase": "supply" } },
-        "service_provision": { "$ref": "#/properties/service_provision" }
+        "income": {
+          "type": "boolean",
+          "domain_meta": {
+            "phase": "supply"
+          }
+        },
+        "service_provision": {
+          "$ref": "#/properties/service_provision"
+        }
       },
       "additionalProperties": false
     },
     "service_provision": {
       "verde_rule_directive": {
         "explains": [
-          { "user": { "quality_of_life": {} } },
-          { "service_provision": {} },
-          { "unpaid_carer": { "demographics": {} } },
-          { "unpaid_carer": { "quality_of_life": {} } }
+          {
+            "user": {
+              "quality_of_life": {}
+            }
+          },
+          {
+            "unpaid_carer": {
+              "quality_of_life": {}
+            }
+          }
         ]
       },
       "type": "object",
       "properties": {
-        "service": { "$ref": "#/definitions/service" },
-        "user": { "$ref": "#/properties/user" },
-        "unpaid_carer": { "$ref": "#/properties/unpaid_carer" },
+        "service": {
+          "$ref": "#/definitions/service"
+        },
+        "user": {
+          "$ref": "#/properties/user"
+        },
+        "unpaid_carer": {
+          "$ref": "#/properties/unpaid_carer"
+        },
         "num_requests": {
           "type": "boolean",
-          "domain_meta": { "phase": "demand" }
+          "domain_meta": {
+            "phase": "demand"
+          }
         },
         "num_provisions": {
           "type": "boolean",
-          "domain_meta": { "phase": "operate" }
+          "domain_meta": {
+            "phase": "operate"
+          }
         },
         "num_new_clients": {
           "type": "boolean",
-          "domain_meta": { "phase": "operate" }
+          "domain_meta": {
+            "phase": "operate"
+          }
         }
       },
       "additionalProperties": false
     },
     "user": {
-      "verde_rule_directive": {
-        "explains": [
-          { "funder": {} },
-          { "service_provision": {} },
-          { "unpaid_carer": { "demographics": {} } }
-        ]
-      },
       "type": "object",
       "properties": {
         "demographics": {
           "$ref": "#/definitions/demographics",
-          "domain_meta": { "phase": "demand" }
+          "domain_meta": {
+            "phase": "demand"
+          }
         },
         "quality_of_life": {
           "$ref": "#/definitions/quality_of_life",
-          "domain_meta": { "phase": "outcome" }
+          "domain_meta": {
+            "phase": "outcome"
+          }
         }
       },
       "additionalProperties": false
@@ -156,11 +225,15 @@
       "properties": {
         "demographics": {
           "$ref": "#/definitions/demographics",
-          "domain_meta": { "phase": "supply" }
+          "domain_meta": {
+            "phase": "supply"
+          }
         },
         "quality_of_life": {
           "$ref": "#/definitions/quality_of_life",
-          "domain_meta": { "phase": "outcome" }
+          "domain_meta": {
+            "phase": "outcome"
+          }
         }
       },
       "additionalProperties": false

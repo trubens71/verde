@@ -1,6 +1,6 @@
 {
-  "$schema": "file:/Users/trubens/verde_repos/verde/schemas/verde_meta_schema.json#",
-  "$id": "file:/Users/trubens/verde_repos/verde/schemas/verde_meta_schema.json#",
+  "$schema": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_meta_schema.json#",
+  "$id": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_meta_schema.json#",
   "title": "Verde meta-schema to validate visualisation design rules in domain specific schemas",
   "definitions": {
     "schemaArray": {
@@ -98,7 +98,7 @@
         "explains": {
           "type": "array",
           "items": {
-            "$ref": "file:/Users/trubens/verde_repos/verde/schemas/verde_asc_domain_schema.json#"
+            "$ref": "file:/Users/trubens/verde_repos/verde/schemas/local_verde_asc_domain_schema.json#"
           }
         },
         "ordinal": {
