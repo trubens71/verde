@@ -98,7 +98,7 @@
         "explains": {
           "type": "array",
           "items": {
-            "$ref": "https://smcse.city.ac.uk/student/aczd178/verde/schema/verde_asc_domain_schema.json#"
+            "type": "object"
           }
         },
         "ordinal": {

@@ -40,7 +40,7 @@
           "verde_rule_directive": {
             "explains": [
               {
-                "funder": {}
+                "_$ref": "#/properties/funder"
               }
             ]
           }
@@ -159,14 +159,10 @@
       "verde_rule_directive": {
         "explains": [
           {
-            "user": {
-              "quality_of_life": {}
-            }
+            "_$ref": "#/properties/user/quality_of_life"
           },
           {
-            "unpaid_carer": {
-              "quality_of_life": {}
-            }
+            "_$ref": "#/properties/unpaid_carer/quality_of_life"
           }
         ]
       },

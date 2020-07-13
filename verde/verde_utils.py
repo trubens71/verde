@@ -111,7 +111,7 @@ def run_trial(asp_list, prefix, postfix):
     draco_main_argv([input_file_path, '--out', output_file_path])
 
 
-def validate_json_doc(doc_file_path, schema_file_path):
+def validate_json_doc(doc_file_path, schema_file_path=None):
     """
     Validate a JSON document against a schema
     :param doc_file_path:
@@ -119,8 +119,13 @@ def validate_json_doc(doc_file_path, schema_file_path):
     :return: success
     """
     logging.info('Validating {} against {}'.format(doc_file_path, schema_file_path))
-    with open(schema_file_path, 'r') as f:
-        schema = json.load(f)
+
+    if schema_file_path:
+        with open(schema_file_path, 'r') as f:
+            schema = json.load(f)
+    else:
+        schema = jsonschema.Draft7Validator.META_SCHEMA
+
     with open(doc_file_path, 'r') as f:
         doc = json.load(f)
 

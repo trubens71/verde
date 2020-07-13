@@ -17,7 +17,7 @@ def build_domain_graph(domain_schema_file_path):
         :param d: dictionary to walk
         :param path: list of nodes in the current recursion stack
         :param dom_path: list of domain specific terms in the current recursion stack.
-        :return: not yet implemented
+        :return: nothing
         """
 
         if path is None:  # full technical path
@@ -38,7 +38,7 @@ def build_domain_graph(domain_schema_file_path):
                 pass
                 v = schema_part
 
-            if k == 'verde_rule_directive':
+            if k == 'verde_rule_directive': # schema currently has "_$ref" to effectively comment the explains out
                 pass
                 #logging.warning('need to deal with verde_rule_directive')
 
