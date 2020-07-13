@@ -4,8 +4,21 @@ import json
 
 
 def build_domain_graph(domain_schema_file_path):
+    """
+    Takes a domain schema file path and builds a graph of connected domain terms.
+    :param domain_schema_file_path:
+    :return: networkx graph
+    """
 
     def walk(d, path=None, dom_path=None):
+        """
+        Take a dict and recursively walk it, collecting domain specific terms and building a graph between them.
+        Is able to instantiate $ref cross-references.
+        :param d: dictionary to walk
+        :param path: list of nodes in the current recursion stack
+        :param dom_path: list of domain specific terms in the current recursion stack.
+        :return: not yet implemented
+        """
 
         if path is None:  # full technical path
             path = ['properties']
@@ -32,7 +45,7 @@ def build_domain_graph(domain_schema_file_path):
             if path[-2] == 'properties':  # all domain specific terms will be properties
                 dom_path.append(k)
 
-            if len(prev_dom_path) > 0 and path[-2] == 'properties':
+            if len(prev_dom_path) > 0 and path[-2] == 'properties':  # don't attempt edge for first node processed
                 logging.debug('EDGE FROM ' + '.'.join(prev_dom_path) + ' TO ' + '.'.join(dom_path))
 
             if isinstance(v, dict):
@@ -42,7 +55,7 @@ def build_domain_graph(domain_schema_file_path):
                     if isinstance(v_item, dict):
                         walk(v_item, path, dom_path)
 
-            if path[-2] == 'properties':
+            if path[-2] == 'properties':  # symmetry with append above
                 dom_path.pop()
 
             path.pop()
