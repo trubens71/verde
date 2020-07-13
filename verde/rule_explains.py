@@ -3,73 +3,56 @@ import logging
 import json
 
 
-def flatten_explain_directive(dir_dict):
-    if 'explains' not in dir_dict:
-        return []
-
-    def flatten(p, d):
-        if isinstance(d, dict) and len(d) == 0:
-            return p
-        elif not isinstance(d, dict):
-            return p
-        result = ''
-        for key, value in d.items():
-            if len(p) == 0:
-                new_p = key
-            else:
-                new_p = p + '.' + key
-            result = flatten(new_p, value)
-        return result
-
-    results = []
-
-    for explain_ref in dir_dict['explains']:
-        flat_ref = flatten('', explain_ref)
-        results.append(flat_ref)
-
-    return results
-
-
 def build_domain_graph(domain_schema_file_path):
-    """
-    Take a domain schema json file and build a network graph.
-    Creates edges between all associated nodes by merit of their
-    schema relationship as well as verde_rule_directives of the
-    type 'explains'.
-    :param domain_schema_file_path:
-    :return: networkx graph
-    """
 
-    reserved_words = ['properties', 'type', 'additionalProperties', '$ref', 'oneOf']
+    def walk(d, path=None, dom_path=None):
+
+        if path is None:  # full technical path
+            path = ['properties']
+        if dom_path is None:  # domain specific terms only, no json schema reserved words
+            dom_path = []
+
+        for k, v in d.items():
+
+            path.append(k)
+            prev_dom_path = dom_path.copy()
+
+            if k == '$ref':  # dig into the original schema to instantiate the reference
+                nonlocal schema
+                schema_part = schema
+                for node in v.split('/')[1:]:  # ignore leading '#'
+                    schema_part = schema_part[node]
+                pass
+                v = schema_part
+
+            if k == 'verde_rule_directive':
+                pass
+                #logging.warning('need to deal with verde_rule_directive')
+
+            if path[-2] == 'properties':  # all domain specific terms will be properties
+                dom_path.append(k)
+
+            if len(prev_dom_path) > 0 and path[-2] == 'properties':
+                logging.debug('EDGE FROM ' + '.'.join(prev_dom_path) + ' TO ' + '.'.join(dom_path))
+
+            if isinstance(v, dict):
+                walk(v, path, dom_path)
+            elif isinstance(v, list):
+                for v_item in v:
+                    if isinstance(v_item, dict):
+                        walk(v_item, path, dom_path)
+
+            if path[-2] == 'properties':
+                dom_path.pop()
+
+            path.pop()
 
     with open(domain_schema_file_path, 'r') as f:
         schema = json.load(f)
 
-    def iterate(parent, dic):
-
-        for key, value in dic.items():
-            if len(parent) == 0:
-                new_key = key
-            else:
-                if key == 'verde_rule_directive':
-                    for explain_ref in flatten_explain_directive(value):
-                        logging.debug('Adding explains edge from {} to {}'.format(parent, explain_ref))
-                    break
-                elif key == 'domain_meta':
-                    pass
-                elif key not in reserved_words:
-                    new_key = parent + '.' + key
-                    logging.debug('Adding edge from {} to {}'.format(parent, new_key))
-                else:
-                    new_key = parent
-
-            if isinstance(value, dict):
-                iterate(new_key, value)
-
-    logging.info('Processing definitions in schema')
-    iterate('', schema['definitions'])
-    logging.info('Processing properties in schema - not yet following $refs and not filtering out domain_meta (phase)')
-    iterate('', schema['properties'])
+    logging.info('Processing definitions in schema {}'.format(domain_schema_file_path))
+    walk(schema['definitions'])
+    #walk(schema['properties'])
 
 
 def visualise_graph(graph):
