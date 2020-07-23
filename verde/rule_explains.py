@@ -1,18 +1,23 @@
 import verde.verde_utils as vu
 import logging
 import json
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
-def build_domain_graph(domain_schema_file_path):
+def get_schema_nodes_and_edges(domain_schema_file_path):
     """
     Takes a domain schema file path and builds a graph of connected domain terms.
     :param domain_schema_file_path:
     :return: networkx graph
 
-    //TODO Rename and move this function. It's for more than the explains rule.
-    //TODO We are walking the schema so need to build up data structure to support each rule type, not just the
-    //TODO graph for the explains rule.
+    TODO: Rename and move this function. It's for more than the explains rule. We are walking the schema so need to
+     build up data structure to support each rule type, not just the graph for the explains rule.
     """
+
+    nodes = []
+    standard_edges = []
+    explain_edges = []
 
     def walk(d, path=None, dom_path=None):
         """
@@ -33,7 +38,7 @@ def build_domain_graph(domain_schema_file_path):
             path.append(k)
             prev_dom_path = dom_path.copy()
 
-            # Handle special cases
+            # Handle case of references between nodes across the schema
             if k == '$ref':  # dig into the original schema to instantiate the reference
                 nonlocal schema
                 schema_part = schema
@@ -41,27 +46,37 @@ def build_domain_graph(domain_schema_file_path):
                     schema_part = schema_part[node]
                 v = schema_part
 
-            if k == 'verde_rule_directive': # schema currently has "_$ref" to effectively comment the explains out
-                for vrd_k, vrd_v in v.items():
-                    if vrd_k == "explains":
-                        v = vrd_v
-                    else:
-                        logging.warning('verde_rule_directive {} ignored with values {}'.format(vrd_k, vrd_v))
-
             # Extend the domain path and the network
             if path[-2] == 'properties':  # all domain specific terms will be properties
                 dom_path.append(k)
+                nodes.append(('.'.join(dom_path), {"short": k}))
+
+            # Deal with our rule directives
+            if k == 'verde_rule_directive':
+                for vrd_k, vrd_v in v.items():
+                    if vrd_k == "explains":
+                        v = vrd_v
+                    elif vrd_k == 'ordinal':
+                        logging.debug('ORDINAL RULE VALUES FOR {} ARE {}'.format(nodes[-1][0], vrd_v))
+                        nodes[-1][1]['ordinal'] = ','.join(vrd_v)
+                    else:
+                        logging.warning('ignored verde_rule_directive {} with values {}'.format(vrd_k, vrd_v))
 
             # Handle a leaf which is a verde explains rule reference
             if path[-2] == 'verde_rule_directive' and path[-1] == '$ref':
-                # We want the domain path from the referenced path. That's every other element after json preamble.
+                # We want the domain path from the referenced path.
+                # That's every other element after json preamble.
                 # e.g. '#/properties/user/properties/quality_of_life' -> ['user','quality_of_life']
                 ref_path = '.'.join(d['$ref'].split('/')[2:][::2])
-                logging.debug('EXPLAINS EDGE FROM ' + '.'.join(prev_dom_path) + ' TO ' + ref_path)
+                edge = ('.'.join(prev_dom_path), ref_path)
+                logging.debug('EXPLAINS EDGE FROM {} TO {}'.format(edge[0], edge[1]))
+                explain_edges.append(edge)
                 v = None  # walk no further, this is just a cross-reference we don't need to expand
 
-            if len(prev_dom_path) > 0 and path[-2] == 'properties':  # don't attempt edge for first node processed
-                logging.debug('STANDARD EDGE FROM ' + '.'.join(prev_dom_path) + ' TO ' + '.'.join(dom_path))
+            if len(prev_dom_path) > 0 and path[-2] == 'properties':  # don't create edge for first node processed
+                edge = ('.'.join(prev_dom_path), '.'.join(dom_path))
+                logging.debug('STANDARD EDGE FROM {} TO {}'.format(edge[0], edge[1]))
+                standard_edges.append(edge)
 
             # Recurse over remainder of schema
             if isinstance(v, dict):
@@ -82,9 +97,29 @@ def build_domain_graph(domain_schema_file_path):
     logging.info('Processing properties in schema {}'.format(domain_schema_file_path))
     walk(schema['properties'])
 
+    logging.info('determined {} nodes, {} standard edges and {} explain edges'.format(len(nodes),
+                                                                                      len(standard_edges),
+                                                                                      len(explain_edges)))
+    return nodes, standard_edges, explain_edges
 
-def visualise_graph(graph):
-    pass
+
+def build_graph(nodes, std_edges, explain_edges, std_edge_weight=1, explain_edge_weight=0.1, export_file=None):
+    """
+    Takes nodes and edges to build a directed, weighted graph. Standard edges have more weight than explain edges
+    :param nodes: a list of tuples of long node name and dict with short names. e.g. long=funder.budget, short=budget
+    :param std_edges: list of tuples of long form nodes, for standard schema relationships
+    :param explain_edges: per std_edges but for explains cross-references between nodes.
+    :return: a networkx graph
+    """
+    g = nx.DiGraph()
+    g.add_nodes_from(nodes)
+    g.add_edges_from(std_edges, weight=std_edge_weight)
+    g.add_edges_from(explain_edges, weight=explain_edge_weight)
+
+    if export_file:
+        nx.write_graphml_xml(g, export_file+'.graphml')
+
+    return g
 
 
 def create_asp_for_explains(domain_schema_file_path, input_mapping_file_path, schema_asp):
@@ -93,4 +128,6 @@ def create_asp_for_explains(domain_schema_file_path, input_mapping_file_path, sc
 
 if __name__ == "__main__":
     vu.configure_logger('rule_explains.log', level=logging.DEBUG)
-    build_domain_graph('../schemas/verde_asc_domain_schema.json')
+    node_list, std_edg_list, expl_edg_list = get_schema_nodes_and_edges('../schemas/verde_asc_domain_schema.json')
+    graph = build_graph(node_list, std_edg_list, expl_edg_list, export_file='schema')
+    pass
