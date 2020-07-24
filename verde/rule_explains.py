@@ -112,12 +112,56 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
             path.append(k)
             prev_dom_path = dom_path.copy()
 
-            if path[-2] == 'properties':  # all domain specific terms will be properties
+            if path[-2] == 'properties':  # all domain specific nodes will be properties
                 dom_path.append(k)
+                if isinstance(v, dict) and '$ref' in v.keys() and v['$ref'].split('/')[1] == 'properties':
+                    pass  # we've looked ahead and seen this is a jump
+                else:
+                    logging.debug(f"ADDING NODE {'.'.join(dom_path)}")
+                    nodes.append(('.'.join(dom_path), {"short": k}))
+                    if len(prev_dom_path) > 0:
+                        edge = ('.'.join(prev_dom_path), '.'.join(dom_path))
+                        logging.debug('PROPERTY EDGE FROM {} TO {}'.format(edge[0], edge[1]))
+                        property_edges.append(edge)
 
-            logging.debug(f"PATH {'.'.join(path)}")
-            logging.debug(f"\t PREV_DOM_PATH {'.'.join(prev_dom_path)}")
-            logging.debug(f"\t CURR_DOM_PATH {'.'.join(dom_path)}")
+            if k == '$ref' and path[-3] == 'properties':  # normal schema reference
+                if v.split('/')[1] == 'definitions':  # expand the ref to definitions
+                    nonlocal schema
+                    schema_part = schema
+                    for node in v.split('/')[1:]:  # ignore leading '#' and walk down schema to the node referenced
+                        schema_part = schema_part[node]
+                    v = schema_part
+                elif v.split('/')[1] == 'properties':  # capture the jump to another property and walk no further
+                    ref_path = '.'.join(v.split('/')[2:][::2])
+                    edge = ('.'.join(prev_dom_path[0:-1]), ref_path)
+                    logging.debug('JUMP EDGE FROM {} TO {}'.format(edge[0], edge[1]))
+                    jump_edges.append(edge)
+                    v = None
+
+            if k == '$ref' and path[-3:-1] == ['verde_rule_directive', 'explains']:  # explain and walk no further
+                ref_path = '.'.join(v.split('/')[2:][::2])
+                edge = ('.'.join(prev_dom_path), ref_path)
+                logging.debug('EXPLAINS EDGE FROM {} TO {}'.format(edge[0], edge[1]))
+                explain_edges.append(edge)
+                v = None
+
+            # Deal with our rule directives
+            if k == 'verde_rule_directive':
+                for vrd_k, vrd_v in v.items():
+                    if vrd_k == "explains":
+                        v = vrd_v
+                        path.append(vrd_k)
+                    elif vrd_k == 'ordinal':
+                        logging.debug('ORDINAL RULE VALUES FOR {} ARE {}'.format(nodes[-1][0], vrd_v))
+                        nodes[-1][1]['ordinal'] = ','.join(vrd_v)
+                    else:
+                        logging.warning('ignored verde_rule_directive {} with values {}'.format(vrd_k, vrd_v))
+
+
+
+            # logging.debug(f"PATH {'.'.join(path)}")
+            # logging.debug(f"\t PREV_DOM_PATH {'.'.join(prev_dom_path)}")
+            # logging.debug(f"\t CURR_DOM_PATH {'.'.join(dom_path)}")
 
             # Recurse over remainder of schema
             if isinstance(v, dict):
@@ -128,6 +172,10 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
                         walk(v_item, path, dom_path)
 
             # symmetry with appends above to walk back up by one node before next loop
+            if path[-3:-1] == ['verde_rule_directive', 'explains']:
+                path.pop()
+            if path[-2] == 'properties':
+                dom_path.pop()
             path.pop()
 
     with open(domain_schema_file_path, 'r') as f:
