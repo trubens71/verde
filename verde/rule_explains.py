@@ -16,10 +16,11 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
     """
 
     nodes = []
-    standard_edges = []
+    property_edges = []
+    jump_edges = []
     explain_edges = []
 
-    def walk(d, path=None, dom_path=None):
+    def walk_old(d, path=None, dom_path=None):
         """
         Take a dict and recursively walk it, collecting domain specific terms and building a graph between them.
         Is able to instantiate $ref cross-references.
@@ -38,18 +39,27 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
             path.append(k)
             prev_dom_path = dom_path.copy()
 
-            # Handle case of references between nodes across the schema
-            if k == '$ref':  # dig into the original schema to instantiate the reference
-                nonlocal schema
-                schema_part = schema
-                for node in v.split('/')[1:]:  # ignore leading '#' and walk down schema to the node referenced
-                    schema_part = schema_part[node]
-                v = schema_part
-
             # Extend the domain path and the network
             if path[-2] == 'properties':  # all domain specific terms will be properties
                 dom_path.append(k)
                 nodes.append(('.'.join(dom_path), {"short": k}))
+
+            # Handle case of $refs between nodes across the schema
+            if k == '$ref':  # dig into the original schema to instantiate the reference
+                if v.split('/')[1] == 'definitions':
+                    # expand the ref to definitions
+                    nonlocal schema
+                    schema_part = schema
+                    for node in v.split('/')[1:]:  # ignore leading '#' and walk down schema to the node referenced
+                        schema_part = schema_part[node]
+                    v = schema_part
+                elif v.split('/')[1] == 'properties':
+                    # capture the jump to another property but walk no further
+                    ref_path = '.'.join(v.split('/')[2:][::2])
+                    edge = ('.'.join((prev_dom_path)[0:-1]), ref_path)
+                    logging.debug('JUMP EDGE FROM {} TO {}'.format(edge[0], edge[1]))
+                    jump_edges.append(edge)
+                    v = None  # walk no further, this is just a cross-reference we don't need to expand
 
             # Deal with our rule directives
             if k == 'verde_rule_directive':
@@ -75,8 +85,8 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
 
             if len(prev_dom_path) > 0 and path[-2] == 'properties':  # don't create edge for first node processed
                 edge = ('.'.join(prev_dom_path), '.'.join(dom_path))
-                logging.debug('STANDARD EDGE FROM {} TO {}'.format(edge[0], edge[1]))
-                standard_edges.append(edge)
+                logging.debug('PROPERTY EDGE FROM {} TO {}'.format(edge[0], edge[1]))
+                property_edges.append(edge)
 
             # Recurse over remainder of schema
             if isinstance(v, dict):
@@ -91,16 +101,45 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
                 dom_path.pop()
             path.pop()
 
+    def walk(d, path=None, dom_path=None):
+
+        if path is None:  # full technical path
+            path = ['properties']
+        if dom_path is None:  # domain specific terms only, no json schema reserved words
+            dom_path = []
+
+        for k, v in d.items():
+            path.append(k)
+            prev_dom_path = dom_path.copy()
+
+            if path[-2] == 'properties':  # all domain specific terms will be properties
+                dom_path.append(k)
+
+            logging.debug(f"PATH {'.'.join(path)}")
+            logging.debug(f"\t PREV_DOM_PATH {'.'.join(prev_dom_path)}")
+            logging.debug(f"\t CURR_DOM_PATH {'.'.join(dom_path)}")
+
+            # Recurse over remainder of schema
+            if isinstance(v, dict):
+                walk(v, path, dom_path)
+            elif isinstance(v, list):
+                for v_item in v:
+                    if isinstance(v_item, dict):
+                        walk(v_item, path, dom_path)
+
+            # symmetry with appends above to walk back up by one node before next loop
+            path.pop()
+
     with open(domain_schema_file_path, 'r') as f:
         schema = json.load(f)
 
     logging.info('Processing properties in schema {}'.format(domain_schema_file_path))
     walk(schema['properties'])
 
-    logging.info('determined {} nodes, {} standard edges and {} explain edges'.format(len(nodes),
-                                                                                      len(standard_edges),
-                                                                                      len(explain_edges)))
-    return nodes, standard_edges, explain_edges
+    logging.info(f'found {len(nodes)} nodes, {len(property_edges)} property edges, '
+                 f'{len(jump_edges)} jump edges and {len(explain_edges)} explain edges')
+
+    return nodes, property_edges, jump_edges, explain_edges
 
 
 def build_graph(nodes, std_edges, explain_edges, std_edge_weight=1, explain_edge_weight=0.1, export_file=None):
@@ -117,7 +156,7 @@ def build_graph(nodes, std_edges, explain_edges, std_edge_weight=1, explain_edge
     g.add_edges_from(explain_edges, weight=explain_edge_weight)
 
     if export_file:
-        nx.write_graphml_xml(g, export_file+'.graphml')
+        nx.write_graphml_xml(g, export_file + '.graphml')
 
     return g
 
@@ -128,6 +167,6 @@ def create_asp_for_explains(domain_schema_file_path, input_mapping_file_path, sc
 
 if __name__ == "__main__":
     vu.configure_logger('rule_explains.log', level=logging.DEBUG)
-    node_list, std_edg_list, expl_edg_list = get_schema_nodes_and_edges('../schemas/verde_asc_domain_schema.json')
-    graph = build_graph(node_list, std_edg_list, expl_edg_list, export_file='schema')
+    nodes_edges = get_schema_nodes_and_edges('../schemas/verde_asc_domain_schema.json')
+#    graph = build_graph(*nodes_edges, export_file='schema_v2')
     pass
