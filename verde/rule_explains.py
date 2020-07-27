@@ -198,9 +198,13 @@ def build_graph(nodes, property_edges, jump_edges, explain_edges,
     :param export_file:
     :return: a networkx graph
     """
+
     g = nx.DiGraph()
     g.add_nodes_from(nodes)
     g.add_edges_from(property_edges, weight=property_edge_weight)
+    # create parallel reversed edges for property relationships
+    property_edges_flip = list(map(lambda x: (x[1], x[0]), property_edges))
+    g.add_edges_from(property_edges_flip, weight=property_edge_weight)
     g.add_edges_from(jump_edges, weight=jump_edge_weight)
     g.add_edges_from(explain_edges, weight=explain_edge_weight)
 
@@ -210,6 +214,54 @@ def build_graph(nodes, property_edges, jump_edges, explain_edges,
     return g
 
 
+def test_paths_in_graph(g, test_cases=None):
+
+    if test_cases is None:
+        test_cases = [
+            ("funder.expenditure", "user.quality_of_life.well-being"),
+            ("funder.expenditure", "user.demographics.age"),
+            ("funder.org_unit.local_authority_name", "user.quality_of_life.well-being"),
+            ("unpaid_carer", "user"),
+            ("funder.budget", "service_provision"),
+            ("funder", "user")
+        ]
+
+    for t, test_case in enumerate(test_cases):
+        logging.info(f'===== Test Case {t+1} =====')
+        logging.info(f'Nodes are {test_case[0]} and {test_case[1]}')
+
+        node_pairs = [test_case, (test_case[1], test_case[0])]
+        path_length = {}
+
+        for node_pair in node_pairs:
+            path = []
+
+            try:
+                path = nx.dijkstra_path(g,node_pair[0], node_pair[1])
+            except nx.NetworkXNoPath as np:
+                path = []
+            except nx.NodeNotFound as nnf:
+                logging.fatal(f'Node {node_pair[0]} not found')
+                exit(1)
+
+            if len(path) > 0:
+                path_length[node_pair] = nx.dijkstra_path_length(g, node_pair[0], node_pair[1])
+            else:
+                path_length[node_pair] = float('inf')
+
+            logging.info(f'path length {path_length[node_pair]} from {node_pair[0]} to {node_pair[1]} by {path}')
+
+        shortest = min(path_length.items(), key=lambda x: x[1])
+        x_var, y_var = shortest[0]
+
+        if path_length[(x_var, y_var)] == path_length[(y_var, x_var)] != float('inf'):
+            logging.info(f'verde found the same finite path length, so arbitrarily x={x_var}, y={y_var}')
+        elif path_length[(x_var, y_var)] == path_length[(y_var, x_var)] == float('inf'):
+            logging.info(f'verde found no paths in either direction, so arbitrarily x={x_var}, y={y_var}')
+        else:
+            logging.info(f'verde prefers x={x_var}, y={y_var}')
+
+
 def create_asp_for_explains(domain_schema_file_path, input_mapping_file_path, schema_asp):
     pass
 
@@ -217,5 +269,8 @@ def create_asp_for_explains(domain_schema_file_path, input_mapping_file_path, sc
 if __name__ == "__main__":
     vu.configure_logger('rule_explains.log', level=logging.DEBUG)
     nodes_edges = get_schema_nodes_and_edges('../schemas/verde_asc_domain_schema.json')
-    graph = build_graph(*nodes_edges, export_file='schema_3edgetypes')
+#    graph = build_graph(*nodes_edges, export_file='schema_3edgetypes')
+    graph = build_graph(*nodes_edges, export_file='schema_prop_multi_jump_explain')
+    test_paths_in_graph(graph)
     pass
+
