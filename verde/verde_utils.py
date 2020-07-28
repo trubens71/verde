@@ -27,7 +27,8 @@ def fix_csv_column_headers(csv_file_path):
     df = pd.read_csv(csv_file_path)
     old_columns = df.columns
 
-    # replace non-alpha/digit with underscores, tidy up multiple and leading/trailing underscores
+    # replace non-alpha/digit with underscores, tidy up multiple and leading/trailing underscores.
+    # NB: same patterns below in fix_json_column_name
     df.rename(columns=lambda x: re.sub('[^A-Za-z0-9]', '_', x), inplace=True)
     df.rename(columns=lambda x: re.sub('_{2,}', '_', x), inplace=True)
     df.rename(columns=lambda x: re.sub('^_|_$', '', x), inplace=True)
@@ -41,6 +42,20 @@ def fix_csv_column_headers(csv_file_path):
         json.dump(column_map, f)
 
     return fixed_csv_file_path, column_map
+
+
+def fix_json_column_name(j):
+    # replace non-alpha/digit with underscores, tidy up multiple and leading/trailing underscores.
+    # NB: same patterns above in fix_csv_column_headers
+
+    for i, column in enumerate(j):
+        column_name = column['column_name']
+        column_name = re.sub('[^A-Za-z0-9]', '_', column_name)
+        column_name = re.sub('_{2,}', '_', column_name)
+        column_name = re.sub('^_|_$', '', column_name)
+        j[i]['column_name'] = column_name
+
+    return j
 
 
 def create_schema_asp(input_file_path):
