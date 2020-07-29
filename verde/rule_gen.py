@@ -11,9 +11,6 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
     Takes a domain schema file path and builds a graph of connected domain terms.
     :param domain_schema_file_path:
     :return: networkx graph
-
-    TODO: Rename and move this function. It's for more than the explains rule. We are walking the schema so need to
-     build up data structure to support each rule type, not just the graph for the explains rule.
     """
 
     nodes = []
@@ -56,7 +53,7 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
                 elif v.split('/')[1] == 'properties':  # capture the composition of another property and walk no further
                     ref_path = '.'.join(v.split('/')[2:][::2])
                     edge = ('.'.join(prev_dom_path[0:-1]), ref_path)
-                    logging.debug('COMPOSE EDGE FROM {} TO {}'.format(edge[0], edge[1]))
+                    logging.debug('COMPOSITION EDGE FROM {} TO {}'.format(edge[0], edge[1]))
                     compose_edges.append(edge)
                     v = None
 
@@ -101,15 +98,17 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
     walk(schema['properties'])
 
     logging.info(f'found {len(nodes)} nodes, {len(property_edges)} property edges, '
-                 f'{len(compose_edges)} compose edges and {len(explain_edges)} explain edges')
+                 f'{len(compose_edges)} composition edges and {len(explain_edges)} explain edges')
 
     return nodes, property_edges, compose_edges, explain_edges
 
 
-def build_graph(nodes, property_edges, compose_edges, explain_edges,
+def build_graph(nodes, property_edges, compose_edges, explain_edges, field_nodes=None, field_edges=None,
                 property_edge_weight=1, compose_edge_weight=0.5, explain_edge_weight=0.1, export_file=None):
     """
     Takes nodes and edges to build a directed, weighted graph. Standard edges have more weight than explain edges
+    :param field_nodes:
+    :param field_edges:
     :param nodes: a list of tuples of long node name and dict with short names. e.g. long=funder.budget, short=budget
     :param property_edges: list of tuples of long form nodes, for standard schema relationships
     :param compose_edges: per references to another property
@@ -120,6 +119,13 @@ def build_graph(nodes, property_edges, compose_edges, explain_edges,
     :param export_file:
     :return: a networkx graph
     """
+
+    # The usual case is that we have edges from source fields to the schema nodes. The alt-case is for testing.
+    # We treat them as properties, i.e. bidirectional with a weight of one.
+    if field_nodes:
+        nodes = nodes + field_nodes
+    if field_edges:
+        property_edges = property_edges + field_edges
 
     g = nx.DiGraph()
     g.add_nodes_from(nodes)
@@ -180,15 +186,14 @@ def determine_x_y_preference(g, nodes):
 
         logging.debug(f'path length {path_length[node_pair]} from {node_pair[0]} to {node_pair[1]} by {path}')
 
-    shortest = min(path_length.items(), key=lambda x: x[1])
-    x_var, y_var = shortest[0]
+    (x_var, y_var), min_len = min(path_length.items(), key=lambda x: x[1])
 
     if path_length[(x_var, y_var)] == path_length[(y_var, x_var)] != float('inf'):
         logging.info(f'Found the same finite path length, so arbitrarily x={x_var}, y={y_var}')
     elif path_length[(x_var, y_var)] == path_length[(y_var, x_var)] == float('inf'):
         logging.info(f'Found no paths in either direction, so arbitrarily x={x_var}, y={y_var}')
     else:
-        logging.info(f'verde prefers x={x_var}, y={y_var}')
+        logging.info(f'Preference is x={x_var}, y={y_var} with path length {min_len}')
 
     return x_var, y_var
 
@@ -209,36 +214,79 @@ def get_schema_nodes_for_source_fields(encoding, mapping_json):
             if column['column_name'] == encoding[enc]['source_field']:
                 for mapping in column['domain_map']:
                     encoding[enc]['schema_nodes'].append(dotify_keys(mapping))
-        logging.info(f"{enc} {encoding[enc]['source_field']} is mapped to {encoding[enc]['schema_nodes']}")
+        logging.info(f"({enc},{encoding[enc]['source_field']}) is mapped to {encoding[enc]['schema_nodes']}")
 
     return encoding
 
 
-def create_verde_asp(query_asp, domain_schema_file_path, input_mapping_file_path):
-    logging.info(f'Creating verde rules based on {domain_schema_file_path} and {input_mapping_file_path}')
+def get_encoding_fields_to_schema_edges(encodings):
+    # enc is a dictionary of encodings containing lists of schema_nodes.
+    # Create edges between each encoding field and its mapped schema node.
 
-    # For now only dealing with rule #1, refactor later.
-    dom_schema_nodes_edges = get_schema_nodes_and_edges(domain_schema_file_path)
-    dom_schema_graph = build_graph(*dom_schema_nodes_edges)
+    nodes = []
+    all_edges = []
+
+    for enc in encodings.keys():
+        field = encodings[enc]['source_field']
+        schema_nodes = encodings[enc]['schema_nodes']
+        field_node = 'field.' + enc + '.' + field  # a bit verbose but should avoid conflict with schema node names
+        nodes.append((field_node, {'short': field_node}))
+        edges = list(zip([field_node]*len(schema_nodes), schema_nodes))
+        logging.debug(f'Adding field nodes to graph with edges {edges}')
+        all_edges = all_edges + edges
+
+    return nodes, all_edges
+
+
+def create_verde_rule_asp(query_asp, domain_schema_file_path, input_mapping_file_path, graph_file=None):
+    logging.info(f'Creating verde rules based on {domain_schema_file_path} and {input_mapping_file_path}')
 
     # Load the input mapping json
     with open(input_mapping_file_path) as f:
         mapping_json = json.load(f)
-    mapping_json = vu.fix_json_column_name(mapping_json)
+    mapping_json = vu.fix_json_column_name(mapping_json)  # get rid of special chars in column names
+
+    # Walk the domain schema to get nodes and edges
+    dom_schema_nodes_edges = get_schema_nodes_and_edges(domain_schema_file_path)
 
     # Find the encoding fields in the query asp
-    encoding = defaultdict(dict)
-    r = re.compile(r'field\((.*),\"(.*)\"\).')
+    encodings = defaultdict(dict)
+    r = re.compile(r'field\((.*),\"(.*)\"\).')  # e.g. field(e0,"Social_care_related_quality_of_life_score_All").
     for field_fact in list(filter(r.search, query_asp)):
         logging.debug(f'Found field: {field_fact}')
         m = re.search(r, field_fact)
-        encoding[m.group(1)]['source_field'] = m.group(2)  # tuple of encoding id and field name
+        encodings[m.group(1)]['source_field'] = m.group(2)  # tuple of encoding id and field name
 
-    encoding = get_schema_nodes_for_source_fields(encoding, mapping_json)
+    # Each field from our input data may have one or more mappings into the schema
+    encodings = get_schema_nodes_for_source_fields(encodings, mapping_json)
+    # Add fields to the domain graph. This is a bit of a trick, but let's the Dijkstra shortest_path algorithm to take
+    # care of the one-to-many field-to-node situation. i.e. get the shortest path from all entry points to the graph.
+    field_nodes, field_schema_edges = get_encoding_fields_to_schema_edges(encodings)
+    dom_schema_graph = build_graph(*dom_schema_nodes_edges,
+                                   field_nodes = field_nodes,
+                                   field_edges=field_schema_edges)
 
-    # //TODO for each pair of encoding in keys of encodings, get x, y prefernce and write asp rules
-    #    [(a,b) for a in y for b in y if a < b]
-    pass
+    if graph_file:
+        nx.write_graphml_xml(dom_schema_graph, graph_file + '.graphml')
+
+    # Because we may have more than two fields in the query we need to consider all pairings that might get encoded
+    # to the x and y channels, then get our preferences for each pair as we write the asp
+    asp = ['% Verde rule 1: x/y encoding preferences']
+    enc_pairs = [(a, b) for a in encodings.keys() for b in encodings.keys() if a < b]
+    for i, enc_pair in enumerate(enc_pairs):
+        a = 'field.' + enc_pair[0] + '.' + encodings[enc_pair[0]]['source_field']
+        b = 'field.' + enc_pair[1] + '.' + encodings[enc_pair[1]]['source_field']
+        pref_x_var, pref_y_var = determine_x_y_preference(dom_schema_graph, (a,b))
+        asp.append(f'% for encoding pair {i} prefer x={pref_x_var} y={pref_y_var}')
+        ea, eb = enc_pair
+        asp.append(f'soft({ea}_{eb}) :- channel({ea},x), not channel({ea},y), channel({eb},y), not channel({eb},x).')
+        asp.append(f'#const {ea}_{eb}_weight = 1.')
+        asp.append(f'soft_weight({ea}_{eb},{ea}_{eb}_weight).')
+
+    for line in asp:
+        logging.debug(line)
+
+    return asp
 
 
 if __name__ == "__main__":
