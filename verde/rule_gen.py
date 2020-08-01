@@ -162,9 +162,7 @@ def test_x_y_preferences(g, test_cases=None):
 
 
 def determine_x_y_preference(g, nodes):
-    # //TODO needs nodes to be tuple of list of nodes, then work with all pairs across two lists, and use minimum
-    #     in each direction to determine x and y.
-    #     [(a,b) for a in m for b in n]
+
     node_pairs = [nodes, (nodes[1], nodes[0])]
     path_length = {}
 
