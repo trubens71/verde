@@ -3,6 +3,8 @@ import logging
 import json
 from draco.run import Result
 from clyngor.answers import Answers
+import sys
+import os
 
 """
 Takes multi-model output json from clingo (with --outf=2, --quiet=0,0,2).
@@ -35,9 +37,15 @@ def process_clingo_json_file(input_file_name, max_models=10):
 
 if __name__ == "__main__":
     logging = vu.configure_logger('inspect_multi_models.log', logging.DEBUG)
-    # process_clingo_json_file(no_pref_file)
-    # process_clingo_json_file(with_pref_file)
-    process_clingo_json_file(with_pref_adj_weight_file)
+    if len(sys.argv) == 0:
+        input_file = with_pref_adj_weight_file
+    else:
+        input_file = sys.argv[1]
+        if not os.path.isfile(input_file):
+            logging.fatal(f'input file {input_file} not found')
+            exit(1)
+
+    process_clingo_json_file(input_file)
 
 
 
