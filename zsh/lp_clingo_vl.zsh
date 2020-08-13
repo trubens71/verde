@@ -21,8 +21,8 @@ fi
 echo running "$INPUT_FILE" through clingo to "$ANSWER_FILE"
 clingo --outf=2 --quiet=0,0,2 "$INPUT_FILE" > "$ANSWER_FILE"
 
-echo running "$ANSWER_FILE" through inspect_multi_models.py
-if inspect_multi_models.py "$ANSWER_FILE"; then
+echo running "$INPUT_FILE" and "$ANSWER_FILE" through inspect_multi_models.py
+if inspect_multi_models.py -l "$INPUT_FILE" -a "$ANSWER_FILE" -v vl; then
   echo success
 else
   exit 1
