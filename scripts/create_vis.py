@@ -7,9 +7,9 @@ domain_schema_file = '../schemas/verde_asc_domain_schema.json'
 input_data_file = '../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv'
 input_mapping_file = '../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json'
 
-cql_query_file = '../trials/AFR_T1_ASCOF_1A.cql.json'
+cql_query_file = '../trials/AFR_T1_ASCOF_1A_b.cql.json'
 verde_rule_file = '../trials/AFR_T1_ASCOF_1A_rule1_v3.lp'
-trial_output_prefix = '../trials/AFR_T1_ASCOF_1A'
+trial_output_prefix = '../trials/AFR_T1_ASCOF_1A_b'
 
 
 if __name__ == "__main__":

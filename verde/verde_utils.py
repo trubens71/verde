@@ -185,7 +185,7 @@ def configure_logger(log_file, level=logging.INFO):
     # for info and above messages
     fh = logging.StreamHandler(sys.stdout)
     ch = logging.FileHandler(log_file, mode='w')
-    formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+    formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', "%Y-%m-%d %H:%M:%S")
     fh.setFormatter(formatter)
     ch.setFormatter(formatter)
     logging.getLogger('').addHandler(fh)

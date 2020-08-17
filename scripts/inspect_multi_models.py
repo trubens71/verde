@@ -6,6 +6,7 @@ from clyngor.answers import Answers
 import sys
 import getopt
 import os
+import glob
 import re
 
 """
@@ -32,6 +33,14 @@ def process_clingo_json_file(answer_file_name, soft_weights, max_models=10):
 
     output_json = []
 
+    # delete previous vl files because the file names include the cost, and therefore changes to the query which
+    # result in different models will not over-write the previous run.
+    file_pattern = os.path.basename(answer_file_name).split('.json')[0] + '_*_vl.json'
+    path_pattern = os.path.join(vl_dir, file_pattern)
+    logging.info(f'deleting any prior vl files in {path_pattern}')
+    for f in glob.glob(path_pattern):
+        os.remove(f)
+
     for answer in clingo_json["Call"][0]["Witnesses"][:-max_models-1:-1]:
         result = Result(Answers(answer["Value"]).sorted, cost=answer['Costs'][0])
         vl = result.as_vl()
@@ -56,7 +65,7 @@ def get_soft_constraints_and_weights(lp):
     :param lp:
     :return:
     """
-    logging.info(f'getting all soft constraints from {lp}')
+    logging.info(f'getting soft constraint details from {lp}')
 
     with open(lp) as f:
         lines = f.readlines()
