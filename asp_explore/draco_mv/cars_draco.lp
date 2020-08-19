@@ -166,7 +166,7 @@ obj_id(1..max_extra_encs).
 
 0 { stack(V,S): stacking(S) } 1 :- view(V), not base(V).
 
-%trubens :- field(V,E1,F1), field(V,E2,F2), E1 > E2, F1 <= F2.
+:- field(V,E1,F1), field(V,E2,F2), E1 > E2, F1 <= F2. %trubens
 :- view(V), hard(_,V).
 :- view(V), hard(_,V,_).
 :- view(V), hard(_,V,_,_).
@@ -862,7 +862,7 @@ soft(summary_discrete_row,E) :- task(V,summary), channel(V,E,row), discrete(V,E)
 soft(summary_discrete_column,E) :- task(V,summary), channel(V,E,column), discrete(V,E), enc_interesting(V,E).
 
 % @constraint Tiebreaker to keep fields on x and y consistent.
-%trubens soft(x_y_fields_order,V) :- field(V,EX,F1), field(V,EY,F2), channel(V,EX,x), channel(V,EY,y), F1 > F2.
+soft(x_y_fields_order,V) :- field(V,EX,F1), field(V,EY,F2), channel(V,EX,x), channel(V,EY,y), F1 > F2. %trubens
 
 % @constraint Rect without aggregate
 % soft(d_d_rect_point_no_agg,V,none) :- mark(V,(point;rect)), is_d_d(V), not aggregate(V,_,_).
@@ -1192,7 +1192,7 @@ soft_weight(summary_discrete_row,summary_discrete_row_weight).
 soft_weight(summary_discrete_column,summary_discrete_column_weight).
 soft_weight(stack_zero,stack_zero_weight).
 soft_weight(stack_normalize,stack_normalize_weight).
-%trubens soft_weight(x_y_fields_order,x_y_fields_order_weight).
+soft_weight(x_y_fields_order,x_y_fields_order_weight). %trubens
 soft_weight(rect_no_agg,rect_no_agg_weight).
 % Minimize the feature weight
 
@@ -1221,7 +1221,7 @@ soft_weight(rect_no_agg,rect_no_agg_weight).
 #show zero/2.
 
 #show soft/3.
-%#show compare/5.
+#show compare/5.
 
 #show soft_weight(N,W) : soft(N,_,_), soft_weight(N,W).
 #show compare_weight(N,W) : compare(N,_,_,_,_), compare_weight(N,W).
@@ -1258,8 +1258,8 @@ cardinality("Origin", 3).
 
 encoding(v_v,e0).
 encoding(v_v,e1).
-%:- not field(v_v,E,"Displacement") : encoding(v_v,E).
-%:- not field(v_v,E,"Horsepower") : encoding(v_v,E).
+:- not field(v_v,E,"Displacement") : encoding(v_v,E).
+:- not field(v_v,E,"Horsepower") : encoding(v_v,E).
 
 %*
 Important rules
@@ -1304,22 +1304,15 @@ soft(disp_hp,V):- channel(V,e0,x), channel(V,e1,y), is_c_c(V).
 soft_weight(disp_hp, disp_hp_weight).
 *%
 
-% WARNING: Without the hard field rule, the standard form expands unecessary combinations
+%* THIS WORKS BUT without the hard field rule, the standard form expands unecessary combinations
 % of encoding and field which has no impact on the final visualisation.
 % Might be better to take our approach above to assign fields to encodings.
 :- not field(v_v,E,"Displacement") : encoding(v_v,E).
 :- not field(v_v,E,"Horsepower") : encoding(v_v,E).
-
 soft(disp_hp,V):- channel(V,E1,y), field(V, E1, "Displacement"), channel(V,E2,x), field(V, E2, "Horsepower"), is_c_c(V).
-
 #const disp_hp_weight = 100.
 soft_weight(disp_hp, disp_hp_weight).
-
-% NEXT: convert to new form and reinstate constraints.
-
-
-
-
+*%
 
 %clingo --outf=2 --quiet=1,2,2 --seed=0
 %clingo --outf=2 --quiet=1,2,2 --seed=0 --opt-mode=OptN --models=5

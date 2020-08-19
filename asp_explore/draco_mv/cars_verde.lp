@@ -1036,7 +1036,7 @@ soft(summary_discrete_column,E) :- task(V,summary), channel(V,E,column), discret
 
 #const stack_zero_weight = 0.
 #const stack_normalize_weight = 1.
-#const x_y_fields_order_weight = 1.
+%trubens #const x_y_fields_order_weight = 1.
 #const rect_no_agg_weight = 40.
 %% GENERATED FILE. DO NOT EDIT.
 
@@ -1221,7 +1221,7 @@ soft_weight(rect_no_agg,rect_no_agg_weight).
 #show zero/2.
 
 #show soft/3.
-%#show compare/5.
+#show compare/5.
 
 #show soft_weight(N,W) : soft(N,_,_), soft_weight(N,W).
 #show compare_weight(N,W) : compare(N,_,_,_,_), compare_weight(N,W).
@@ -1256,11 +1256,13 @@ cardinality("Year", 12).
 fieldtype("Origin",string).
 cardinality("Origin", 3).
 
+
 encoding(v_v,e0).
 encoding(v_v,e1).
-%:- not field(v_v,E,"Displacement") : encoding(v_v,E).
-%:- not field(v_v,E,"Horsepower") : encoding(v_v,E).
-
+%* Draco default template
+:- not field(v_v,E,"Displacement") : encoding(v_v,E).
+:- not field(v_v,E,"Horsepower") : encoding(v_v,E).
+*%
 %*
 Important rules
 
@@ -1296,30 +1298,24 @@ field(v_v,e1,"Displacement").
 %:~ channel(v_v,e0,x), channel(v_v,e1,y), is_c_c(v_v). [100] % Wed - this works but needs a more careful look
 %:~ channel(V,e0,y), channel(V,e1,x), is_c_c(V). [100] % Wed - this works, but still #4 differs in one case
 
-%* THIS WORKS BUT NOT STANDARD TEMPLATE FORM FOR, AND A LITTLE WORRIED ABOUT is_c_c
-field(v_v,e0,"Horsepower").
-field(v_v,e1,"Displacement").
+% THIS WORKS BUT NOT STANDARD TEMPLATE FORM, AND A LITTLE WORRIED ABOUT is_c_c
+% CONCLUDED THIS IS BEST
+field(v_v,e0,"Displacement").
+field(v_v,e1,"Horsepower").
 soft(disp_hp,V):- channel(V,e0,x), channel(V,e1,y), is_c_c(V).
 #const disp_hp_weight = 100.
 soft_weight(disp_hp, disp_hp_weight).
-*%
 
-% WARNING: Without the hard field rule, the standard form expands unecessary combinations
+
+%* THIS WORKS BUT without the hard field rule, the standard form expands unecessary combinations
 % of encoding and field which has no impact on the final visualisation.
 % Might be better to take our approach above to assign fields to encodings.
 :- not field(v_v,E,"Displacement") : encoding(v_v,E).
 :- not field(v_v,E,"Horsepower") : encoding(v_v,E).
-
 soft(disp_hp,V):- channel(V,E1,y), field(V, E1, "Displacement"), channel(V,E2,x), field(V, E2, "Horsepower"), is_c_c(V).
-
 #const disp_hp_weight = 100.
 soft_weight(disp_hp, disp_hp_weight).
-
-% NEXT: convert to new form and reinstate constraints.
-
-
-
-
+*%
 
 %clingo --outf=2 --quiet=1,2,2 --seed=0
 %clingo --outf=2 --quiet=1,2,2 --seed=0 --opt-mode=OptN --models=5
