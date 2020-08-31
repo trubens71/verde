@@ -1,0 +1,46 @@
+---
+  trial_id: trial_01
+  trial_desc: trivial data set for dev and unit testing
+  global_trial_settings:  # global settings take precedence over experiments if duplicated there
+    verde_meta_schema: ../schemas/verde_meta_schema.json
+    domain_schema: ../schemas/verde_asc_domain_schema.json
+    domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json
+    draco_base_lp_files:
+      - ../../../draco-fk/asp/define.lp
+      - ../../../draco-fk/asp/generate.lp
+      - ../../../draco-fk/asp/hard.lp
+      - ../../../draco-fk/asp/soft.lp
+      - ../../../draco-fk/asp/weights.lp
+      - ../../../draco-fk/asp/assign_weights.lp
+      - ../../../draco-fk/asp/optimize.lp
+      - ../../../draco-fk/asp/output.lp
+      - ../../../draco-fk/asp/compare.lp
+      - ../../../draco-fk/asp/assign_compare_weights.lp
+      - ../../../draco-fk/asp/compare_hard.lp
+      - ../../../draco-fk/asp/compare_weights.lp
+      - ../../../draco-fk/asp/topk-py.lp
+    verde_base_lp_override_files: []  # must have same file names as draco base in order to override
+    num_models: 10  # how many ranked visualisation models to solve for (topk in Draco)
+    processing_steps:
+      validate_domain_schema: true
+      validate_input_file_mapping: true
+      fix_input_file_column_names: true
+      create_schema_query_lp: true
+      create_verde_rule_lp:
+        rule_01_causal_relationships: true
+        rule_02_ordinal_sort: false
+        rule_03_data_precision: false
+        rule_04_eliminate_codes: false
+        rule_05_entity_colours: false
+        rule_06_summary_by_grouping: false
+      get_draco_standard_visualisations: true
+      get_verde_visualisations: true
+      compare_draco_verde_visualisations: true
+  experiments:
+    - experiment_id: exp_01
+      experiment_desc: basic test of quality of life versus expenditure
+      input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
+      input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
+      query:  # dziban python query format
+        - "field('Social_care_related_quality_of_life_score_All', scale='zero')"
+        - "field('Gross_Total_Expenditure_x1000', scale='zero')"

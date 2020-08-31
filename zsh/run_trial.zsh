@@ -2,7 +2,7 @@
 # Run a data source through data2schema and schema2asp
 # Run a basic compassQL query through cql2asp
 # Concatenate results into a single logic program,
-# optionally add in a verde rules then run through Draco.
+# optionally add in a verde_old rules then run through Draco.
 
 DRACO_ROOT=/Users/trubens/verde_repos/draco
 DATA_ROOT=/Users/trubens/verde_repos/verde/asc_data/processed/set_00

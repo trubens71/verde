@@ -1,4 +1,4 @@
-import verde.verde_utils as vu
+import verde_old.verde_utils as vu
 import logging
 import json
 import networkx as nx
@@ -237,7 +237,7 @@ def get_encoding_fields_to_schema_edges(encodings):
 
 
 def create_verde_rule_asp(query_asp, domain_schema_file_path, input_mapping_file_path, graph_file=None):
-    logging.info(f'Creating verde rules based on {domain_schema_file_path} and {input_mapping_file_path}')
+    logging.info(f'Creating verde_old rules based on {domain_schema_file_path} and {input_mapping_file_path}')
 
     # Load the input mapping json
     with open(input_mapping_file_path) as f:

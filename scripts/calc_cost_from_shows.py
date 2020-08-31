@@ -54,8 +54,8 @@ for show in shows:
         m = re.search(reg_weight,show)
         weights[m.group(1)] = int(m.group(2))
 
-print(violations)
-print(weights)
+print('violations:', violations)
+print('weights   :', weights)
 cost = sum(violations[key]*weights[key] for key in violations)
 
 print(f' (cost={cost})')

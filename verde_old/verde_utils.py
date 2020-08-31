@@ -8,7 +8,7 @@ import jsonschema
 import itertools
 from draco.helper import read_data_to_asp
 from draco.js import cql2asp
-from draco.cli import draco_main_argv
+# from draco.cli import draco_main_argv
 
 
 def fix_csv_column_headers(csv_file_path):
@@ -96,12 +96,12 @@ def create_cql_query_asp(input_file_path):
 
 def create_verde_rule_asp(input_file_path):
     """
-    Create verde rule asp. Currently a file drive stub
+    Create verde_old rule asp. Currently a file drive stub
     :param input_file_path:
     :return: asp list
     """
 
-    logging.info('Reading verde rule asp from {}'.format(input_file_path))
+    logging.info('Reading verde_old rule asp from {}'.format(input_file_path))
 
     with open(input_file_path, 'r') as f:
         verde_rule_asp = f.readlines()

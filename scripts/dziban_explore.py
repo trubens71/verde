@@ -21,11 +21,10 @@ def get_cars_asp():
         print(l)
 
 
-
 if __name__ == "__main__":
 
-    get_cars_asp()
-    exit(1)
+    # get_cars_asp()
+    # exit(1)
 
     gapminder = data('gapminder')
     chart = Chart(gapminder)
