@@ -1,7 +1,7 @@
 ---
   trial_id: trial_01
   trial_desc: trivial data set for dev and unit testing
-  global_trial_settings:  # global settings take precedence over experiments if duplicated there
+  global_config:  # global settings take precedence over experiments if duplicated there
     verde_meta_schema: ../schemas/verde_meta_schema.json
     domain_schema: ../schemas/verde_asc_domain_schema.json
     domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json
@@ -21,26 +21,41 @@
       - ../../../draco-fk/asp/topk-py.lp
     verde_base_lp_override_files: []  # must have same file names as draco base in order to override
     num_models: 10  # how many ranked visualisation models to solve for (topk in Draco)
-    processing_steps:
-      validate_domain_schema: true
-      validate_input_file_mapping: true
-      fix_input_file_column_names: true
-      create_schema_query_lp: true
+    execute:
+      validate_domain_schema:
+        do: false
+      validate_input_file_mapping:
+        do: false
+      fix_input_file_column_names:
+        do: true
+      create_schema_query_lp:
+        do: true
+        write_lp: true
       create_verde_rule_lp:
-        rule_01_causal_relationships: true
-        rule_02_ordinal_sort: false
-        rule_03_data_precision: false
-        rule_04_eliminate_codes: false
-        rule_05_entity_colours: false
-        rule_06_summary_by_grouping: false
-      get_draco_standard_visualisations: true
-      get_verde_visualisations: true
-      compare_draco_verde_visualisations: true
+        rule_01_causal_relationships:
+          do: true
+        rule_02_ordinal_sort:
+          do: false
+        rule_03_data_precision:
+          do: false
+        rule_04_eliminate_codes:
+          do: false
+        rule_05_entity_colours:
+          do: false
+        rule_06_summary_by_grouping:
+          do: false
+      get_draco_standard_visualisations:
+        do: true
+      get_verde_visualisations:
+        do: true
+      compare_draco_verde_visualisations:
+        do: true
   experiments:
     - experiment_id: exp_01
       experiment_desc: basic test of quality of life versus expenditure
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
-      query:  # dziban python query format
-        - "field('Social_care_related_quality_of_life_score_All', scale='zero')"
-        - "field('Gross_Total_Expenditure_x1000', scale='zero')"
+      query:  # dziban python query format. Do we accept and fix invalid field names?
+        - field('Social care-related quality of life score (All)')
+        - field('Gross Total Expenditure (x1000)')
+      num_models: 5

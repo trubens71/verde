@@ -1,15 +1,20 @@
 import logging
 import os
 import yaml
+from src.experiment import Experiment
 
 
 class Trial:
     """
-    Data structure to hold the trial and experiment config.
-    Only logic is to copy the global settings into each experiment.
+    Data structure to hold the trial config and its experiment objects
     """
 
     def __init__(self, directory, config_file):
+        """
+        Construct the trial and its experiment objects
+        :param directory: for the trial
+        :param config_file: name of the config file expected in the directory
+        """
 
         self.directory = directory
         self.config_file = directory + '/' + config_file
@@ -20,21 +25,16 @@ class Trial:
         with open(self.config_file) as f:
             self._raw_config = yaml.load(f, Loader=yaml.FullLoader)
 
+        logging.info(f'loading trial config from {self.config_file}')
+
         self.trial_id = self._raw_config['trial_id']
         self.trial_desc = self._raw_config['trial_desc']
-        self.global_trial_settings = self._raw_config['global_trial_settings']
-        self.experiments = self._raw_config['experiments']
+        self.global_config = self._raw_config['global_config']
 
-        # duplicate attributes and copy across the global settings to each experiment
-        for exp in self.experiments:
-            exp['trial_id'] = self.trial_id
-            exp['trial_desc'] = self.trial_desc
-            exp['directory'] = self.directory
-            exp['id'] = f"{self.trial_id}.{exp['experiment_id']}"
-            for global_k, global_v in self.global_trial_settings.items():
-                if global_k in exp:
-                    logging.warning(f"{global_k}={global_v} overriding {exp[global_k]} in {exp['experiment_id']}")
-                exp[global_k] = global_v
+        # create the experiment objects
+        self.experiments = []
+        for exp in self._raw_config['experiments']:
+            self.experiments.append(Experiment(self, exp))
 
 
 

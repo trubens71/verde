@@ -1,6 +1,6 @@
 {
-  "$schema": "https://raw.githubusercontent.com/trubens71/schemas/master/verde_meta_schema.json#",
-  "$id": "https://raw.githubusercontent.com/trubens71/schemas/master/verde_meta_schema.json#",
+  "$schema": "https://smcse.city.ac.uk/student/aczd178/verde/schema/verde_meta_schema.json#",
+  "$id": "https://smcse.city.ac.uk/student/aczd178/verde/schema/verde_meta_schema.json#",
   "title": "Verde meta-schema to validate visualisation design rules in domain specific schemas",
   "definitions": {
     "schemaArray": {
