@@ -28,7 +28,7 @@
         do: false
       fix_input_file_column_names:
         do: true
-      create_schema_query_lp:
+      create_baseline_schema_query_lp:
         do: true
         write_lp: true
       create_verde_rule_lp:
@@ -56,6 +56,6 @@
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
       query:  # dziban python query format. Do we accept and fix invalid field names?
-        - field('Social care-related quality of life score (All)')
+        - field('Social care-related quality of life score (All)', scale='zero')
         - field('Gross Total Expenditure (x1000)')
       num_models: 5

@@ -18,8 +18,9 @@ class Experiment:
         self.input_data_file = None
         self.input_mapping_file = None
         self.query = None
+        self.query_fields = None
         self.execute = None
-        self.schema_query_lp = None
+        self.baseline_schema_query_lp = None
 
         # create a composite id of trial and experiment
         self.id = f"{trial.trial_id}.{exp['experiment_id']}"
@@ -48,12 +49,15 @@ class Experiment:
 
         logging.info(f'running experiment {self.id}')
 
+        # clear out temp files from previous runs based on id and directory
+        vutils.delete_temp_files(self.directory, self.id)
+
         # validate the domain schema against the verde meta schema
         if self.execute['validate_domain_schema']['do']:
             if not vutils.validate_json_doc(self.domain_schema, self.verde_meta_schema):
                 exit(1)
         else:
-            logging.warning('domain schema json validation turned off in config')
+            logging.warning('validate_domain_schema json validation turned off in config')
 
         # validate the input mapping file against the domain schema.
         # note that this involves $refs to the domain model so needs the domain model to be publicly available on github
@@ -61,24 +65,27 @@ class Experiment:
             if not vutils.validate_json_doc(self.input_mapping_file, self.domain_mapping_schema):
                 exit(1)
         else:
-            logging.warning('input mapping json validation turned off in config')
+            logging.warning('validate_input_file_mapping json validation turned off in config')
 
         # Clingo does not like spaces and special chars in atom names so we need to fix the input csv file
         # and the file that maps it to the domain model.
         if self.execute['fix_input_file_column_names']['do']:
             self.input_data_file, self.input_mapping_file, self.query = \
-                vutils.fix_column_headings(self.input_data_file, self.input_mapping_file, self.query,
-                                           self.directory + '/data', postfix=f'_{self.id}_colfix', )
+                vutils.fix_column_headings(self.input_data_file, self.input_mapping_file, self.id, self.query,
+                                           self.directory + '/data', )
         else:
-            logging.warning('fixing of column headings turned off in config')
+            logging.warning('fix_input_file_column_names turned off in config')
 
-        if self.execute['create_schema_query_lp']['do']:
-            self.schema_query_lp =\
-                vdraco.get_draco_schema_query_lp(self.input_data_file,
-                                                 self.query,
-                                                 self.id,
-                                                 self.directory,
-                                                 self.execute['create_schema_query_lp']['write_lp'])
+        if self.execute['create_baseline_schema_query_lp']['do']:
+            self.baseline_schema_query_lp, self.query_fields = \
+                vdraco.get_baseline_schema_query_lp(self.input_data_file,
+                                                    self.query,
+                                                    self.id,
+                                                    self.directory,
+                                                    self.execute['create_baseline_schema_query_lp']['write_lp'])
         else:
-            logging.warning('cannot proceed with schema and query processing turned off in config')
+            logging.warning('cannot proceed with create_baseline_schema_query_lp turned off in config')
             exit(0)
+
+        #  //TODO Start the verde rules. You have the query_fields in order as basis for extending the lp.
+        pass

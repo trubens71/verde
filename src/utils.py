@@ -5,14 +5,16 @@ import jsonschema
 import os
 import pandas as pd
 import re
+import glob
 
 
-def fix_column_headings(input_csv_file, input_map_file, query, output_dir, postfix='_colfix'):
+def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, postfix='_colfix'):
 
     """
     Clingo does not like special chars in atom names so we need to get rid of spaces and special chars.
     We have to do that in our input csv file, its mapping to the domain and fields referenced in the query.
     A shame we repeat the same regex patterns 3 times, but the input format is different in each case.
+    :param id: experiment id for prefix
     :param input_csv_file:
     :param input_map_file:
     :param query:
@@ -23,9 +25,11 @@ def fix_column_headings(input_csv_file, input_map_file, query, output_dir, postf
     if not os.path.isdir(output_dir):
         os.mkdir(output_dir)
 
+    prefix = id + '_'
+
     # process the input csv file
     output_csv_file = os.path.basename(input_csv_file)
-    output_csv_file = os.path.splitext(output_csv_file)[0] + postfix + '.csv'
+    output_csv_file = prefix + os.path.splitext(output_csv_file)[0] + postfix + '.csv'
     output_csv_file = os.path.join(output_dir, output_csv_file)
     logging.info(f'fixing csv columns headers in {input_csv_file} to {output_csv_file}')
     df = pd.read_csv(input_csv_file)
@@ -37,7 +41,7 @@ def fix_column_headings(input_csv_file, input_map_file, query, output_dir, postf
 
     # process the input mapping file in a similar same way
     output_map_file = os.path.basename(input_map_file)
-    output_map_file = os.path.splitext(output_map_file)[0] + postfix + '.json'
+    output_map_file = prefix + os.path.splitext(output_map_file)[0] + postfix + '.json'
     output_map_file = os.path.join(output_dir, output_map_file)
     logging.info(f'fixing map file columns names in {input_map_file} to {output_map_file}')
     # read input
@@ -110,6 +114,17 @@ def write_list_to_file(content_list, output_file, desc=''):
     with open(output_file, 'w') as f:
         for line in content_list:
             f.write('{}\n'.format(line))
+
+
+def delete_temp_files(directory, prefix):
+
+    logging.info(f'deleting {prefix}* recursively from {directory}')
+    glob_path = f'{directory}/**/{prefix}*'
+    files = glob.glob(glob_path, recursive=True)
+
+    for file in files:
+        logging.debug(f'deleting {file}')
+        os.remove(file)
 
 
 def configure_logger(log_file, level=logging.INFO):
