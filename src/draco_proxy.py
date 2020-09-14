@@ -5,6 +5,7 @@ import os
 import src.utils as vutils
 import logging
 import re
+from collections import defaultdict
 
 
 def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
@@ -13,12 +14,13 @@ def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
     # use dziban to construct the schema logic program
     df = pd.read_csv(input_file)
     chart = Chart(df)
-    field_names = []
+    enc_field = defaultdict(dict)
 
-    for query_field in query:
+    for encoding_id, query_field in enumerate(query):
         chart = eval(f'chart.{query_field}')
         # get the field names as well
-        field_names.append(re.match(r'field\(.*?\'(.*?)\'', query_field)[1])
+        field_name = re.match(r'field\(.*?\'(.*?)\'', query_field)[1]
+        enc_field[f'e{encoding_id}']['source_field'] = field_name
 
     lp = chart._get_full_query()
 
@@ -26,4 +28,9 @@ def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
         lp_file = os.path.join(directory, f'{id}_baseline_schema_query.lp')
         vutils.write_list_to_file(lp, lp_file, 'baseline schema and query lp')
 
-    return lp, field_names
+    return lp, enc_field
+
+
+def get_base_view():
+
+    return Chart.DEFAULT_NAME

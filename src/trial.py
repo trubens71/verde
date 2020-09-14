@@ -2,6 +2,7 @@ import logging
 import os
 import yaml
 from src.experiment import Experiment
+from addict import Dict
 
 
 class Trial:
@@ -23,7 +24,7 @@ class Trial:
             logging.fatal(f'config file {self.config_file} not found')
 
         with open(self.config_file) as f:
-            self._raw_config = yaml.load(f, Loader=yaml.FullLoader)
+            self._raw_config = Dict(yaml.load(f, Loader=yaml.FullLoader))
 
         logging.info(f'loading trial config from {self.config_file}')
 

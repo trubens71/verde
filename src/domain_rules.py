@@ -1,9 +1,14 @@
-import verde_old.verde_utils as vu
+import src.utils as vutils
+import src.draco_proxy as vdraco
 import logging
 import json
 import networkx as nx
 import re
+import os
 from collections import defaultdict
+from addict import Dict
+
+CONTEXT = Dict()
 
 
 def get_schema_nodes_and_edges(domain_schema_file_path):
@@ -94,7 +99,7 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
     with open(domain_schema_file_path, 'r') as f:
         schema = json.load(f)
 
-    logging.info('Building graph from properties in schema {}'.format(domain_schema_file_path))
+    logging.info('building graph from properties in schema {}'.format(domain_schema_file_path))
     walk(schema['properties'])
 
     logging.info(f'found {len(nodes)} nodes, {len(property_edges)} property edges, '
@@ -136,13 +141,23 @@ def build_graph(nodes, property_edges, compose_edges, explain_edges, field_nodes
     g.add_edges_from(compose_edges, weight=compose_edge_weight)
     g.add_edges_from(explain_edges, weight=explain_edge_weight)
 
-    if export_file:
+    if CONTEXT.rule_config.rule_01_causal_relationships.export_graphml:
+        graph_file = os.path.join(CONTEXT.directory, f'{CONTEXT.id}.graphml')
+        logging.info(f'writing graph to {graph_file}')
+        nx.write_graphml_xml(g, graph_file)
+    elif export_file:
         nx.write_graphml_xml(g, export_file + '.graphml')
 
     return g
 
 
 def test_x_y_preferences(g, test_cases=None):
+    """
+    Just a throwaway test function to try out the rule 01 graph
+    :param g:
+    :param test_cases:
+    :return:
+    """
     if test_cases is None:
         test_cases = [
             ("funder.expenditure", "user.quality_of_life.well-being"),
@@ -174,7 +189,7 @@ def determine_x_y_preference(g, nodes):
         except nx.NetworkXNoPath as np:
             path = []
         except nx.NodeNotFound as nnf:
-            logging.fatal(f'Node {node_pair[0]} not found')
+            logging.fatal(f'node {node_pair[0]} not found')
             exit(1)
 
         if len(path) > 0:
@@ -187,13 +202,23 @@ def determine_x_y_preference(g, nodes):
     (x_var, y_var), min_len = min(path_length.items(), key=lambda x: x[1])
 
     if path_length[(x_var, y_var)] == path_length[(y_var, x_var)] != float('inf'):
-        logging.info(f'Found the same finite path length, so arbitrarily x={x_var}, y={y_var}')
+        logging.info(f'found the same finite path length, so arbitrarily x={x_var}, y={y_var}')
     elif path_length[(x_var, y_var)] == path_length[(y_var, x_var)] == float('inf'):
-        logging.info(f'Found no paths in either direction, so arbitrarily x={x_var}, y={y_var}')
+        logging.info(f'found no paths in either direction, so arbitrarily x={x_var}, y={y_var}')
     else:
-        logging.info(f'Preference is x={x_var}, y={y_var} with path length {min_len}')
+        logging.info(f'preference is x={x_var}, y={y_var} with path length {min_len}')
 
-    return x_var, y_var
+    if '.' in x_var:
+        x_enc = x_var.split('.')[1]
+    else:
+        x_enc = None
+
+    if '.' in y_var:
+        y_enc = y_var.split('.')[1]
+    else:
+        y_enc = None
+
+    return x_var, y_var, x_enc, y_enc
 
 
 def get_schema_nodes_for_source_fields(encoding, mapping_json):
@@ -236,60 +261,88 @@ def get_encoding_fields_to_schema_edges(encodings):
     return nodes, all_edges
 
 
-def create_verde_rule_asp(query_asp, domain_schema_file_path, input_mapping_file_path, graph_file=None):
-    logging.info(f'Creating verde_old rules based on {domain_schema_file_path} and {input_mapping_file_path}')
+def bind_fields_to_encodings(fields):
+    """
+    Binds each field in query to an encoding in the base query.
+    :param fields: dictionary of encodings and fields
+    :return: a logic program of form: field(v_v,e0,"Displacement").
+    """
 
-    # Load the input mapping json
-    with open(input_mapping_file_path) as f:
-        mapping_json = json.load(f)
-    mapping_json = vu.fix_json_column_name(mapping_json)  # get rid of special chars in column names
+    lp = ['\n% verde generated logic program','% binding fields to encodings']
+    base_view = vdraco.get_base_view()
+    for encoding_id in sorted(fields.keys()):
+        lp.append(f'field({base_view},{encoding_id},"{fields[encoding_id]}").')
+    return lp
+
+
+def rule_01_causal_relationships(schema_file, mapping_json, query_enc_fields):
+
+    global CONTEXT
+    logging.info('applying verde rule 01 causal relationships')
 
     # Walk the domain schema to get nodes and edges
-    dom_schema_nodes_edges = get_schema_nodes_and_edges(domain_schema_file_path)
-
-    # Find the encoding fields in the query asp
-    encodings = defaultdict(dict)
-    r = re.compile(r'field\((.*),\"(.*)\"\).')  # e.g. field(e0,"Social_care_related_quality_of_life_score_All").
-    for field_fact in list(filter(r.search, query_asp)):
-        logging.debug(f'Found field: {field_fact}')
-        m = re.search(r, field_fact)
-        encodings[m.group(1)]['source_field'] = m.group(2)  # tuple of encoding id and field name
+    dom_schema_nodes_edges = get_schema_nodes_and_edges(schema_file)
 
     # Each field from our input data may have one or more mappings into the schema
-    encodings = get_schema_nodes_for_source_fields(encodings, mapping_json)
-    # Add fields to the domain graph. This is a bit of a trick, but let's the Dijkstra shortest_path algorithm to take
+    enc_field_nodes = get_schema_nodes_for_source_fields(query_enc_fields, mapping_json)
+    # This is a bit of a trick, but let the Dijkstra shortest_path algorithm take
     # care of the one-to-many field-to-node situation. i.e. get the shortest path from all entry points to the graph.
-    field_nodes, field_schema_edges = get_encoding_fields_to_schema_edges(encodings)
+    field_nodes, field_schema_edges = get_encoding_fields_to_schema_edges(enc_field_nodes)
+    # Build the graph
     dom_schema_graph = build_graph(*dom_schema_nodes_edges,
-                                   field_nodes = field_nodes,
+                                   field_nodes=field_nodes,
                                    field_edges=field_schema_edges)
 
-    if graph_file:
-        nx.write_graphml_xml(dom_schema_graph, graph_file + '.graphml')
-
     # Because we may have more than two fields in the query we need to consider all pairings that might get encoded
-    # to the x and y channels, then get our preferences for each pair as we write the asp
-    asp = ['% Verde rule 1: x/y encoding preferences']
-    enc_pairs = [(a, b) for a in encodings.keys() for b in encodings.keys() if a < b]
+    # to the x and y channels, then get our preferences for each pair as we write the lp
+    lp = ['\n% verde rule 1: x/y encoding preferences']
+    enc_pairs = [(a, b) for a in enc_field_nodes.keys() for b in enc_field_nodes.keys() if a < b]
     for i, enc_pair in enumerate(enc_pairs):
-        a = 'field.' + enc_pair[0] + '.' + encodings[enc_pair[0]]['source_field']
-        b = 'field.' + enc_pair[1] + '.' + encodings[enc_pair[1]]['source_field']
-        pref_x_var, pref_y_var = determine_x_y_preference(dom_schema_graph, (a,b))
-        asp.append(f'% for encoding pair {i} prefer x={pref_x_var} y={pref_y_var}')
-        ea, eb = enc_pair
-        asp.append(f'soft({ea}_{eb}) :- channel({ea},x), not channel({ea},y), channel({eb},y), not channel({eb},x).')
-        asp.append(f'#const {ea}_{eb}_weight = 1.')
-        asp.append(f'soft_weight({ea}_{eb},{ea}_{eb}_weight).')
+        a = 'field.' + enc_pair[0] + '.' + enc_field_nodes[enc_pair[0]]['source_field']
+        b = 'field.' + enc_pair[1] + '.' + enc_field_nodes[enc_pair[1]]['source_field']
+        pref_x_var, pref_y_var, pref_x_enc, pref_y_enc = determine_x_y_preference(dom_schema_graph, (a, b))
+        soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100
+        lp.append(f'% for encoding pair {i} prefer x={pref_x_var} y={pref_y_var}')
+        lp.append(f'soft(rule01_{pref_x_enc}_{pref_y_enc}) :- channel(V,{pref_y_enc},x), '
+                  f'channel(V,{pref_x_enc},y), is_c_c(V).')
+        lp.append(f'#const rule01_{pref_x_enc}_{pref_y_enc}_weight = {soft_weight}.')
+        lp.append(f'soft_weight(rule01_{pref_x_enc}_{pref_y_enc},rule01_{pref_x_enc}_{pref_y_enc}_weight).')
 
-    for line in asp:
-        logging.debug(line)
+    return lp
 
-    return asp
+
+def create_verde_rules_lp(schema_file, mapping_file, query_enc_fields, id, directory, rule_config, baseline_lp):
+
+    logging.info(f'creating verde rules lp based on {schema_file} and {mapping_file}')
+
+    global CONTEXT
+    CONTEXT.id = id
+    CONTEXT.directory = directory
+    CONTEXT.rule_config = rule_config
+
+    # Fix the fields to the encodings so we can express rules in terms of encodings
+    lp = bind_fields_to_encodings(query_enc_fields)
+
+    # Load the input mapping json
+    with open(mapping_file) as f:
+        mapping_json = json.load(f)
+
+    # Apply each verde rule to extend the lp
+    if rule_config['rule_01_causal_relationships']['do']:
+        lp = lp + rule_01_causal_relationships(schema_file, mapping_json, query_enc_fields)
+
+    if rule_config['write_lp']:
+        lp_file = os.path.join(directory, f'{id}_verde_rules_partial.lp')
+        vutils.write_list_to_file(lp, lp_file, 'verde rules partial lp')
+        lp_file = os.path.join(directory, f'{id}_verde_schema_query.lp')
+        vutils.write_list_to_file(baseline_lp + lp, lp_file, 'verde full schema and query lp')
+
+    return lp + baseline_lp
 
 
 if __name__ == "__main__":
-    vu.configure_logger('rule_gen.log', level=logging.DEBUG)
+    vutils.configure_logger('domain_rules.log', level=logging.DEBUG)
     nodes_edges = get_schema_nodes_and_edges('../schemas/verde_asc_domain_schema.json')
-    graph = build_graph(*nodes_edges, export_file='schema_prop_multi_compose_explain')
+    graph = build_graph(*nodes_edges)
     test_x_y_preferences(graph)
     pass

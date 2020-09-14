@@ -1266,7 +1266,7 @@ encoding(v_v,e1).
 
 %cars_verde_2
 
-encoding(v_v,e0). % per draco/dziban
+encoding(v_v,e0). % per draco/dziban template
 encoding(v_v,e1).
 :- not field(v_v,E,"Displacement") : encoding(v_v,E).
 :- not field(v_v,E,"Horsepower") : encoding(v_v,E).
@@ -1279,62 +1279,12 @@ soft(disp_hp,V):- channel(V,e0,x), channel(V,e1,y), is_c_c(V).
 #const disp_hp_weight = 100.
 soft_weight(disp_hp, disp_hp_weight).
 
-%*
-Important rules
-
-Forces encodings to be in field alphabetical order. No idea why, probably for debug
-:- field(V,E1,F1), field(V,E2,F2), E1 > E2, F1 <= F2.
-
-Tiebreaker to keep x and y field assignments in alphabetical order
-soft(x_y_fields_order,V) :- field(V,EX,F1), field(V,EY,F2), channel(V,EX,x), channel(V,EY,y), F1 > F2.
-
-These alternates will work if relax above constraints
-:- not field(v_v,e0,"Displacement").
-:- not field(v_v,e1,"Horsepower").
-field(v_v,e0,"Horsepower").
-field(v_v,e1,"Displacement").
-*%
-
-% this works if relax E/F hard and tie breaker soft
-
-
-
-% This works for first and some other models, but not all.
-%soft(disp_x):- channel(v_v,e0,x), not channel(v_v,e0,y), channel(v_v,e1,y), not channel(v_v,e1,x).
-%#const disp_x_weight = 100.
-%soft_weight(disp_x, disp_x_weight).
-
-% Hard constrait works a treat
-%:- channel(v_v,e0,x), not channel(v_v,e0,y), channel(v_v,e1,y), not channel(v_v,e1,x).
-
-% Explicit soft constraint also works a treat - now can't reproduce!
-%:~ channel(v_v,e0,x), not channel(v_v,e0,y), channel(v_v,e1,y), not channel(v_v,e1,x). [100]
-%:~ channel(v_v,e0,y), channel(v_v,e1,x). [100] % Wed - This works
-%:~ channel(v_v,e0,y), channel(v_v,e1,x). [100] % Wed - This works
-%:~ channel(v_v,e0,x), channel(v_v,e1,y), is_c_c(v_v). [100] % Wed - this works but needs a more careful look
-%:~ channel(V,e0,y), channel(V,e1,x), is_c_c(V). [100] % Wed - this works, but still #4 differs in one case
-
-% cars_verde_1.lp
-% THIS WORKS BUT NOT STANDARD TEMPLATE FORM, AND A LITTLE WORRIED ABOUT is_c_c
-%*encoding(v_v,e0).
-encoding(v_v,e1).
-field(v_v,e0,"Displacement").
-field(v_v,e1,"Horsepower").
-soft(disp_hp,V):- channel(V,e0,x), channel(V,e1,y), is_c_c(V).
-#const disp_hp_weight = 100.
-soft_weight(disp_hp, disp_hp_weight).
+%* 2nd Sep. The above verde steps a+b work
+(except is_c_c still not quite right for rule 1).
+Shows that we can just add to dziban template by fixing
+fields to encoding channels and thn expressing new rules
+explicitly for those channels.
 *%
 
 
-%* THIS WORKS BUT without the hard field rule, the standard form expands unecessary combinations
-% of encoding and field which has no impact on the final visualisation.
-% Might be better to take our approach above to assign fields to encodings.
-:- not field(v_v,E,"Displacement") : encoding(v_v,E).
-:- not field(v_v,E,"Horsepower") : encoding(v_v,E).
-soft(disp_hp,V):- channel(V,E1,y), field(V, E1, "Displacement"), channel(V,E2,x), field(V, E2, "Horsepower"), is_c_c(V).
-#const disp_hp_weight = 100.
-soft_weight(disp_hp, disp_hp_weight).
-*%
-
-%clingo --outf=2 --quiet=1,2,2 --seed=0
 %clingo --outf=2 --quiet=1,2,2 --seed=0 --opt-mode=OptN --models=5

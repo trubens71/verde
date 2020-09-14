@@ -1,4 +1,4 @@
-name: verde
+name: verde_old
 channels:
   - conda-forge
   - potassco
@@ -92,5 +92,5 @@ dependencies:
     - clyngor==0.3.31
     - pypeg2==2.15.2
     - pyyaml==5.3.1
-prefix: /Users/trubens/opt/anaconda3/envs/verde
+prefix: /Users/trubens/opt/anaconda3/envs/verde_old
 

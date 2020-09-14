@@ -23,17 +23,24 @@
     num_models: 10  # how many ranked visualisation models to solve for (topk in Draco)
     execute:
       validate_domain_schema:
-        do: false
+        do: true
       validate_input_file_mapping:
-        do: false
+        do: true
       fix_input_file_column_names:
         do: true
       create_baseline_schema_query_lp:
         do: true
         write_lp: true
-      create_verde_rule_lp:
+      create_verde_rules_lp:
+        do: true  # overall switch, followed by rule-specific switches
+        write_lp: true
         rule_01_causal_relationships:
           do: true
+          property_edge_weight: 1.0
+          compose_edge_weight:  0.5
+          explain_edge_weight:  0.1
+          draco_soft_weight: 100
+          export_graphml: true
         rule_02_ordinal_sort:
           do: false
         rule_03_data_precision:
@@ -44,18 +51,17 @@
           do: false
         rule_06_summary_by_grouping:
           do: false
-      get_draco_standard_visualisations:
+      get_baseline_visualisations:
         do: true
       get_verde_visualisations:
         do: true
-      compare_draco_verde_visualisations:
+      compare_baseline_verde_visualisations:
         do: true
   experiments:
     - experiment_id: exp_01
       experiment_desc: basic test of quality of life versus expenditure
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
-      query:  # dziban python query format. Do we accept and fix invalid field names?
+      query:  # in dziban python query format, supports unfixed input file column names.
         - field('Social care-related quality of life score (All)', scale='zero')
         - field('Gross Total Expenditure (x1000)')
-      num_models: 5
