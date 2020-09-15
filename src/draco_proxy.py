@@ -37,6 +37,6 @@ def run_draco(query, lp_files, num_models):
     return draco(query, files=lp_files, topk=True, k=num_models, silence_warnings=True)
 
 
-def get_base_view():
+def get_default_view():
 
     return Chart.DEFAULT_NAME

@@ -26,7 +26,11 @@ class Experiment:
         self.verde_schema_query_lp = None
         self.draco_base_lp_dir = None
         self.baseline_vis_results = None
+        self.baseline_vis_results_json = None
         self.num_models = None
+        self.verde_vis_results = None
+        self.verde_vis_results_json = None
+        self.verde_base_lp_override_dir = None
 
         # create a composite id of trial and experiment
         self.id = f"{trial.trial_id}.{exp['experiment_id']}"
@@ -104,10 +108,23 @@ class Experiment:
             logging.warning('create_verde_rules_lp turned off in trial config')
 
         if self.execute.get_baseline_visualisations.do and self.baseline_schema_query_lp:
-            self.baseline_vis_results = vresults.get_vis_results(self.id, self.directory, self.input_data_file,
-                                                                 self.baseline_schema_query_lp,
-                                                                 self.draco_base_lp_dir,
-                                                                 num_models=self.num_models)
+            self.baseline_vis_results, self.baseline_vis_results_json = \
+                vresults.get_vis_results(self.id, self.directory, self.input_data_file,
+                                         self.baseline_schema_query_lp,
+                                         self.draco_base_lp_dir,
+                                         num_models=self.num_models,
+                                         label='baseline')
         else:
             logging.warning(f'cannot get baseline visualisations due to trial config conflict')
-        pass
+
+        if self.execute.get_verde_visualisations.do and self.verde_schema_query_lp:
+            self.verde_vis_results, self.verde_vis_results_json = \
+                vresults.get_vis_results(self.id, self.directory, self.input_data_file,
+                                         self.verde_schema_query_lp,
+                                         self.draco_base_lp_dir,
+                                         override_lp_dir=self.verde_base_lp_override_dir,
+                                         num_models=self.num_models,
+                                         label='verde')
+        else:
+            logging.warning(f'cannot get verde visualisations due to trial config conflict')
+

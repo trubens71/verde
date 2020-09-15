@@ -267,7 +267,7 @@ def bind_fields_to_encodings(fields):
     """
 
     lp = ['\n% verde generated logic program','% binding fields to encodings']
-    base_view = vdraco.get_base_view()
+    base_view = vdraco.get_default_view()
     for encoding_id in sorted(fields.keys()):
         lp.append(f'field({base_view},{encoding_id},"{fields[encoding_id]}").')
     return lp
