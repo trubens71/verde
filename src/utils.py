@@ -31,7 +31,7 @@ def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, p
     output_csv_file = os.path.basename(input_csv_file)
     output_csv_file = prefix + os.path.splitext(output_csv_file)[0] + postfix + '.csv'
     output_csv_file = os.path.join(output_dir, output_csv_file)
-    logging.info(f'fixing csv columns headers in {input_csv_file} to {output_csv_file}')
+    logging.info(f'fixing csv column headers (special chars disallowed by clingo) in {input_csv_file} to {output_csv_file}')
     df = pd.read_csv(input_csv_file)
     # replace non-alpha/digit with underscores, tidy up multiple and leading/trailing underscores.
     df.rename(columns=lambda x: re.sub('[^A-Za-z0-9]', '_', x), inplace=True)
@@ -43,7 +43,7 @@ def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, p
     output_map_file = os.path.basename(input_map_file)
     output_map_file = prefix + os.path.splitext(output_map_file)[0] + postfix + '.json'
     output_map_file = os.path.join(output_dir, output_map_file)
-    logging.info(f'fixing map file columns names in {input_map_file} to {output_map_file}')
+    logging.info(f'fixing map file column names in {input_map_file} to {output_map_file}')
     # read input
     with open(input_map_file) as f:
         j = json.load(f)
@@ -78,7 +78,7 @@ def validate_json_doc(doc_file_path, schema_file_path=None):
     :param schema_file_path:
     :return: success
     """
-    logging.info('Validating {} against {}'.format(doc_file_path, schema_file_path))
+    logging.info('validating {} against {}'.format(doc_file_path, schema_file_path))
 
     if schema_file_path:
         with open(schema_file_path, 'r') as f:
@@ -118,7 +118,7 @@ def write_list_to_file(content_list, output_file, desc=''):
 
 def delete_temp_files(directory, prefix):
 
-    logging.info(f'deleting {prefix}* recursively from {directory}')
+    logging.info(f'deleting experiment output files {prefix}* recursively from {directory}')
     glob_path = f'{directory}/**/{prefix}*'
     files = glob.glob(glob_path, recursive=True)
 
