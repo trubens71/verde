@@ -478,7 +478,8 @@ soft(summary_discrete_row,E) :- task(V,summary), channel(V,E,row), discrete(V,E)
 soft(summary_discrete_column,E) :- task(V,summary), channel(V,E,column), discrete(V,E), enc_interesting(V,E).
 
 % @constraint Tiebreaker to keep fields on x and y consistent.
-soft(x_y_fields_order,V) :- field(V,EX,F1), field(V,EY,F2), channel(V,EX,x), channel(V,EY,y), F1 > F2.
+% verde - we want verde to be determine x, y positioning so removing this rule. May find side effects later.
+% soft(x_y_fields_order,V) :- field(V,EX,F1), field(V,EY,F2), channel(V,EX,x), channel(V,EY,y), F1 > F2.
 
 % @constraint Rect without aggregate
 % soft(d_d_rect_point_no_agg,V,none) :- mark(V,(point;rect)), is_d_d(V), not aggregate(V,_,_).

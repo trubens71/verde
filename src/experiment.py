@@ -24,7 +24,7 @@ class Experiment:
         self.execute = None
         self.baseline_schema_query_lp = None
         self.verde_schema_query_lp = None
-        self.draco_base_lp_files = None
+        self.draco_base_lp_dir = None
         self.baseline_vis_results = None
         self.num_models = None
 
@@ -106,7 +106,7 @@ class Experiment:
         if self.execute.get_baseline_visualisations.do and self.baseline_schema_query_lp:
             self.baseline_vis_results = vresults.get_vis_results(self.id, self.directory, self.input_data_file,
                                                                  self.baseline_schema_query_lp,
-                                                                 self.draco_base_lp_files,
+                                                                 self.draco_base_lp_dir,
                                                                  num_models=self.num_models)
         else:
             logging.warning(f'cannot get baseline visualisations due to trial config conflict')

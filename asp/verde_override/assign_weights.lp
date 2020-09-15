@@ -152,5 +152,6 @@ soft_weight(summary_discrete_row,summary_discrete_row_weight).
 soft_weight(summary_discrete_column,summary_discrete_column_weight).
 soft_weight(stack_zero,stack_zero_weight).
 soft_weight(stack_normalize,stack_normalize_weight).
-soft_weight(x_y_fields_order,x_y_fields_order_weight).
+% verde - this soft rule removed
+% soft_weight(x_y_fields_order,x_y_fields_order_weight).
 soft_weight(rect_no_agg,rect_no_agg_weight).

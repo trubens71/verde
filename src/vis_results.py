@@ -20,12 +20,13 @@ def get_vis_results(trial_id, directory, input_data_file, query,
     """
 
     if override_lp_dir:
-        logging.info(f'getting Draco visualisation for {trial_id} with verde base lp override')
+        logging.info(f'getting draco visualisations for {trial_id} with verde base lp override')
         lp_files = get_overridden_lp_files(base_lp_dir, override_lp_dir)
     else:
-        logging.info(f'getting Draco visualisation for {trial_id}')
+        logging.info(f'getting draco visualisations for {trial_id}')
         lp_files = get_lp_files(base_lp_dir, 'base')
 
+    pass
     results = vdraco.run_draco(query, lp_files, num_models)
 
     return results
@@ -78,7 +79,7 @@ def get_lp_files(directory, label=''):
     :return: list of fies
     """
 
-    files = glob.glob(f'{directory}/*.lp')
+    files = sorted(glob.glob(f'{directory}/*.lp'))
 
     if not len(files):
         logging.warning(f'no {label} lp files found in {directory}')
