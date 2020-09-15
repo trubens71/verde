@@ -1,7 +1,10 @@
-pandas~=1.0.5
+pandas~=1.1.0
 jsonschema~=3.2.0
-setuptools~=47.3.1
-draco~=0.0.9
+setuptools~=49.6.0
+draco~=0.0.4
 urllib3~=1.25.9
 networkx~=2.4
 clyngor~=0.3.31
+pyyaml~=5.3.1
+addict~=2.2.1
+dziban~=0.0.1

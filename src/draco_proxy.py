@@ -1,5 +1,6 @@
 # All use of draco and dziban done here
 from dziban.mkiv import Chart
+from draco.run import run as draco
 import pandas as pd
 import os
 import src.utils as vutils
@@ -29,6 +30,11 @@ def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
         vutils.write_list_to_file(lp, lp_file, 'baseline schema and query lp')
 
     return lp, enc_field
+
+
+def run_draco(query, lp_files, num_models):
+
+    return draco(query, files=lp_files, topk=True, k=num_models, silence_warnings=True)
 
 
 def get_base_view():

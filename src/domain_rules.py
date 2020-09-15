@@ -3,9 +3,7 @@ import src.draco_proxy as vdraco
 import logging
 import json
 import networkx as nx
-import re
 import os
-from collections import defaultdict
 from addict import Dict
 
 CONTEXT = Dict()
@@ -311,12 +309,12 @@ def rule_01_causal_relationships(schema_file, mapping_json, query_enc_fields):
     return lp
 
 
-def create_verde_rules_lp(schema_file, mapping_file, query_enc_fields, id, directory, rule_config, baseline_lp):
+def create_verde_rules_lp(schema_file, mapping_file, query_enc_fields, trial_id, directory, rule_config, baseline_lp):
 
     logging.info(f'creating verde rules lp based on {schema_file} and {mapping_file}')
 
     global CONTEXT
-    CONTEXT.id = id
+    CONTEXT.id = trial_id
     CONTEXT.directory = directory
     CONTEXT.rule_config = rule_config
 
@@ -328,16 +326,16 @@ def create_verde_rules_lp(schema_file, mapping_file, query_enc_fields, id, direc
         mapping_json = json.load(f)
 
     # Apply each verde rule to extend the lp
-    if rule_config['rule_01_causal_relationships']['do']:
+    if rule_config.rule_01_causal_relationships.do:
         lp = lp + rule_01_causal_relationships(schema_file, mapping_json, query_enc_fields)
 
-    if rule_config['write_lp']:
-        lp_file = os.path.join(directory, f'{id}_verde_rules_partial.lp')
+    if rule_config.write_lp:
+        lp_file = os.path.join(directory, f'{CONTEXT.id}_verde_rules_partial.lp')
         vutils.write_list_to_file(lp, lp_file, 'verde rules partial lp')
-        lp_file = os.path.join(directory, f'{id}_verde_schema_query.lp')
+        lp_file = os.path.join(directory, f'{CONTEXT.id}_verde_schema_query.lp')
         vutils.write_list_to_file(baseline_lp + lp, lp_file, 'verde full schema and query lp')
 
-    return lp + baseline_lp
+    return baseline_lp + lp
 
 
 if __name__ == "__main__":

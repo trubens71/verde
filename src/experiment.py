@@ -2,6 +2,7 @@ import logging
 import src.utils as vutils
 import src.draco_proxy as vdraco
 import src.domain_rules as vrules
+import src.vis_results as vresults
 
 
 class Experiment:
@@ -23,6 +24,9 @@ class Experiment:
         self.execute = None
         self.baseline_schema_query_lp = None
         self.verde_schema_query_lp = None
+        self.draco_base_lp_files = None
+        self.baseline_vis_results = None
+        self.num_models = None
 
         # create a composite id of trial and experiment
         self.id = f"{trial.trial_id}.{exp['experiment_id']}"
@@ -59,7 +63,7 @@ class Experiment:
             if not vutils.validate_json_doc(self.domain_schema, self.verde_meta_schema):
                 exit(1)
         else:
-            logging.warning('validate_domain_schema json validation turned off in config')
+            logging.warning('validate_domain_schema json validation turned off in trial config')
 
         # validate the input mapping file against the domain schema.
         # note that this involves $refs to the domain model so needs the domain model to be publicly available on github
@@ -67,7 +71,7 @@ class Experiment:
             if not vutils.validate_json_doc(self.input_mapping_file, self.domain_mapping_schema):
                 exit(1)
         else:
-            logging.warning('validate_input_file_mapping json validation turned off in config')
+            logging.warning('validate_input_file_mapping json validation turned off in trial config')
 
         # Clingo does not like spaces and special chars in atom names so we need to fix the input csv file
         # and the file that maps it to the domain model.
@@ -76,7 +80,7 @@ class Experiment:
                 vutils.fix_column_headings(self.input_data_file, self.input_mapping_file, self.id, self.query,
                                            self.directory + '/data', )
         else:
-            logging.warning('fix_input_file_column_names turned off in config')
+            logging.warning('fix_input_file_column_names turned off in trial config')
 
         if self.execute.create_baseline_schema_query_lp.do:
             self.baseline_schema_query_lp, self.query_enc_fields = \
@@ -86,8 +90,7 @@ class Experiment:
                                                     self.directory,
                                                     self.execute.create_baseline_schema_query_lp.write_lp)
         else:
-            logging.warning('cannot proceed with create_baseline_schema_query_lp turned off in config')
-            exit(0)
+            logging.warning('create_baseline_schema_query_lp turned off in trial config')
 
         if self.execute.create_verde_rules_lp.do:
             self.verde_schema_query_lp = vrules.create_verde_rules_lp(self.domain_schema,
@@ -97,5 +100,14 @@ class Experiment:
                                                                       self.directory,
                                                                       self.execute.create_verde_rules_lp,
                                                                       self.baseline_schema_query_lp)
+        else:
+            logging.warning('create_verde_rules_lp turned off in trial config')
 
+        if self.execute.get_baseline_visualisations.do and self.baseline_schema_query_lp:
+            self.baseline_vis_results = vresults.get_vis_results(self.id, self.directory, self.input_data_file,
+                                                                 self.baseline_schema_query_lp,
+                                                                 self.draco_base_lp_files,
+                                                                 num_models=self.num_models)
+        else:
+            logging.warning(f'cannot get baseline visualisations due to trial config conflict')
         pass
