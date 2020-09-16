@@ -269,7 +269,7 @@ def bind_fields_to_encodings(fields):
     lp = ['\n% verde generated logic program','% binding fields to encodings']
     base_view = vdraco.get_default_view()
     for encoding_id in sorted(fields.keys()):
-        lp.append(f'field({base_view},{encoding_id},"{fields[encoding_id]}").')
+        lp.append(f'field({base_view},{encoding_id},"{fields[encoding_id]["source_field"]}").')
     return lp
 
 
@@ -301,7 +301,7 @@ def rule_01_causal_relationships(schema_file, mapping_json, query_enc_fields):
         pref_x_var, pref_y_var, pref_x_enc, pref_y_enc = determine_x_y_preference(dom_schema_graph, (a, b))
         soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100
         lp.append(f'% for encoding pair {i} prefer x={pref_x_var} y={pref_y_var}')
-        lp.append(f'soft(rule01_{pref_x_enc}_{pref_y_enc}) :- channel(V,{pref_y_enc},x), '
+        lp.append(f'soft(rule01_{pref_x_enc}_{pref_y_enc},V) :- channel(V,{pref_y_enc},x), '
                   f'channel(V,{pref_x_enc},y), is_c_c(V).')
         lp.append(f'#const rule01_{pref_x_enc}_{pref_y_enc}_weight = {soft_weight}.')
         lp.append(f'soft_weight(rule01_{pref_x_enc}_{pref_y_enc},rule01_{pref_x_enc}_{pref_y_enc}_weight).')
@@ -330,8 +330,8 @@ def create_verde_rules_lp(schema_file, mapping_file, query_enc_fields, trial_id,
         lp = lp + rule_01_causal_relationships(schema_file, mapping_json, query_enc_fields)
 
     if rule_config.write_lp:
-        lp_file = os.path.join(directory, f'{CONTEXT.id}_verde_rules_partial.lp')
-        vutils.write_list_to_file(lp, lp_file, 'verde rules partial lp')
+        #  lp_file = os.path.join(directory, f'{CONTEXT.id}_verde_rules_partial.lp')
+        #  vutils.write_list_to_file(lp, lp_file, 'verde rules partial lp')
         lp_file = os.path.join(directory, f'{CONTEXT.id}_verde_schema_query.lp')
         vutils.write_list_to_file(baseline_lp + lp, lp_file, 'verde full schema and query lp')
 

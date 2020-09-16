@@ -113,7 +113,8 @@ class Experiment:
                                          self.baseline_schema_query_lp,
                                          self.draco_base_lp_dir,
                                          num_models=self.num_models,
-                                         label='baseline')
+                                         label='baseline',
+                                         write_lp=self.execute.get_baseline_visualisations.write_lp)
         else:
             logging.warning(f'cannot get baseline visualisations due to trial config conflict')
 
@@ -124,7 +125,12 @@ class Experiment:
                                          self.draco_base_lp_dir,
                                          override_lp_dir=self.verde_base_lp_override_dir,
                                          num_models=self.num_models,
-                                         label='verde')
+                                         label='verde',
+                                         write_lp=self.execute.get_verde_visualisations.write_lp)
         else:
             logging.warning(f'cannot get verde visualisations due to trial config conflict')
 
+        if self.execute.make_vegalite_concat.do and self.baseline_vis_results_json and self.verde_vis_results_json:
+            vresults.make_vegalite_concat(self.id, self.directory,
+                                          [self.baseline_vis_results_json, self.verde_vis_results_json],
+                                          ['baseline', 'verde'])
