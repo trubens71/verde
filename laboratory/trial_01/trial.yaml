@@ -46,7 +46,7 @@
         write_lp: true
       make_vegalite_concat:
         do: true
-      compare_baseline_verde_visualisations:
+      compare_baseline_verde:
         do: true
   experiments:
     - experiment_id: exp_01

@@ -2,7 +2,8 @@ import logging
 import src.utils as vutils
 import src.draco_proxy as vdraco
 import src.domain_rules as vrules
-import src.vis_results as vresults
+import src.results as vresults
+import src.compare as vcompare
 
 
 class Experiment:
@@ -116,7 +117,7 @@ class Experiment:
                                          label='baseline',
                                          write_lp=self.execute.get_baseline_visualisations.write_lp)
         else:
-            logging.warning(f'cannot get baseline visualisations due to trial config conflict')
+            logging.warning('cannot get baseline visualisations due to trial config conflict')
 
         if self.execute.get_verde_visualisations.do and self.verde_schema_query_lp:
             self.verde_vis_results, self.verde_vis_results_json = \
@@ -128,9 +129,17 @@ class Experiment:
                                          label='verde',
                                          write_lp=self.execute.get_verde_visualisations.write_lp)
         else:
-            logging.warning(f'cannot get verde visualisations due to trial config conflict')
+            logging.warning('cannot get verde visualisations due to trial config conflict')
 
         if self.execute.make_vegalite_concat.do and self.baseline_vis_results_json and self.verde_vis_results_json:
             vresults.make_vegalite_concat(self.id, self.directory,
                                           [self.baseline_vis_results_json, self.verde_vis_results_json],
                                           ['baseline', 'verde'])
+        else:
+            logging.warning('cannot create concatenated baseline and verde vega-lite spec due to trial config conflict')
+
+        if self.execute.compare_baseline_verde.do and self.baseline_vis_results_json and self.verde_vis_results_json:
+            vcompare.compare_baseline_to_verde(self.id, self.directory,
+                                               self.baseline_vis_results_json, self.verde_vis_results_json)
+        else:
+            logging.warning('cannot compare verde to baseline result sets due to trial config conflict')

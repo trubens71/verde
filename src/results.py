@@ -39,7 +39,6 @@ def get_vis_results(trial_id, directory, input_data_file, query,
         exit(1)
 
     json_results = write_results_json(trial_id, directory, input_data_file, draco_results, label)
-    write_results_vegalite(trial_id, directory, label, json_results)
 
     return draco_results, json_results
 
@@ -158,6 +157,9 @@ def write_results_json(trial_id, directory, input_data_file, results, label):
 
         results_json.append(model)
 
+    # write out vega-lite specs and capture file names in the results json
+    results_json = write_results_vegalite(trial_id, directory, label, results_json)
+
     results_file = os.path.join(directory, f'{trial_id}_{label}_results.json')
     logging.info(f'writing {label} results to {results_file}')
     with open(results_file, 'w') as f:
@@ -182,14 +184,18 @@ def write_results_vegalite(trial_id, directory, label, json_results):
     if not os.path.isdir(vl_dir):
         os.mkdir(vl_dir)
 
-    # write the spec and image for each model
+    # write the spec for each model
     logging.info(f'writing {label} vega-lite specs to {vl_dir}')
     for i, model in enumerate(json_results):
         vl_spec_file = f'{trial_id}_{label}_m{i:02}_c{model["cost"]:03}_vl.json'
         title = os.path.splitext(vl_spec_file)[0]
         model['vl']['title'] = title
-        with open(os.path.join(vl_dir, vl_spec_file), 'w') as f:
+        vl_spec_file_path = os.path.join(vl_dir, vl_spec_file)
+        model['vl_spec_file'] = vl_spec_file_path
+        with open(vl_spec_file_path, 'w') as f:
             json.dump(model['vl'], f)
+
+    return json_results
 
 
 def make_vegalite_concat(trial_id, directory, json_results_list, labels):
@@ -220,7 +226,7 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels):
 
     vl_output_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_vl.json')
 
-    logging.info(f'writing concat vegalite results to {vl_output_file}')
+    logging.info(f'writing concatenated vega-lite spec to {vl_output_file}')
     with open(vl_output_file, 'w') as f:
         json.dump(vl, f)
 
@@ -250,5 +256,6 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels):
 
     html_content = html_content.replace('VIS_SPEC', os.path.basename(vl_output_file))
     html_output_file = os.path.splitext(vl_output_file)[0] + '.html'
+    logging.info(f'writing vega-embed for the concatenated spec to {vl_output_file}')
     with open(html_output_file, 'w') as f:
         f.write(html_content)
