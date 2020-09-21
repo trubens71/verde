@@ -7,7 +7,7 @@
     domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json
     draco_base_lp_dir: ../asp/draco_base
     verde_base_lp_override_dir: ../asp/verde_override  # must contain same file names as draco base in order to override
-    num_models: 10  # how many ranked visualisation models to solve for (topk in Draco)
+    num_models: 15  # how many ranked visualisation models to solve for (topk in Draco)
     execute:
       validate_domain_schema:
         do: true
