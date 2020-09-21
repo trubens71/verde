@@ -149,23 +149,24 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
     vl_viewer = f'{trial_id}_view_one_vl.html?vl_json='
 
     # first layer is just two columns of square marks
+
+    select_multi = alt.selection_multi()
+
     chart = alt.Chart(os.path.basename(vis_data_file)).mark_square(
-        size=100
+        size=150
     ).transform_calculate(
         rank="format(datum.rank,'03')",
         has_match="toBoolean(datum.matches)",
         link=f"'{vl_viewer}' + datum.vl_spec_file"
     ).encode(
-        alt.X(
-            'set:O',
-            axis=alt.Axis(labelAngle=0)
+        alt.X('set:O', axis=alt.Axis(labelAngle=0)
         ),
-        alt.Y(
-            'rank:O'
-        ),
+        alt.Y('rank:O'),
         tooltip=['rank:N', 'cost:Q', 'props:N', 'violations:N', 'vl:N'],
         opacity=alt.Opacity('has_match:O', legend=None),
-        href="link:N"
+        color=alt.condition(select_multi, alt.value('steelblue'), alt.value('lightgray'))
+    ).add_selection(
+        select_multi
     ).properties(
         width=250
     )
@@ -178,12 +179,8 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
     chart += alt.Chart(os.path.basename(match_data_file)).mark_line().transform_calculate(
         rank="format(datum.rank,'03')"
     ).encode(
-        alt.X(
-            'set:O'
-        ),
-        alt.Y(
-            'rank:O'
-        ),
+        alt.X('set:O' ),
+        alt.Y('rank:O'),
         detail='match:N',
         color=alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_))
     )
