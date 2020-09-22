@@ -141,7 +141,7 @@ def write_results_json(trial_id, directory, input_data_file, results, label):
             violations[rule] = {
                 'num': result.violations[rule],
                 'weight': result.draco_weights[rule],
-                'cost_contrib:': int(result.violations[rule] * result.draco_weights[rule])
+                'cost_contrib': int(result.violations[rule] * result.draco_weights[rule])
             }
 
         # get the cost and add in the violations
@@ -224,7 +224,7 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels):
             row_specs.append(spec)
         vl['hconcat'].append({'vconcat': row_specs})
 
-    vl_output_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_vl.json')
+    vl_output_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_all_vl.json')
 
     logging.info(f'writing concatenated vega-lite spec to {vl_output_file}')
     with open(vl_output_file, 'w') as f:

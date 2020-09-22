@@ -4,6 +4,7 @@ from shapely.geometry import LineString
 import os
 import pandas as pd
 import altair as alt
+from altair import datum
 
 
 def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_results):
@@ -61,7 +62,7 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
                 if matches[i]['b_cost'] == matches[i]['v_cost']:
                     matches[i]['crossed'] = 'with_equal_cost'
                 else:
-                    matches[i]['crossed'] = 'with_diff_cost'
+                    matches[i]['crossed'] = 'with_different_cost'
 
     # write the match file to csv for exploratory visualisation
     df = pd.DataFrame(matches)
@@ -69,11 +70,11 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
     df = df.melt(id_vars=['match', 'crossed', 'b_cost', 'v_cost'], var_name='set', value_name='rank')
     df.set = df.set.str.replace('b_rank', 'baseline')
     df.set = df.set.str.replace('v_rank', 'verde')
-    match_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_compare_match.csv')
+    match_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare_match.csv')
     logging.info(f'writing comparison matches to {match_csv_file}')
     df.to_csv(match_csv_file, index=False)
 
-    # simplify and union the visualisation model data
+    # simplify and union the visualisation model (instance) data
     df_baseline = pd.DataFrame(baseline_results)
     df_baseline['set'] = 'baseline'
     df_baseline['rank'] = df_baseline.index
@@ -82,10 +83,38 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
     df_verde['rank'] = df_verde.index
     df = pd.concat([df_baseline, df_verde])
     df.vl_spec_file = df.vl_spec_file.apply(lambda x: os.path.basename(x))
-    vis_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_compare_vis.csv')
-    logging.info(f'writing comparison nodes to {vis_csv_file}')
+    vis_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare_model.csv')
+    logging.info(f'writing comparison models to {vis_csv_file}')
     df.to_csv(vis_csv_file, index=False)
 
+    # create violation data for the exploratory vis
+    violation_records = []
+    for _, row in df.iterrows():
+        violations = dict(row.violations)
+        for violation in violations.keys():
+            record = violations[violation]
+            record['violation'] = violation
+            record['set'] = row['set']
+            record['rank'] = row['rank']
+            violation_records.append(record)
+    df_violations = pd.DataFrame(violation_records)
+    df_violations = df_violations[['set', 'rank', 'violation', 'num', 'weight', 'cost_contrib']]
+    violations_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare_violations.csv')
+    logging.info(f'writing comparison violations to {violations_csv_file}')
+    df_violations.to_csv(violations_csv_file, index=False)
+
+    # create prop data for the exploratory vis
+    prop_records = []
+    for _, row in df.iterrows():
+        for prop in row.props:
+            record = {'set': row['set'], 'rank': row['rank'], 'prop': prop}
+            prop_records.append(record)
+    df_props = pd.DataFrame(prop_records)
+    props_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare_props.csv')
+    logging.info(f'writing comparison props to {props_csv_file}')
+    df_props.to_csv(props_csv_file, index=False)
+
+    # produce the exploratory vis and a viewer to support hyperlink click through
     create_exploratory_visualisation(trial_id, directory, vis_csv_file, match_csv_file)
     write_single_vis_viewer(trial_id, directory)
 
@@ -148,47 +177,73 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
 
     vl_viewer = f'{trial_id}_view_one_vl.html?vl_json='
 
-    # first layer is just two columns of square marks
-
-    select_multi = alt.selection_multi()
-
-    chart = alt.Chart(os.path.basename(vis_data_file)).mark_square(
-        size=150
-    ).transform_calculate(
+    # common data and transforms for first layer with marks for each vis model
+    base = alt.Chart(os.path.basename(vis_data_file)).transform_calculate(
         rank="format(datum.rank,'03')",
         has_match="toBoolean(datum.matches)",
         link=f"'{vl_viewer}' + datum.vl_spec_file"
-    ).encode(
-        alt.X('set:O', axis=alt.Axis(labelAngle=0)
-        ),
-        alt.Y('rank:O'),
-        tooltip=['rank:N', 'cost:Q', 'props:N', 'violations:N', 'vl:N'],
-        opacity=alt.Opacity('has_match:O', legend=None),
-        color=alt.condition(select_multi, alt.value('steelblue'), alt.value('lightgray'))
-    ).add_selection(
-        select_multi
     ).properties(
         width=250
     )
 
-    # second layer is match lines
+    # add a selectable square for each vis model
+    select_multi = alt.selection_multi()
+    squares = base.mark_square(
+        size=150
+    ).encode(
+        alt.X('set:O', axis=alt.Axis(labelAngle=0)),
+        alt.Y('rank:O'),
+        tooltip=['rank:N', 'cost:Q', 'props:N', 'violations:N', 'vl:N', 'xoffset:Q'],
+        opacity=alt.Opacity('has_match:O', legend=None),
+        color=alt.condition(select_multi, alt.value('steelblue'), alt.value('lightgray')),
+    ).add_selection(
+        select_multi
+    ).interactive()
 
-    col_domain = ['not', 'with_equal_cost', 'with_diff_cost']
+    # add a small circle with the hyperlink to the actual vis.
+    # Shame that xoffset is not an encoding channel, so we have to do this twice...
+    baseline_circles = base.transform_filter(
+        datum.set == 'baseline'
+    ).mark_circle(
+        size=25,
+        xOffset=-15,
+    ).encode(
+        alt.X('set:O', axis=alt.Axis(labelAngle=0)),
+        alt.Y('rank:O'),
+        tooltip=['link:N'],
+        href='link:N'
+    ).interactive()
+
+    verde_circles = base.transform_filter(
+        datum.set == 'verde'
+    ).mark_circle(
+        size=25,
+        xOffset=15,
+    ).encode(
+        alt.X('set:O', axis=alt.Axis(labelAngle=0)),
+        alt.Y('rank:O'),
+        tooltip=['link:N'],
+        href='link:N'
+    ).interactive()
+
+    # next layer is match lines
+    col_domain = ['not', 'with_equal_cost', 'with_different_cost']
     col_range_ = ['steelblue', 'green', 'red']
-
-    chart += alt.Chart(os.path.basename(match_data_file)).mark_line().transform_calculate(
+    match_lines = alt.Chart(os.path.basename(match_data_file)).mark_line().transform_calculate(
         rank="format(datum.rank,'03')"
     ).encode(
-        alt.X('set:O' ),
+        alt.X('set:O'),
         alt.Y('rank:O'),
         detail='match:N',
         color=alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_))
     )
 
-    chart.save(os.path.join(directory, 'vegalite', f'{trial_id}_compare.html'))
+    rank_chart = baseline_circles + verde_circles + squares + match_lines
+
+    rank_chart.save(os.path.join(directory, 'vegalite', f'{trial_id}_view_compare.html'))
 
 
 create_exploratory_visualisation('trial_01.exp_01',
                                  '../laboratory/trial_01',
-                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_compare_vis.csv',
-                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_compare_match.csv')
+                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_model.csv',
+                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_match.csv')
