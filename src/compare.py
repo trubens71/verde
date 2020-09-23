@@ -82,6 +82,7 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
     df_verde['set'] = 'verde'
     df_verde['rank'] = df_verde.index
     df = pd.concat([df_baseline, df_verde])
+    df['has_match'] = df.matches.notnull()
     df.vl_spec_file = df.vl_spec_file.apply(lambda x: os.path.basename(x))
     vis_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare_model.csv')
     logging.info(f'writing comparison models to {vis_csv_file}')
@@ -115,7 +116,9 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
     df_props.to_csv(props_csv_file, index=False)
 
     # produce the exploratory vis and a viewer to support hyperlink click through
-    create_exploratory_visualisation(trial_id, directory, vis_csv_file, match_csv_file)
+    create_exploratory_visualisation(trial_id, directory, vis_csv_file, match_csv_file,
+                                     violations_csv_file, props_csv_file)
+    # A generic html file to present a single vl spec passed as a parameter
     write_single_vis_viewer(trial_id, directory)
 
 
@@ -173,35 +176,36 @@ def write_single_vis_viewer(trial_id, directory):
         f.write(html)
 
 
-def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_data_file):
+def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_data_file,
+                                     violations_data_file, props_data_file):
 
     vl_viewer = f'{trial_id}_view_one_vl.html?vl_json='
 
     # common data and transforms for first layer with marks for each vis model
     base = alt.Chart(os.path.basename(vis_data_file)).transform_calculate(
         rank="format(datum.rank,'03')",
-        has_match="toBoolean(datum.matches)",
         link=f"'{vl_viewer}' + datum.vl_spec_file"
     ).properties(
-        width=250
+        width=250,
+        title='vis model ranks'
     )
 
     # add a selectable square for each vis model
-    select_multi = alt.selection_multi()
+    select_models = alt.selection_multi(fields=['set', 'rank'])
     squares = base.mark_square(
         size=150
     ).encode(
         alt.X('set:O', axis=alt.Axis(labelAngle=0)),
-        alt.Y('rank:O'),
-        tooltip=['rank:N', 'cost:Q', 'props:N', 'violations:N', 'vl:N', 'xoffset:Q'],
+        alt.Y('rank:O', axis=alt.Axis(title=None)),
+        tooltip=['rank:N', 'cost:Q', 'props:N', 'violations:N', 'vl:N'],
         opacity=alt.Opacity('has_match:O', legend=None),
-        color=alt.condition(select_multi, alt.value('steelblue'), alt.value('lightgray')),
+        color=alt.condition(select_models, alt.value('steelblue'), alt.value('lightgray'))
     ).add_selection(
-        select_multi
+        select_models
     ).interactive()
 
     # add a small circle with the hyperlink to the actual vis.
-    # Shame that xoffset is not an encoding channel, so we have to do this twice...
+    # Shame that xoffset is not an encoding channel, so we have to do in two steps...
     baseline_circles = base.transform_filter(
         datum.set == 'baseline'
     ).mark_circle(
@@ -235,15 +239,54 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
         alt.X('set:O'),
         alt.Y('rank:O'),
         detail='match:N',
-        color=alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_))
+        color=alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_), legend=None)
     )
 
-    rank_chart = baseline_circles + verde_circles + squares + match_lines
+    rank_chart = baseline_circles + verde_circles + match_lines + squares
 
-    rank_chart.save(os.path.join(directory, 'vegalite', f'{trial_id}_view_compare.html'))
+    # chart to show violation occurrences and weights for selected vis models.
+    violation_chart = alt.Chart(os.path.basename(violations_data_file)).mark_circle(
+        stroke='lightgrey',
+        strokeWidth=1,
+    ).transform_calculate(
+        rank="format(datum.rank,'03')",
+    ).transform_filter(
+        select_models
+    ).encode(
+        x=alt.X('set:N', axis=alt.Axis(labelAngle=0)),
+        y=alt.Y('violation:N', axis=alt.Axis(title=None)),
+        size=alt.Size('num:Q', legend=None),
+        color=alt.Color('cost_contrib:Q', legend=None, scale=alt.Scale(scheme='lightorange')),
+        tooltip=['set:N', 'rank:Q', 'violation:N', 'num:Q', 'weight:Q', 'cost_contrib:Q']
+    ).properties(
+        width=250,
+        title='soft rule violations'
+    ).interactive()
+
+    # chart to show prop occurrences for selected vis models.
+    prop_chart = alt.Chart(os.path.basename(props_data_file)).mark_circle(
+        size=50,
+        color='green'
+    ).transform_calculate(
+        rank="format(datum.rank,'03')"
+    ).transform_filter(
+        select_models
+    ).encode(
+        x=alt.X('set:N', axis=alt.Axis(labelAngle=0)),
+        y=alt.Y('prop:N', axis=alt.Axis(title=None)),
+        tooltip=['prop:N']
+    ).properties(
+        width=250,
+        title='vis spec props'
+    ).interactive()
+
+    concat_chart = rank_chart | violation_chart | prop_chart
+    concat_chart.save(os.path.join(directory, 'vegalite', f'{trial_id}_view_compare.html'))
 
 
 create_exploratory_visualisation('trial_01.exp_01',
                                  '../laboratory/trial_01',
                                  '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_model.csv',
-                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_match.csv')
+                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_match.csv',
+                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_violations.csv',
+                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_props.csv')
