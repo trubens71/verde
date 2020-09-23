@@ -9,3 +9,5 @@ pyyaml~=5.3.1
 addict~=2.2.1
 dziban~=0.0.1
 shapely~=1.7.1
+altair~=4.1.0
+vega_datasets~=0.8.0

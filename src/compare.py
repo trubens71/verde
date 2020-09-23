@@ -1,5 +1,4 @@
 import logging
-import json
 from shapely.geometry import LineString
 import os
 import pandas as pd
@@ -187,7 +186,7 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
         link=f"'{vl_viewer}' + datum.vl_spec_file"
     ).properties(
         width=250,
-        title='vis model ranks'
+        title='visualisation rankings'
     )
 
     # add a selectable square for each vis model
@@ -195,7 +194,7 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
     squares = base.mark_square(
         size=150
     ).encode(
-        alt.X('set:O', axis=alt.Axis(labelAngle=0)),
+        alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
         alt.Y('rank:O', axis=alt.Axis(title=None)),
         tooltip=['rank:N', 'cost:Q', 'props:N', 'violations:N', 'vl:N'],
         opacity=alt.Opacity('has_match:O', legend=None),
@@ -212,7 +211,7 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
         size=25,
         xOffset=-15,
     ).encode(
-        alt.X('set:O', axis=alt.Axis(labelAngle=0)),
+        alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
         alt.Y('rank:O'),
         tooltip=['link:N'],
         href='link:N'
@@ -224,7 +223,7 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
         size=25,
         xOffset=15,
     ).encode(
-        alt.X('set:O', axis=alt.Axis(labelAngle=0)),
+        alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
         alt.Y('rank:O'),
         tooltip=['link:N'],
         href='link:N'
@@ -236,30 +235,31 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
     match_lines = alt.Chart(os.path.basename(match_data_file)).mark_line().transform_calculate(
         rank="format(datum.rank,'03')"
     ).encode(
-        alt.X('set:O'),
+        alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
         alt.Y('rank:O'),
         detail='match:N',
-        color=alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_), legend=None)
+        color=alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_),
+                        legend=alt.Legend(orient='bottom'))
     )
 
     rank_chart = baseline_circles + verde_circles + match_lines + squares
 
     # chart to show violation occurrences and weights for selected vis models.
     violation_chart = alt.Chart(os.path.basename(violations_data_file)).mark_circle(
-        stroke='lightgrey',
-        strokeWidth=1,
+        color='red',
     ).transform_calculate(
         rank="format(datum.rank,'03')",
     ).transform_filter(
         select_models
     ).encode(
-        x=alt.X('set:N', axis=alt.Axis(labelAngle=0)),
+        x=alt.X('set:N', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
         y=alt.Y('violation:N', axis=alt.Axis(title=None)),
         size=alt.Size('num:Q', legend=None),
-        color=alt.Color('cost_contrib:Q', legend=None, scale=alt.Scale(scheme='lightorange')),
+        opacity=alt.Opacity('cost_contrib:Q', scale=alt.Scale(range=[0, 1]), legend=None),
+        #color=alt.Color('cost_contrib:Q', legend=None, scale=alt.Scale(scheme='lightorange')),
         tooltip=['set:N', 'rank:Q', 'violation:N', 'num:Q', 'weight:Q', 'cost_contrib:Q']
     ).properties(
-        width=250,
+        width=150,
         title='soft rule violations'
     ).interactive()
 
@@ -272,12 +272,12 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
     ).transform_filter(
         select_models
     ).encode(
-        x=alt.X('set:N', axis=alt.Axis(labelAngle=0)),
+        x=alt.X('set:N', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
         y=alt.Y('prop:N', axis=alt.Axis(title=None)),
         tooltip=['prop:N']
     ).properties(
-        width=250,
-        title='vis spec props'
+        width=150,
+        title='specification terms'
     ).interactive()
 
     concat_chart = rank_chart | violation_chart | prop_chart
