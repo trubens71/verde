@@ -186,48 +186,43 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
         link=f"'{vl_viewer}' + datum.vl_spec_file"
     ).properties(
         width=250,
+        height=alt.Step(30),
         title='visualisation rankings'
     )
 
     # add a selectable square for each vis model
     select_models = alt.selection_multi(fields=['set', 'rank'])
+    select_brush = alt.selection_interval()
     squares = base.mark_square(
         size=150
     ).encode(
         alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
         alt.Y('rank:O', axis=alt.Axis(title=None)),
-        tooltip=['rank:N', 'cost:Q', 'props:N', 'violations:N', 'vl:N'],
+        tooltip=['set:N', 'rank:N', 'cost:Q'],
         opacity=alt.Opacity('has_match:O', legend=None),
-        color=alt.condition(select_models, alt.value('steelblue'), alt.value('lightgray'))
+        color=alt.condition(select_models | select_brush, alt.value('steelblue'), alt.value('lightgray'))
     ).add_selection(
-        select_models
+        select_models, select_brush
     ).interactive()
 
     # add a small circle with the hyperlink to the actual vis.
     # Shame that xoffset is not an encoding channel, so we have to do in two steps...
-    baseline_circles = base.transform_filter(
-        datum.set == 'baseline'
-    ).mark_circle(
-        size=25,
-        xOffset=-15,
-    ).encode(
-        alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
-        alt.Y('rank:O'),
-        tooltip=['link:N'],
-        href='link:N'
-    ).interactive()
+    def make_circles(vis_set, offset):
+        return base.transform_filter(
+            datum.set == vis_set
+        ).mark_circle(
+            size=25,
+            xOffset=offset,
+        ).encode(
+            alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
+            alt.Y('rank:O'),
+            tooltip=['link:N'],
+            href='link:N',
+            color=alt.condition(select_models | select_brush, alt.value('steelblue'), alt.value('lightgray'))
+        ).interactive()
 
-    verde_circles = base.transform_filter(
-        datum.set == 'verde'
-    ).mark_circle(
-        size=25,
-        xOffset=15,
-    ).encode(
-        alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
-        alt.Y('rank:O'),
-        tooltip=['link:N'],
-        href='link:N'
-    ).interactive()
+    baseline_circles = make_circles('baseline', -15)
+    verde_circles = make_circles('verde', 15)
 
     # next layer is match lines
     col_domain = ['not', 'with_equal_cost', 'with_different_cost']
@@ -238,50 +233,81 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
         alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
         alt.Y('rank:O'),
         detail='match:N',
-        color=alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_),
-                        legend=alt.Legend(orient='bottom'))
+        color=alt.condition(select_models | select_brush,
+                            alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_),
+                                      legend=alt.Legend(orient='bottom')),
+                            alt.value('lightgray'))
     )
 
-    rank_chart = baseline_circles + verde_circles + match_lines + squares
-
-    # chart to show violation occurrences and weights for selected vis models.
-    violation_chart = alt.Chart(os.path.basename(violations_data_file)).mark_circle(
-        color='red',
-    ).transform_calculate(
-        rank="format(datum.rank,'03')",
-    ).transform_filter(
-        select_models
+    # rules to connect models with the same cost
+    cost_rules = base.mark_rule(
+        strokeWidth=2
+    ).transform_aggregate(
+        min_rank='min(rank)',
+        max_rank='max(rank)',
+        groupby=['set', 'cost']
     ).encode(
-        x=alt.X('set:N', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
-        y=alt.Y('violation:N', axis=alt.Axis(title=None)),
-        size=alt.Size('num:Q', legend=None),
-        opacity=alt.Opacity('cost_contrib:Q', scale=alt.Scale(range=[0, 1]), legend=None),
-        #color=alt.Color('cost_contrib:Q', legend=None, scale=alt.Scale(scheme='lightorange')),
-        tooltip=['set:N', 'rank:Q', 'violation:N', 'num:Q', 'weight:Q', 'cost_contrib:Q']
-    ).properties(
-        width=150,
-        title='soft rule violations'
+        alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
+        alt.Y('min_rank:O'),
+        alt.Y2('max_rank:O'),
+        color=alt.condition(select_models | select_brush, alt.value('steelblue'), alt.value('lightgray')),
+        tooltip=['cost:Q', 'min_rank:O', 'max_rank:O']
     ).interactive()
 
-    # chart to show prop occurrences for selected vis models.
-    prop_chart = alt.Chart(os.path.basename(props_data_file)).mark_circle(
-        size=50,
-        color='green'
-    ).transform_calculate(
-        rank="format(datum.rank,'03')"
-    ).transform_filter(
-        select_models
-    ).encode(
-        x=alt.X('set:N', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
-        y=alt.Y('prop:N', axis=alt.Axis(title=None)),
-        tooltip=['prop:N']
-    ).properties(
-        width=150,
-        title='specification terms'
-    ).interactive()
+    rank_chart = baseline_circles + verde_circles + match_lines + cost_rules + squares
 
-    concat_chart = rank_chart | violation_chart | prop_chart
-    concat_chart.save(os.path.join(directory, 'vegalite', f'{trial_id}_view_compare.html'))
+    # chart to show violation occurrences and weights for selected vis models across sets
+    def make_violation_chart(dimension, width_step):
+        return alt.Chart(os.path.basename(violations_data_file)).mark_circle(
+            color='red',
+        ).transform_calculate(
+            rank="format(datum.rank,'03')",
+        ).transform_filter(
+            select_models
+        ).transform_filter(
+            select_brush
+        ).encode(
+            x=alt.X(f'{dimension}:N', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
+            y=alt.Y('violation:N', axis=alt.Axis(title=None)),
+            size=alt.Size('num:Q', legend=None),
+            opacity=alt.Opacity('weight:Q', scale=alt.Scale(range=[0, 1]), legend=None),
+            tooltip=['set:N', 'rank:Q', 'violation:N', 'num:Q', 'weight:Q', 'cost_contrib:Q']
+        ).properties(
+            width=alt.Step(width_step),
+            title=f'soft rule violations (x-{dimension})'
+        ).interactive()
+
+    violation_set_chart = make_violation_chart('set', 40)
+    violation_rank_chart = make_violation_chart('rank', 30)
+
+    # chart to show prop occurrences for selected vis models across sets
+    def make_prop_chart(dimension, width_step):
+        return alt.Chart(os.path.basename(props_data_file)).mark_circle(
+            size=50,
+            color='green'
+        ).transform_calculate(
+            rank="format(datum.rank,'03')"
+        ).transform_filter(
+            select_models
+        ).transform_filter(
+            select_brush
+        ).encode(
+            x=alt.X(f'{dimension}:N', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
+            y=alt.Y('prop:N', axis=alt.Axis(title=None)),
+            tooltip=['prop:N']
+        ).properties(
+            width=alt.Step(width_step),
+            title=f'specification terms (x-{dimension})'
+        ).interactive()
+
+    prop_set_chart = make_prop_chart('set', 40)
+    prop_rank_chart = make_prop_chart('rank', 30)
+
+    # glue them all together
+    top_chart = rank_chart | violation_set_chart | prop_set_chart
+    bottom_chart = violation_rank_chart | prop_rank_chart
+    chart = top_chart & bottom_chart
+    chart.save(os.path.join(directory, 'vegalite', f'{trial_id}_view_compare.html'))
 
 
 create_exploratory_visualisation('trial_01.exp_01',
