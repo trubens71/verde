@@ -7,7 +7,7 @@
     domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json
     draco_base_lp_dir: ../asp/draco_base
     verde_base_lp_override_dir: ../asp/verde_override  # must contain same file names as draco base in order to override
-    num_models: 15  # how many ranked visualisation models to solve for (topk in Draco)
+    num_models: 20  # how many ranked visualisation models to solve for (topk in Draco)
     execute:
       validate_domain_schema:
         do: true
@@ -21,12 +21,11 @@
       create_verde_rules_lp:
         do: true  # overall switch, followed by rule-specific switches
         write_lp: true
-        rule_01_causal_relationships:
+        rule_01v01_causal_relationships:
+          do: false
+          export_graphml: true
+        rule_01v02_causal_relationships:
           do: true
-          property_edge_weight: 1.0
-          compose_edge_weight:  0.5
-          explain_edge_weight:  0.1
-          draco_soft_weight: 100
           export_graphml: true
         rule_02_ordinal_sort:
           do: false
@@ -50,9 +49,19 @@
         do: true
   experiments:
     - experiment_id: exp_01
+      do: false
       experiment_desc: basic test of quality of life versus expenditure
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
       query:  # in dziban python query format, supports unfixed input file column names.
         - field('Social care-related quality of life score (All)')
         - field('Gross Total Expenditure (x1000)')
+    - experiment_id: exp_02
+      do: true
+      experiment_desc: four field test to help develop multi-field rule 01
+      input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
+      input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
+      query:  # in dziban python query format, supports unfixed input file column names.
+        - field('Social care-related quality of life score (All)', scale='zero')
+        - field('Gross Total Expenditure (x1000)', scale='log')
+        - field('Support provided to carers during the year', scale='zero')

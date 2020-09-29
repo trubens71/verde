@@ -4,14 +4,20 @@ import os
 import pandas as pd
 import altair as alt
 from altair import datum
+import datetime
+import json
+import src.utils as vutils
 
 
-def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_results):
+def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_results,
+                              baseline_label='baseline', verde_label='verde'):
     """
     Identify the differences between the baseline vis set and the verde vis set:
     - Vis specs present in one set but not the other
     - Identical Vis specs but with different rankings or different costs
     Go on to produce an exploratory visualisation to present the comparison.
+    :param verde_label:
+    :param baseline_label:
     :param trial_id:
     :param directory:
     :param baseline_results:
@@ -50,6 +56,10 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
     logging.info(f'{b_not_in_v} baseline visualisations not in verde')
     logging.info(f'{v_not_in_b} verde visualisations not in verde')
 
+    if len(matches) == 0:
+        logging.fatal('cannot yet handle case of zero matches')
+        exit(1)
+
     # identify crossed edges which signifies a different ranking between baseline and verde
     # inspect the matches pairwise and tag them if they intersect.
     match_idx_pairs = [(m, n) for m, _ in enumerate(matches) for n, _ in enumerate(matches) if m < n]
@@ -67,18 +77,18 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
     df = pd.DataFrame(matches)
     df['match'] = df.index
     df = df.melt(id_vars=['match', 'crossed', 'b_cost', 'v_cost'], var_name='set', value_name='rank')
-    df.set = df.set.str.replace('b_rank', 'baseline')
-    df.set = df.set.str.replace('v_rank', 'verde')
+    df.set = df.set.str.replace('b_rank', baseline_label)
+    df.set = df.set.str.replace('v_rank', verde_label)
     match_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare_match.csv')
     logging.info(f'writing comparison matches to {match_csv_file}')
     df.to_csv(match_csv_file, index=False)
 
     # simplify and union the visualisation model (instance) data
     df_baseline = pd.DataFrame(baseline_results)
-    df_baseline['set'] = 'baseline'
+    df_baseline['set'] = baseline_label
     df_baseline['rank'] = df_baseline.index
     df_verde = pd.DataFrame(verde_results)
-    df_verde['set'] = 'verde'
+    df_verde['set'] = verde_label
     df_verde['rank'] = df_verde.index
     df = pd.concat([df_baseline, df_verde])
     df['has_match'] = df.matches.notnull()
@@ -116,8 +126,9 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
 
     # produce the exploratory vis and a viewer to support hyperlink click through
     create_exploratory_visualisation(trial_id, directory, vis_csv_file, match_csv_file,
-                                     violations_csv_file, props_csv_file)
-    # A generic html file to present a single vl spec passed as a parameter
+                                     violations_csv_file, props_csv_file,
+                                     baseline_label, verde_label)
+    # A generic html file to present a single vl spec passed as a parameter from the exploratory vis by href
     write_single_vis_viewer(trial_id, directory)
 
 
@@ -176,7 +187,8 @@ def write_single_vis_viewer(trial_id, directory):
 
 
 def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_data_file,
-                                     violations_data_file, props_data_file):
+                                     violations_data_file, props_data_file,
+                                     baseline_label='baseline', verde_label='verde'):
 
     vl_viewer = f'{trial_id}_view_one_vl.html?vl_json='
 
@@ -221,8 +233,8 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
             color=alt.condition(select_models | select_brush, alt.value('steelblue'), alt.value('lightgray'))
         ).interactive()
 
-    baseline_circles = make_circles('baseline', -15)
-    verde_circles = make_circles('verde', 15)
+    baseline_circles = make_circles(baseline_label, -15)
+    verde_circles = make_circles(verde_label, 15)
 
     # next layer is match lines
     col_domain = ['not', 'with_equal_cost', 'with_different_cost']
@@ -307,12 +319,34 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
     top_chart = rank_chart | violation_set_chart | prop_set_chart
     bottom_chart = violation_rank_chart | prop_rank_chart
     chart = top_chart & bottom_chart
+    # put a timestamp
+    ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    chart = chart.properties(
+        title=f'{trial_id} {ts}'
+    )
     chart.save(os.path.join(directory, 'vegalite', f'{trial_id}_view_compare.html'))
 
 
-create_exploratory_visualisation('trial_01.exp_01',
-                                 '../laboratory/trial_01',
-                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_model.csv',
-                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_match.csv',
-                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_violations.csv',
-                                 '../laboratory/trial_01/vegalite/trial_01.exp_01_view_compare_props.csv')
+if __name__ == "__main__":
+    # an entry point to let us compare across two experiments, particularly two verde sets
+    # Note that the vis will still refer to baseline and verde.
+    logging = vutils.configure_logger('compare.log', logging.DEBUG)
+    _trial_id = 'trial_01.verde_verde_exp_01_02'
+    _directory = '../laboratory/trial_01'
+
+    with open(f'{_directory}/trial_01.exp_01_verde_results.json') as f:
+        _baseline_results = json.load(f)
+
+    with open(f'{_directory}/trial_01.exp_02_verde_results.json') as f:
+        _verde_results = json.load(f)
+
+    # but in this case the match won't work because the data url will be different,
+    # so we trust you know what you are doing and we will copy across the data url from
+    # one set to the other.
+
+    data_url = _baseline_results[0]['vl']['data']['url']
+    for result in _verde_results:
+        result['vl']['data']['url'] = data_url
+
+    compare_baseline_to_verde(_trial_id, _directory, _baseline_results, _verde_results,
+                              baseline_label='v_t1_e1', verde_label='v_t1_e2')

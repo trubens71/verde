@@ -10,7 +10,10 @@ TRIAL_YAML = 'trial.yaml'
 def run_trial(directory):
     trial = Trial(directory, TRIAL_YAML)
     for exp in trial.experiments:
-        exp.run()
+        if exp.do:
+            exp.run()
+        else:
+            logging.warning(f'{exp.experiment_id} is disabled in config')
     pass
 
 
