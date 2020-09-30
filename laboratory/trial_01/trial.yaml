@@ -25,11 +25,11 @@
           do: false
           export_graphml: true
         rule_01v02_causal_relationships:
-          do: true
-          export_graphml: true
-        rule_02_ordinal_sort:
           do: false
-        rule_03_data_precision:
+          export_graphml: true
+        rule_02_data_precision:
+          do: true
+        rule_03_ordinal_sort:
           do: false
         rule_04_eliminate_codes:
           do: false
@@ -57,8 +57,17 @@
         - field('Social care-related quality of life score (All)')
         - field('Gross Total Expenditure (x1000)')
     - experiment_id: exp_02
+      do: false
+      experiment_desc: three field test to help develop multi-field rule 01v02
+      input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
+      input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
+      query:  # in dziban python query format, supports unfixed input file column names.
+        - field('Social care-related quality of life score (All)', scale='zero')
+        - field('Gross Total Expenditure (x1000)', scale='log')
+        - field('Support provided to carers during the year', scale='zero')
+    - experiment_id: exp_03
       do: true
-      experiment_desc: four field test to help develop multi-field rule 01
+      experiment_desc: for development of rule02 (precision)
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
       query:  # in dziban python query format, supports unfixed input file column names.

@@ -8,6 +8,12 @@ import itertools
 
 CONTEXT = Dict()
 
+# TODO per github issue #7, consider whether we should write rules for all fields, not just the query fields.
+#      Will be slower but might be important if we can get draco to start introducing further fields
+
+# TODO should we change rule format to allow the fields to float across the encoding channels? See how we get on
+#      with rule 2.
+
 
 def get_schema_nodes_and_edges(domain_schema_file_path):
     """
@@ -367,7 +373,7 @@ def rule_01v02_causal_relationships(context, schema_file, mapping_json, query_en
 
     global CONTEXT
     CONTEXT = context
-    logging.info('applying verde rule 01v02 causal relationships')
+    logging.info('applying verde rule 01v02 (causal relationships)')
 
     # Walk the domain schema to get nodes and edges
     dom_schema_nodes_edges = get_schema_nodes_and_edges(schema_file)
@@ -393,7 +399,7 @@ def rule_01v02_causal_relationships(context, schema_file, mapping_json, query_en
 
     # Because we may have more than two fields in the query we need to consider all pairings that might get encoded
     # to the channels, then get our preferences for each pair as we write the lp
-    lp = ['\n% verde rule 01v02: x/y/size/colour encoding preferences']
+    lp = ['\n% verde rule 01v02: x/y/size/colour encoding preferences based on possible causal relationships']
     enc_pairs = list(itertools.combinations(enc_field_nodes.keys(), 2))
     channels = ['x', 'y', 'size', 'color']  # order of this list is important
     # itertools.combinations is deterministic according to docs, so pairs will be ordered as they appear in the list
@@ -416,7 +422,7 @@ def rule_01v02_causal_relationships(context, schema_file, mapping_json, query_en
             rule = f'rule01v02_{i:02}_{j:02}'
 
             # create a soft rule which assigns a cost to not observing our preference for encoding/channel mappings
-            lp.append(f'% for encoding pair / channel pair {i} we prefer '
+            lp.append(f'% for encoding pair {i} / channel pair {j} we prefer '
                       f'{expl_channel}={expl_var} {resp_channel}={resp_var}')
 
             lp.append(f'soft({rule},V) :- channel(V,{resp_enc},{expl_channel}), '

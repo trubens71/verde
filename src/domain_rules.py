@@ -1,6 +1,7 @@
 import src.utils as vutils
 import src.draco_proxy as vdraco
 import src.domain_rule_01_causal as vrule01
+import src.domain_rule_02_precision as vrule02
 import logging
 import json
 import os
@@ -26,10 +27,20 @@ def create_verde_rules_lp(schema_file, mapping_file, query_enc_fields, trial_id,
     # Apply each verde rule to extend the lp
     if rule_config.rule_01v01_causal_relationships.do:
         lp = lp + vrule01.rule_01v01_causal_relationships(context, schema_file, mapping_json, query_enc_fields)
-    # Apply each verde rule to extend the lp
+    else:
+        logging.warning('verde rule_01v01_causal_relationships is disabled in config')
+
     if rule_config.rule_01v02_causal_relationships.do:
         lp = lp + vrule01.rule_01v02_causal_relationships(context, schema_file, mapping_json, query_enc_fields)
+    else:
+        logging.warning('verde rule_01v02_causal_relationships is disabled in config')
 
+    if rule_config.rule_02_data_precision.do:
+        lp = lp + vrule02.rule_02_data_precision(context, mapping_json, query_enc_fields)
+    else:
+        logging.warning('verde rule_02_data_precision is disabled in config')
+
+    # Write out the partial lp containing the data schema and our verde soft rules
     if rule_config.write_lp:
         lp_file = os.path.join(directory, f'{context.id}_verde_schema_query.lp')
         vutils.write_list_to_file(baseline_lp + lp, lp_file, 'verde full schema and query lp')
