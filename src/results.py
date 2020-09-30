@@ -33,6 +33,7 @@ def get_vis_results(trial_id, directory, input_data_file, query,
     if write_lp:
         write_full_lp(trial_id, directory, label, lp_files, query)
 
+    logging.info(f'running draco for {label}')
     draco_results = vdraco.run_draco(query, lp_files, num_models)
     if not draco_results:
         logging.fatal(f'no {label} results returned by draco')

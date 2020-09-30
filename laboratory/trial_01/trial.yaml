@@ -54,7 +54,7 @@
         - field('Social care-related quality of life score (All)')
         - field('Gross Total Expenditure (x1000)')
     - experiment_id: exp_02_r01
-      do: true
+      do: false
       experiment_desc: three field test of rule01v03, with floating field/encodings
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
