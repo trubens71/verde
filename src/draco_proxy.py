@@ -15,13 +15,14 @@ def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
     # use dziban to construct the schema logic program
     df = pd.read_csv(input_file)
     chart = Chart(df)
-    enc_field = defaultdict(dict)
 
-    for encoding_id, query_field in enumerate(query):
-        chart = eval(f'chart.{query_field}')
+    # repeatedly add the fields to the dziban Chart object
+    query_fields = []
+    for query_line in query:
+        chart = eval(f'chart.{query_line}')
         # get the field names as well
-        field_name = re.match(r'field\(.*?\'(.*?)\'', query_field)[1]
-        enc_field[f'e{encoding_id}']['source_field'] = field_name
+        field_name = re.match(r'field\(.*?\'(.*?)\'', query_line)[1]
+        query_fields.append(field_name)
 
     lp = chart._get_full_query()
 
@@ -29,7 +30,7 @@ def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
         lp_file = os.path.join(directory, f'{id}_baseline_schema_query.lp')
         vutils.write_list_to_file(lp, lp_file, 'baseline schema and query lp')
 
-    return lp, enc_field
+    return lp, query_fields
 
 
 def run_draco(query, lp_files, num_models):

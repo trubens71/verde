@@ -8,7 +8,7 @@ import os
 from addict import Dict
 
 
-def create_verde_rules_lp(schema_file, mapping_file, query_enc_fields, trial_id, directory, rule_config, baseline_lp):
+def create_verde_rules_lp(schema_file, mapping_file, query_fields, trial_id, directory, rule_config, baseline_lp):
 
     logging.info(f'creating verde rules lp based on {schema_file} and {mapping_file}')
 
@@ -17,26 +17,20 @@ def create_verde_rules_lp(schema_file, mapping_file, query_enc_fields, trial_id,
     context.directory = directory
     context.rule_config = rule_config
 
-    # Fix the fields to the encodings so we can express rules in terms of encodings
-    lp = bind_fields_to_encodings(query_enc_fields)
-
     # Load the input mapping json
     with open(mapping_file) as f:
         mapping_json = json.load(f)
 
+    lp = []
     # Apply each verde rule to extend the lp
-    if rule_config.rule_01v01_causal_relationships.do:
-        lp = lp + vrule01.rule_01v01_causal_relationships(context, schema_file, mapping_json, query_enc_fields)
+    if rule_config.rule_01_causal_relationships.do:
+        # ignore previous lp as we are floating fields across encodings
+        lp = vrule01.rule_01_causal_relationships(context, schema_file, mapping_json, query_fields)
     else:
-        logging.warning('verde rule_01v01_causal_relationships is disabled in config')
-
-    if rule_config.rule_01v02_causal_relationships.do:
-        lp = lp + vrule01.rule_01v02_causal_relationships(context, schema_file, mapping_json, query_enc_fields)
-    else:
-        logging.warning('verde rule_01v02_causal_relationships is disabled in config')
+        logging.warning('verde rule_01v03_causal_relationships is disabled in config')
 
     if rule_config.rule_02_data_precision.do:
-        lp = lp + vrule02.rule_02_data_precision(context, mapping_json, query_enc_fields)
+        lp = lp + vrule02.rule_02_data_precision(context, mapping_json, query_fields)
     else:
         logging.warning('verde rule_02_data_precision is disabled in config')
 

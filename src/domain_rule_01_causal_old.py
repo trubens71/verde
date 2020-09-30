@@ -11,6 +11,9 @@ CONTEXT = Dict()
 # TODO per github issue #7, consider whether we should write rules for all fields, not just the query fields.
 #      Will be slower but might be important if we can get draco to start introducing further fields
 
+# TODO should we change rule format to allow the fields to float across the encoding channels? See how we get on
+#      with rule 2.
+
 
 def get_schema_nodes_and_edges(domain_schema_file_path):
     """
@@ -232,9 +235,6 @@ def determine_explanatory_response_preference(g, nodes):
     :param nodes:
     :return:
     """
-    prefix = 'field.'  # we use this in the graph to avoid confusion with domain model nodes
-    nodes = (f'{prefix}{nodes[0]}', f'{prefix}{nodes[1]}')
-
     node_pairs = [nodes, (nodes[1], nodes[0])]
     path_length = {}
 
@@ -265,20 +265,21 @@ def determine_explanatory_response_preference(g, nodes):
     else:
         logging.info(f'preference is explanatory={expl_var}, response={resp_var} with path length {min_len}')
 
-    # take off the prefix
-    expl_var = expl_var[len(prefix):] if expl_var.startswith(prefix) else expl_var
-    resp_var = resp_var[len(prefix):] if resp_var.startswith(prefix) else resp_var
+    if '.' in expl_var:
+        expl_enc = expl_var.split('.')[1]
+    else:
+        expl_enc = None
 
-    return expl_var, resp_var
+    if '.' in resp_var:
+        resp_enc = resp_var.split('.')[1]
+    else:
+        resp_enc = None
+
+    return expl_var, resp_var, expl_enc, resp_enc
 
 
-def get_schema_nodes_for_source_fields(query_fields, mapping_json):
-    """
-    For a list of fields (from the query) determine the mapped schema nodes
-    :param query_fields:
-    :param mapping_json:
-    :return:
-    """
+def get_schema_nodes_for_source_fields(encoding, mapping_json):
+
     def dotify_keys(d):
         # turn { "funder": { "expenditure": true } } into 'funder.expenditure'
         for k, v in d.items():
@@ -290,33 +291,28 @@ def get_schema_nodes_for_source_fields(query_fields, mapping_json):
             else:
                 return k
 
-    field_nodes = Dict()
-
-    for field in query_fields:
-        field_nodes[field]['schema_nodes'] = []
+    for enc in encoding.keys():
+        encoding[enc]['schema_nodes'] = []
         for column in mapping_json:
-            if column['column_name'] == field:
+            if column['column_name'] == encoding[enc]['source_field']:
                 for mapping in column['domain_map']:
-                    field_nodes[field]['schema_nodes'].append(dotify_keys(mapping))
-        logging.info(f"{field} is mapped to {field_nodes[field]['schema_nodes']}")
+                    encoding[enc]['schema_nodes'].append(dotify_keys(mapping))
+        logging.info(f"({enc},{encoding[enc]['source_field']}) is mapped to {encoding[enc]['schema_nodes']}")
 
-    return field_nodes
+    return encoding
 
 
-def get_field_nodes_and_edges_to_schema(field_nodes):
-    """
-     enc is a dictionary of fields with lists of schema_nodes.
-    Create edges between each field and its mapped schema nodes.
-    :param field_nodes:
-    :return:
-    """
+def get_encoding_fields_to_schema_edges(encodings):
+    # enc is a dictionary of encodings containing lists of schema_nodes.
+    # Create edges between each encoding field and its mapped schema node.
 
     nodes = []
     all_edges = []
 
-    for field in field_nodes.keys():
-        schema_nodes = field_nodes[field]['schema_nodes']
-        field_node = f'field.{field}'  # a bit verbose but should avoid conflict with schema node names
+    for enc in encodings.keys():
+        field = encodings[enc]['source_field']
+        schema_nodes = encodings[enc]['schema_nodes']
+        field_node = 'field.' + enc + '.' + field  # a bit verbose but should avoid conflict with schema node names
         nodes.append((field_node, {'short': field_node}))
         edges = list(zip([field_node]*len(schema_nodes), schema_nodes))
         logging.debug(f'Adding field nodes to graph with edges {edges}')
@@ -325,23 +321,68 @@ def get_field_nodes_and_edges_to_schema(field_nodes):
     return nodes, all_edges
 
 
-def rule_01_causal_relationships(context, schema_file, mapping_json, query_fields):
-
-    # sort this out higher up, later!
-    # query_fields = [query_enc_fields[enc]['source_field'] for enc in query_enc_fields.keys()]
-
+def rule_01v01_causal_relationships(context, schema_file, mapping_json, query_enc_fields):
+    # //TODO deprecated, remove when rule_01v02_causal_relationships is proven
     global CONTEXT
     CONTEXT = context
-    logging.info('applying verde rule 01v03 (causal relationships)')
+    logging.info('applying verde rule 01v01 causal relationships')
 
     # Walk the domain schema to get nodes and edges
     dom_schema_nodes_edges = get_schema_nodes_and_edges(schema_file)
 
     # Each field from our input data may have one or more mappings into the schema
-    field_to_nodes = get_schema_nodes_for_source_fields(query_fields, mapping_json)
+    enc_field_nodes = get_schema_nodes_for_source_fields(query_enc_fields, mapping_json)
     # This is a bit of a trick, but let the Dijkstra shortest_path algorithm take
     # care of the one-to-many field-to-node situation. i.e. get the shortest path from all entry points to the graph.
-    field_nodes, field_schema_edges = get_field_nodes_and_edges_to_schema(field_to_nodes)
+    field_nodes, field_schema_edges = get_encoding_fields_to_schema_edges(enc_field_nodes)
+    # Build the graph
+
+    property_edge_weight = CONTEXT.rule_config.rule_01_causal_relationships.property_edge_weight \
+        if CONTEXT.rule_config.rule_01_causal_relationships.property_edge_weight else 1.0
+    compose_edge_weight = CONTEXT.rule_config.rule_01_causal_relationships.compose_edge_weight \
+        if CONTEXT.rule_config.rule_01_causal_relationships.compose_edge_weight else 0.5
+    explain_edge_weight = CONTEXT.rule_config.rule_01_causal_relationships.explain_edge_weight \
+        if CONTEXT.rule_config.rule_01_causal_relationships.explain_edge_weight else 0.1
+
+    dom_schema_graph = build_graph(*dom_schema_nodes_edges,
+                                   field_nodes=field_nodes,
+                                   field_edges=field_schema_edges,
+                                   property_edge_weight=property_edge_weight,
+                                   compose_edge_weight=compose_edge_weight,
+                                   explain_edge_weight=explain_edge_weight)
+
+    # Because we may have more than two fields in the query we need to consider all pairings that might get encoded
+    # to the x and y channels, then get our preferences for each pair as we write the lp
+    lp = ['\n% verde rule 1: x/y encoding preferences']
+    enc_pairs = [(a, b) for a in enc_field_nodes.keys() for b in enc_field_nodes.keys() if a < b]
+    for i, enc_pair in enumerate(enc_pairs):
+        a = 'field.' + enc_pair[0] + '.' + enc_field_nodes[enc_pair[0]]['source_field']
+        b = 'field.' + enc_pair[1] + '.' + enc_field_nodes[enc_pair[1]]['source_field']
+        pref_x_var, pref_y_var, pref_x_enc, pref_y_enc = determine_x_y_preference(dom_schema_graph, (a, b))
+        soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100
+        lp.append(f'% for encoding pair {i} prefer x={pref_x_var} y={pref_y_var}')
+        lp.append(f'soft(rule01_{pref_x_enc}_{pref_y_enc},V) :- channel(V,{pref_y_enc},x), '
+                  f'channel(V,{pref_x_enc},y), is_c_c(V).')
+        lp.append(f'#const rule01_{pref_x_enc}_{pref_y_enc}_weight = {soft_weight}.')
+        lp.append(f'soft_weight(rule01_{pref_x_enc}_{pref_y_enc},rule01_{pref_x_enc}_{pref_y_enc}_weight).')
+
+    return lp
+
+
+def rule_01v02_causal_relationships(context, schema_file, mapping_json, query_enc_fields):
+
+    global CONTEXT
+    CONTEXT = context
+    logging.info('applying verde rule 01v02 (causal relationships)')
+
+    # Walk the domain schema to get nodes and edges
+    dom_schema_nodes_edges = get_schema_nodes_and_edges(schema_file)
+
+    # Each field from our input data may have one or more mappings into the schema
+    enc_field_nodes = get_schema_nodes_for_source_fields(query_enc_fields, mapping_json)
+    # This is a bit of a trick, but let the Dijkstra shortest_path algorithm take
+    # care of the one-to-many field-to-node situation. i.e. get the shortest path from all entry points to the graph.
+    field_nodes, field_schema_edges = get_encoding_fields_to_schema_edges(enc_field_nodes)
     # Build the graph
     rule_config = CONTEXT.rule_config.rule_01v02_causal_relationships
     property_edge_weight = rule_config.property_edge_weight if rule_config.property_edge_weight else 1.0
@@ -357,32 +398,34 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
 
     # Because we may have more than two fields in the query we need to consider all pairings that might get encoded
     # to the channels, then get our preferences for each pair as we write the lp
-    lp = ['\n% verde rule 01v03: x/y/size/colour encoding preferences based on possible causal relationships']
-    field_pairs = list(itertools.combinations(field_to_nodes.keys(), 2))
+    lp = ['\n% verde rule 01v02: x/y/size/colour encoding preferences based on possible causal relationships']
+    enc_pairs = list(itertools.combinations(enc_field_nodes.keys(), 2))
     channels = ['x', 'y', 'size', 'color']  # order of this list is important
     # itertools.combinations is deterministic according to docs, so pairs will be ordered as they appear in the list
     channel_pairs = list(itertools.combinations(channels, 2))
     soft_weight = CONTEXT.rule_config.rule_01v02_causal_relationships.draco_soft_weight or 100
 
-    for i, field_pair in enumerate(field_pairs):
+    for i, enc_pair in enumerate(enc_pairs):
 
+        field_a = 'field.' + enc_pair[0] + '.' + enc_field_nodes[enc_pair[0]]['source_field']
+        field_b = 'field.' + enc_pair[1] + '.' + enc_field_nodes[enc_pair[1]]['source_field']
         # get preference for explanatory versus response variables for the two fields
-        expl_var, resp_var = determine_explanatory_response_preference(dom_schema_graph, field_pair)
+        expl_var, resp_var, expl_enc, resp_enc = \
+            determine_explanatory_response_preference(dom_schema_graph, (field_a, field_b))
 
         for j, channel_pair in enumerate(channel_pairs):
 
-            expl_channel, resp_channel = channel_pair  # based on channel list order and deterministic itertools.
-            rule = f'rule01v03_{i:02}_{j:02}'
+            expl_channel = channel_pair[0]  # based on order of channel list and deterministic itertools.combinations
+            resp_channel = channel_pair[1]
+
+            rule = f'rule01v02_{i:02}_{j:02}'
 
             # create a soft rule which assigns a cost to not observing our preference for encoding/channel mappings
             lp.append(f'% for encoding pair {i} / channel pair {j} we prefer '
                       f'{expl_channel}={expl_var} {resp_channel}={resp_var}')
 
-            lp.append(f'soft({rule},V) :- channel(V,E1,{expl_channel}), '
-                      f'field(V,E1,\"{resp_var}\"), '
-                      f'channel(V,E2,{resp_channel}), '
-                      f'field(V,E2,\"{expl_var}\"), '
-                      f' is_c_c(V).')
+            lp.append(f'soft({rule},V) :- channel(V,{resp_enc},{expl_channel}), '
+                      f'channel(V,{expl_enc},{resp_channel}), is_c_c(V).')
 
             lp.append(f'#const {rule}_weight = {soft_weight}.')
             lp.append(f'soft_weight({rule},{rule}_weight).')

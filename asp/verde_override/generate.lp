@@ -38,4 +38,4 @@ obj_id(1..max_extra_encs).
 % verde - the hard rule below forces field names to be assigned to
 %         encoding channels in alphabetical order. However this
 %         conflicts with verde rules, so we remove it.
-%:- field(V,E1,F1), field(V,E2,F2), E1 > E2, F1 <= F2.
+:- field(V,E1,F1), field(V,E2,F2), E1 > E2, F1 <= F2.

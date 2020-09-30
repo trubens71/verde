@@ -21,7 +21,7 @@ class Experiment:
         self.input_data_file = None
         self.input_mapping_file = None
         self.query = None
-        self.query_enc_fields = None
+        self.query_fields = None
         self.execute = None
         self.baseline_schema_query_lp = None
         self.verde_schema_query_lp = None
@@ -88,7 +88,7 @@ class Experiment:
             logging.warning('fix_input_file_column_names turned off in trial config')
 
         if self.execute.create_baseline_schema_query_lp.do:
-            self.baseline_schema_query_lp, self.query_enc_fields = \
+            self.baseline_schema_query_lp, self.query_fields = \
                 vdraco.get_baseline_schema_query_lp(self.input_data_file,
                                                     self.query,
                                                     self.id,
@@ -100,7 +100,7 @@ class Experiment:
         if self.execute.create_verde_rules_lp.do:
             self.verde_schema_query_lp = vrules.create_verde_rules_lp(self.domain_schema,
                                                                       self.input_mapping_file,
-                                                                      self.query_enc_fields,
+                                                                      self.query_fields,
                                                                       self.id,
                                                                       self.directory,
                                                                       self.execute.create_verde_rules_lp,

@@ -1,10 +1,8 @@
-import src.utils as vutils
 import logging
 import itertools
-from addict import Dict
 
 
-def rule_02_data_precision(context, mapping_json, query_enc_fields):
+def rule_02_data_precision(context, mapping_json, query_fields):
     """
     For each pair of fields and each pair of channels, write rules based on strength of field data.
     Each field in the mapping json will either have a strength between zero and one, for example fields from survey data
@@ -30,8 +28,7 @@ def rule_02_data_precision(context, mapping_json, query_enc_fields):
         return f.get('verde_source_meta', {}).get('strength', 1.0)
 
     # whilst developing we will limit rules to fields in query.
-    encoded_columns = [query_enc_fields[enc]['source_field'] for enc in query_enc_fields.keys()]
-    mapping_json = [mapping for mapping in mapping_json if mapping['column_name'] in encoded_columns]
+    mapping_json = [mapping for mapping in mapping_json if mapping['column_name'] in query_fields]
 
     soft_weight = context.rule_config.rule_02_data_precision.draco_soft_weight or 100
 
