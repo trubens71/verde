@@ -1,7 +1,7 @@
 ---
   trial_id: trial_01
-  trial_desc: trivial data set for dev and unit testing
-  global_config:  # global settings take precedence over experiments if duplicated there
+  trial_desc: trivial data set for dev and unit testing of rules 01 (causal) and 02 (precision)
+  global_config:  # global settings take precedence over experiments if duplicated there, but might change that!
     verde_meta_schema: ../schemas/verde_meta_schema.json
     domain_schema: ../schemas/verde_asc_domain_schema.json
     domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json
@@ -54,7 +54,7 @@
         - field('Social care-related quality of life score (All)')
         - field('Gross Total Expenditure (x1000)')
     - experiment_id: exp_02_r01
-      do: false
+      do: true
       experiment_desc: three field test of rule01v03, with floating field/encodings
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json

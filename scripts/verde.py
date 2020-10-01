@@ -8,13 +8,15 @@ TRIAL_YAML = 'trial.yaml'
 
 
 def run_trial(directory):
+    experiments_ran = []
     trial = Trial(directory, TRIAL_YAML)
     for exp in trial.experiments:
         if exp.do:
             exp.run()
+            experiments_ran.append(exp.id)
         else:
             logging.warning(f'{exp.experiment_id} is disabled in config')
-    pass
+    logging.info(f'Completed running {experiments_ran}')
 
 
 def trial_yaml_files_exist(dirs):
