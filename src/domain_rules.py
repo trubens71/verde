@@ -2,6 +2,7 @@ import src.utils as vutils
 import src.draco_proxy as vdraco
 import src.domain_rule_01_causal as vrule01
 import src.domain_rule_02_precision as vrule02
+import src.domain_rule_03_ordinal as vrule03
 import logging
 import json
 import os
@@ -27,12 +28,17 @@ def create_verde_rules_lp(schema_file, mapping_file, query_fields, trial_id, dir
         # ignore previous lp as we are floating fields across encodings
         lp = vrule01.rule_01_causal_relationships(context, schema_file, mapping_json, query_fields)
     else:
-        logging.warning('verde rule_01v03_causal_relationships is disabled in config')
+        logging.warning('verde rule_01_causal_relationships is disabled in config')
 
     if rule_config.rule_02_data_precision.do:
         lp = lp + vrule02.rule_02_data_precision(context, mapping_json, query_fields)
     else:
         logging.warning('verde rule_02_data_precision is disabled in config')
+
+    if rule_config.rule_03_ordinal_sort.do:
+        lp = lp + vrule03.rule_03_ordinal(context, schema_file, mapping_json, query_fields)
+    else:
+        logging.warning('verde rule_03_ordinal_sort is disabled in config')
 
     # Write out the partial lp containing the data schema and our verde soft rules
     if rule_config.write_lp:

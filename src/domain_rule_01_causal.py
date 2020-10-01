@@ -12,9 +12,10 @@ CONTEXT = Dict()
 #      Will be slower but might be important if we can get draco to start introducing further fields
 
 
-def get_schema_nodes_and_edges(domain_schema_file_path):
+def get_schema_nodes_and_edges(domain_schema_file_path, for_rule='rule01'):
     """
     Takes a domain schema file path and builds a graph of connected domain terms.
+    :param for_rule: for rule03 only return the ordinals.
     :param domain_schema_file_path:
     :return: networkx graph
     """
@@ -23,6 +24,7 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
     property_edges = []
     compose_edges = []
     explain_edges = []
+    domain_node_ordinals = {}
 
     def walk(d, path=None, dom_path=None):
 
@@ -79,6 +81,7 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
                     elif vrd_k == 'ordinal':
                         logging.debug('ORDINAL RULE VALUES FOR {} ARE {}'.format(nodes[-1][0], vrd_v))
                         nodes[-1][1]['ordinal'] = ','.join(vrd_v)
+                        domain_node_ordinals['.'.join(dom_path)] = vrd_v
                     else:
                         logging.warning('ignored verde_rule_directive {} with values {}'.format(vrd_k, vrd_v))
 
@@ -106,7 +109,10 @@ def get_schema_nodes_and_edges(domain_schema_file_path):
     logging.info(f'found {len(nodes)} nodes, {len(property_edges)} property edges, '
                  f'{len(compose_edges)} composition edges and {len(explain_edges)} explain edges')
 
-    return nodes, property_edges, compose_edges, explain_edges
+    if for_rule == 'rule03':
+        return domain_node_ordinals
+    else:
+        return nodes, property_edges, compose_edges, explain_edges
 
 
 def build_graph(nodes, property_edges, compose_edges, explain_edges, field_nodes=None, field_edges=None,

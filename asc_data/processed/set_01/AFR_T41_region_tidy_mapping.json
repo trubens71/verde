@@ -1,0 +1,42 @@
+[
+  {
+    "column_name": "Region code",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 41"
+    },
+    "domain_map": [{ "funder": { "org_unit": { "region_code": true } } }]
+  },
+  {
+    "column_name": "Region name",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 41"
+    },
+    "domain_map": [{ "funder": { "org_unit": { "region_name": true } } }]
+  },
+  {
+    "column_name": "Setting",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 41"
+    },
+    "domain_map": [{ "service_provision": { "service": {"setting": true} } }]
+  },
+  {
+    "column_name": "Gross Current Expenditure (x1000)",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 41"
+    },
+    "domain_map": [{ "funder": { "expenditure": true } }]
+  },
+  {
+    "column_name": "Gross Current Expenditure Proportion",
+    "verde_source_meta": {
+      "publisher": "self calculation from Activity and Finance Report, 2019, Table 41",
+      "publication": "None"
+    },
+    "domain_map": [{ "funder": { "expenditure": true } }]
+  }
+]

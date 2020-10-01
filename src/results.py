@@ -151,7 +151,7 @@ def write_results_json(trial_id, directory, input_data_file, results, label):
                  'props': result.props[vdraco.get_default_view()]}
 
         # get the vega-lite spec
-        vl = result.as_vl(vdraco.get_default_view())
+        vl = vdraco.get_vega_lite_spec(result)
         # hack because draco's asp2vl defaults to the cars data set!
         vl['data']['url'] = os.path.join('../data', os.path.basename(input_data_file))
         model['vl'] = vl
