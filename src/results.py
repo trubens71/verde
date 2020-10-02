@@ -148,7 +148,7 @@ def write_results_json(trial_id, directory, input_data_file, results, label):
         # get the cost and add in the violations
         model = {'cost': result.cost,
                  'violations': violations,
-                 'props': result.props[vdraco.get_default_view()]}
+                 'props': result.props[vdraco.get_default_view()].copy()}
 
         # get the vega-lite spec
         vl = vdraco.get_vega_lite_spec(result)

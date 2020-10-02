@@ -41,7 +41,7 @@ def trial_yaml_files_exist(dirs):
 
 if __name__ == "__main__":
 
-    logging = vu.configure_logger('verde.log', logging.INFO)
+    logging = vu.configure_logger('verde.log', logging.INFO, show_mod_func=False)
     # Check for trial directories and their content
     trial_dirs = sys.argv[1:]
     if not trial_dirs or not trial_yaml_files_exist(trial_dirs):

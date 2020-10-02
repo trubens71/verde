@@ -7,6 +7,7 @@ from altair import datum
 import datetime
 import json
 import src.utils as vutils
+import dictdiffer
 
 
 def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_results,
@@ -39,14 +40,16 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
         b_cmp.pop('title', None)
         v_cmp = verde_results[v]['vl']
         v_cmp.pop('title', None)
-        if b_cmp == v_cmp:
+        match_type = compare_specs(b_cmp, v_cmp)
+        if match_type:
             baseline_results[b]['matches'] = v
             verde_results[v]['matches'] = b
             matches.append({'b_rank': b,
                             'b_cost': baseline_results[b]['cost'],
                             'v_rank': v,
                             'v_cost': verde_results[v]['cost'],
-                            'crossed': 'not'})
+                            'crossed': 'not',
+                            'match_type': match_type})
 
     # some summary stats
     b_not_in_v = [baseline_results[i]['matches'] for i,_ in enumerate(baseline_results) ].count(None)
@@ -55,10 +58,6 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
                  f'{len(matches)/len(baseline_results):.1%}')
     logging.info(f'{b_not_in_v} baseline visualisations not in verde')
     logging.info(f'{v_not_in_b} verde visualisations not in verde')
-
-    if len(matches) == 0:
-        logging.fatal('cannot yet handle case of zero matches')
-        exit(1)
 
     # identify crossed edges which signifies a different ranking between baseline and verde
     # inspect the matches pairwise and tag them if they intersect.
@@ -74,14 +73,18 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
                     matches[i]['crossed'] = 'with_different_cost'
 
     # write the match file to csv for exploratory visualisation
-    df = pd.DataFrame(matches)
-    df['match'] = df.index
-    df = df.melt(id_vars=['match', 'crossed', 'b_cost', 'v_cost'], var_name='set', value_name='rank')
-    df.set = df.set.str.replace('b_rank', baseline_label)
-    df.set = df.set.str.replace('v_rank', verde_label)
-    match_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare_match.csv')
-    logging.info(f'writing comparison matches to {match_csv_file}')
-    df.to_csv(match_csv_file, index=False)
+    if matches:
+        df = pd.DataFrame(matches)
+        df['match'] = df.index
+        df = df.melt(id_vars=['match', 'match_type', 'crossed', 'b_cost', 'v_cost'], var_name='set', value_name='rank')
+        df.set = df.set.str.replace('b_rank', baseline_label)
+        df.set = df.set.str.replace('v_rank', verde_label)
+        match_csv_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare_match.csv')
+        logging.info(f'writing comparison matches to {match_csv_file}')
+        df.to_csv(match_csv_file, index=False)
+    else:
+        logging.warning(f'no matches found between {baseline_label} and {verde_label}')
+        match_csv_file = None
 
     # simplify and union the visualisation model (instance) data
     df_baseline = pd.DataFrame(baseline_results)
@@ -147,6 +150,37 @@ def find_crossed_matches(matches):
             matches[n]['crossed'] = True
 
     return matches
+
+
+def compare_specs(b_spec, v_spec):
+    """
+    compare two specs, taking into account differences that we introduces (e.g. ordinal sorts in rule 03)
+    :param b_spec:
+    :param v_spec:
+    :return:
+    """
+
+    match_type = None
+    verde_introduced_diffs = False
+
+    if b_spec == v_spec:
+        return 'exact'
+
+    dict_diff = dictdiffer.diff(b_spec, v_spec)
+    verde_introduced_diffs = True
+
+    for diff in dict_diff:
+        # rule 03 introduced ordinal sort
+        if diff[0] == 'add' and diff[2][0][0] == 'sort':
+            pass
+        else:
+            verde_introduced_diffs = False
+            break
+
+    if verde_introduced_diffs:
+        match_type = 'verde_addition'
+
+    return match_type
 
 
 def write_single_vis_viewer(trial_id, directory):
@@ -236,20 +270,29 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
     baseline_circles = make_circles(baseline_label, -15)
     verde_circles = make_circles(verde_label, 15)
 
-    # next layer is match lines
-    col_domain = ['not', 'with_equal_cost', 'with_different_cost']
-    col_range_ = ['steelblue', 'green', 'red']
-    match_lines = alt.Chart(os.path.basename(match_data_file)).mark_line().transform_calculate(
-        rank="format(datum.rank,'03')"
-    ).encode(
-        alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
-        alt.Y('rank:O'),
-        detail='match:N',
-        color=alt.condition(select_models | select_brush,
-                            alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_),
+    # next layer is match lines, handle case of no matches
+    if match_data_file:
+        col_domain = ['not', 'with_equal_cost', 'with_different_cost']
+        col_range_ = ['steelblue', 'green', 'red']
+        match_lines = alt.Chart(os.path.basename(match_data_file)).mark_line().transform_calculate(
+            rank="format(datum.rank,'03')"
+        ).encode(
+            alt.X('set:O', axis=alt.Axis(labelAngle=0, title=None, orient='top', labelPadding=5)),
+            alt.Y('rank:O'),
+            detail=['match:N', 'match_type:N'],
+            strokeDash=alt.StrokeDash('match_type:N',
+                                      scale=alt.Scale(
+                                          domain=['verde_addition', 'exact'],
+                                          range=[[5, 4], [1, 0]]
+                                      ),
                                       legend=alt.Legend(orient='bottom')),
-                            alt.value('lightgray'))
-    )
+            color=alt.condition(select_models | select_brush,
+                                alt.Color('crossed:N', scale=alt.Scale(domain=col_domain, range=col_range_),
+                                          legend=alt.Legend(orient='bottom')),
+                                alt.value('lightgray'))
+        )
+    else:
+        match_lines = None
 
     # rules to connect models with the same cost
     cost_rules = base.mark_rule(
@@ -266,7 +309,12 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
         tooltip=['cost:Q', 'min_rank:O', 'max_rank:O']
     ).interactive()
 
-    rank_chart = baseline_circles + verde_circles + match_lines + cost_rules + squares
+    rank_chart = baseline_circles + verde_circles
+
+    if match_lines:
+        rank_chart = rank_chart + match_lines
+
+    rank_chart = rank_chart + cost_rules + squares
 
     # chart to show violation occurrences and weights for selected vis models across sets
     def make_violation_chart(dimension, width_step):

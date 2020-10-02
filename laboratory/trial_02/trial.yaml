@@ -35,7 +35,7 @@
         rule_06_summary_by_grouping:
           do: false
       get_baseline_visualisations:
-        do: false
+        do: true
         write_lp: true
       get_verde_visualisations:
         do: true

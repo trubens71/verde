@@ -25,18 +25,29 @@ def rule_03_ordinal(context, schema_file, mapping_json, query_fields):
                     logging.warning(f'found multiple possible sort orders for field {field}, '
                                     f'overriding with this one...')
                 logging.info(f'adding custom sort for field {field} due to node {node} with order {custom_sort}')
-                # this fact states the relationship between the field and its sort order
+                # this fact states the association of a sort order to the field
                 lp.append(f'fieldcustomsortorder(\"{field}\", \"{custom_sort}\").')
 
     # this rule determine that a custom order exists provided the resulting draco encoding is nominal or ordinal.
-    lp.append('custom_ordinal_sort(V,E,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), type(V,E,(nominal;ordinal)).')
-    # and this show signals that we need to add the custom sort oder in the vega-lite spec.
-    lp.append('#show custom_ordinal_sort/4.')
+    lp.append('verde_ordinal_sort(V,E,C,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), '
+              'type(V,E,(nominal;ordinal)), channel(V,E,C).')
+    # and this show signals that we need to add the custom sort order to the vega-lite spec.
+    lp.append('#show verde_ordinal_sort/5.')
+    # add a zero weighted soft rule so we can easily spot our custom sort order in the violation comparisons
+    # against the baseline specs.
+    lp.append('soft(verde_ordinal_sort,V,E):- verde_ordinal_sort(V,E,C,F,O).')
+    lp.append('#const verde_ordinal_sort_weight = 0.')
+    lp.append('soft_weight(verde_ordinal_sort, verde_ordinal_sort_weight).')
+    # TODO investigate how to force drao to treat at ordinal. at present we post-fix the encoding type.
     return lp
 
 
 """
-fieldcustomsortorder("Setting", "['tom','dick','harry']").
-custom_ordinal_sort(V,E,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), type(V,E,(nominal;ordinal)).
-#show custom_ordinal_sort/4.
+% verde rule 03: adding custom sort orders for ordinals
+fieldcustomsortorder("Setting", "['community', 'home', 'residential home', 'nursing home']").
+custom_ordinal_sort(V,E,C,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), type(V,E,(nominal;ordinal)), channel(V,E,C).
+#show custom_ordinal_sort/5.
+soft(custom_ordinal_sort,V,E):- custom_ordinal_sort(V,E,C,F,O).
+#const custom_ordinal_sort_weight = 0.
+soft_weight(custom_ordinal_sort, custom_ordinal_sort_weight).
 """

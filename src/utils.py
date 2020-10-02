@@ -127,7 +127,7 @@ def delete_temp_files(directory, prefix):
         os.remove(file)
 
 
-def configure_logger(log_file, level=logging.INFO):
+def configure_logger(log_file, level=logging.INFO, show_mod_func=False):
     """
     Creates a logging instance which writes to file and stdout
     :param log_file: path to logfile
@@ -141,7 +141,11 @@ def configure_logger(log_file, level=logging.INFO):
     # for info and above messages
     fh = logging.StreamHandler(sys.stdout)
     ch = logging.FileHandler(log_file, mode='w')
-    formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', "%Y-%m-%d %H:%M:%S")
+    if show_mod_func:
+        formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(module)s.%(funcName)s : %(message)s',
+                                      "%Y-%m-%d %H:%M:%S")
+    else:
+        formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', "%Y-%m-%d %H:%M:%S")
     fh.setFormatter(formatter)
     ch.setFormatter(formatter)
     logging.getLogger('').addHandler(fh)
