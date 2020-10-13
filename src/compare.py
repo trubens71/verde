@@ -372,7 +372,10 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
     chart = chart.properties(
         title=f'{trial_id} {ts}'
     )
-    chart.save(os.path.join(directory, 'vegalite', f'{trial_id}_view_compare.html'))
+
+    file_name = os.path.join(directory, 'vegalite', f'{trial_id}_view_compare.html')
+    logging.info(f'writing comparison visualisation to {file_name}')
+    chart.save(file_name)
 
 
 if __name__ == "__main__":

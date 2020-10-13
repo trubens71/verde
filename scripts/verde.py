@@ -16,7 +16,7 @@ def run_trial(directory):
             experiments_ran.append(exp.id)
         else:
             logging.warning(f'{exp.experiment_id} is disabled in config')
-    logging.info(f'Completed running {experiments_ran}')
+    logging.info(f'Completed experiments {experiments_ran}')
 
 
 def trial_yaml_files_exist(dirs):

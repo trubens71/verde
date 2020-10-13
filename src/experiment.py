@@ -58,7 +58,7 @@ class Experiment:
         :return: None
         """
 
-        logging.info(f'running experiment {self.id}')
+        logging.info(f'*** running experiment {self.id} ***')
 
         # clear out temp files from previous runs based on id and directory
         vutils.delete_temp_files(self.directory, self.id)
