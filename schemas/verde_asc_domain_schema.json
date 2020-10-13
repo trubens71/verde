@@ -22,8 +22,8 @@
           "type": "boolean",
           "verde_rule_directive": {
             "ordinal": [
-              "community",
-              "home",
+              "community care",
+              "home care",
               "residential home",
               "nursing home"
             ]

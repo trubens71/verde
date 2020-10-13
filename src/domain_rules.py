@@ -9,7 +9,8 @@ import os
 from addict import Dict
 
 
-def create_verde_rules_lp(schema_file, mapping_file, query_fields, trial_id, directory, rule_config, baseline_lp):
+def create_verde_rules_lp(schema_file, input_file, mapping_file,
+                          query_fields, trial_id, directory, rule_config, baseline_lp):
 
     logging.info(f'creating verde rules lp based on {schema_file} and {mapping_file}')
 
@@ -36,7 +37,7 @@ def create_verde_rules_lp(schema_file, mapping_file, query_fields, trial_id, dir
         logging.warning('verde rule_02_data_precision is disabled in config')
 
     if rule_config.rule_03_ordinal_sort.do:
-        lp = lp + vrule03.rule_03_ordinal(context, schema_file, mapping_json, query_fields)
+        lp = lp + vrule03.rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields)
     else:
         logging.warning('verde rule_03_ordinal_sort is disabled in config')
 

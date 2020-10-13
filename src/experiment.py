@@ -99,6 +99,7 @@ class Experiment:
 
         if self.execute.create_verde_rules_lp.do:
             self.verde_schema_query_lp = vrules.create_verde_rules_lp(self.domain_schema,
+                                                                      self.input_data_file,
                                                                       self.input_mapping_file,
                                                                       self.query_fields,
                                                                       self.id,

@@ -12,3 +12,5 @@ shapely~=1.7.1
 altair~=4.1.0
 vega_datasets~=0.8.0
 numpy~=1.19.1
+dictdiffer~=0.8.0
+nltk~=3.4.4

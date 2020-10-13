@@ -1,9 +1,13 @@
 import logging
 import src.domain_rule_01_causal as vrule01
+import src.domain_rule_03_ordinal_nlp as vrule03nlp
+from addict import Dict
+import pandas as pd
+
+custom_sort_cache = Dict()
 
 
-def rule_03_ordinal(context, schema_file, mapping_json, query_fields):
-
+def rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields):
     logging.info('applying verde rule 03 (custom ordinal sort order))')
     lp = ['\n% verde rule 03: adding custom sort orders for ordinals']
 
@@ -20,7 +24,9 @@ def rule_03_ordinal(context, schema_file, mapping_json, query_fields):
     for i, field in enumerate(field_nodes.keys()):
         for j, node in enumerate(field_nodes[field]['schema_nodes']):
             if node in domain_node_ordinals:
-                custom_sort = domain_node_ordinals[node].__repr__()
+                # custom_sort = domain_node_ordinals[node].__repr__()
+                custom_sort = get_custom_sort_order(input_file, field,
+                                                    node, domain_node_ordinals[node]).__repr__()
                 if j > 0:
                     logging.warning(f'found multiple possible sort orders for field {field}, '
                                     f'overriding with this one...')
@@ -28,7 +34,7 @@ def rule_03_ordinal(context, schema_file, mapping_json, query_fields):
                 # this fact states the association of a sort order to the field
                 lp.append(f'fieldcustomsortorder(\"{field}\", \"{custom_sort}\").')
 
-    # this rule determine that a custom order exists provided the resulting draco encoding is nominal or ordinal.
+    # this rule determines that a custom order exists provided the resulting draco encoding is nominal or ordinal.
     lp.append('verde_ordinal_sort(V,E,C,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), '
               'type(V,E,(nominal;ordinal)), channel(V,E,C).')
     # and this show signals that we need to add the custom sort order to the vega-lite spec.
@@ -38,11 +44,61 @@ def rule_03_ordinal(context, schema_file, mapping_json, query_fields):
     lp.append('soft(verde_ordinal_sort,V,E):- verde_ordinal_sort(V,E,C,F,O).')
     lp.append('#const verde_ordinal_sort_weight = 0.')
     lp.append('soft_weight(verde_ordinal_sort, verde_ordinal_sort_weight).')
-    # TODO investigate how to force drao to treat at ordinal. at present we post-fix the encoding type.
+    # TODO investigate how to force draco to treat as ordinal. at present we post-fix the encoding type.
     return lp
 
 
+def get_custom_sort_order(source_data_file, field, domain_node, domain_ordinal_terms):
+    """
+    Returns the unique values of a field in an input data file, sorted by
+    similarity to ordinal domain terms. Determining the unique vales and
+    The NLP processing is expensive, so results are cached for use in subsequent
+    mappings and experiments.
+    :param domain_node:
+    :param source_data_file:
+    :param field:
+    :param domain_ordinal_terms:
+    :return:
+    """
+
+    global custom_sort_cache
+    cache = custom_sort_cache
+
+    if source_data_file not in custom_sort_cache:
+        custom_sort_cache[source_data_file] = get_field_unique_values(source_data_file)
+    else:
+        logging.debug(f'cache hit for unique field values in {source_data_file}')
+
+    field_unique_values = custom_sort_cache[source_data_file][field]['unique_values']
+
+    if domain_node not in custom_sort_cache.source_data_file.field.nodes:
+        custom_sort_cache[source_data_file][field]['sort_by_nodes'] = \
+            {domain_node: vrule03nlp.order_source_data_terms(field_unique_values, domain_ordinal_terms)}
+    else:
+        logging.debug(f'cache hit for custom sort for field {field} based on node {domain_node}')
+
+    return custom_sort_cache[source_data_file][field]['sort_by_nodes'][domain_node]
+
+
+def get_field_unique_values(source_data_file):
+    """
+    Find unique field values in a csv file, where they are string-like
+    :param source_data_file:
+    :return: dictionary of field to unique values
+    """
+    logging.info(f'getting unique values of fields in {source_data_file}')
+    column_values = Dict()
+    df = pd.read_csv(source_data_file)
+    df = df.select_dtypes(include=['object'])  # select the columns containing string data
+
+    for column in df.columns:
+        column_values[column]['unique_values'] = list(df[column].unique())
+
+    return column_values
+
+
 """
+ASP development notes
 % verde rule 03: adding custom sort orders for ordinals
 fieldcustomsortorder("Setting", "['community', 'home', 'residential home', 'nursing home']").
 custom_ordinal_sort(V,E,C,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), type(V,E,(nominal;ordinal)), channel(V,E,C).
