@@ -20,7 +20,7 @@ verde_color_enc_scheme(V,E,F,CS) :- fieldcolorscheme(F,CS), field(V,E,F), channe
 % second case: if first case not applied, and we have non-aggregated field encoding for which there is a schema...
 verde_color_double_enc_scheme(V,E,F,CS) :- not verde_color_enc_scheme(_,_,_,_), field(V,E,F), not aggregate(V,E,_), discrete(V,E), fieldcolorscheme(F,CS).
 
-% third case: if first two cases does not apply but we have an appropriate mark colors
+% third case: if first two cases does not apply but we have an appropriate mark color
 verde_mark_color_choices(V,CO) :- not verde_color_enc_scheme(_,_,_,_), not verde_color_double_enc_scheme(_,_,_,_), view(V), fieldmarkcolor(F,CO), fieldtype(F,FT), FT != "number", cardinality(F,CA), num_rows(NR), CA = NR.
 % choose only one
 1 { verde_color_mark(V,CO): verde_mark_color_choices(V,CO)} 1 :- verde_mark_color_choices(_,_).
@@ -28,6 +28,18 @@ verde_mark_color_choices(V,CO) :- not verde_color_enc_scheme(_,_,_,_), not verde
 #show verde_color_enc_scheme/4.
 #show verde_color_double_enc_scheme/4.
 #show verde_color_mark/2.
+
+soft(verde_color_enc_scheme,V,E) :- verde_color_enc_scheme(V,E,F,CS).
+soft(verde_color_double_enc_scheme,V,E) :- verde_color_double_enc_scheme(V,E,F,CS).
+soft(verde_color_mark,V,CO) :- verde_color_mark(V,CO).
+
+#const verde_color_enc_scheme_weight = 0.
+#const verde_color_double_enc_scheme_weight = 0.
+#const verde_color_mark_weight = 0.
+
+soft_weight(verde_color_enc_scheme, verde_color_enc_scheme_weight).
+soft_weight(verde_color_double_enc_scheme, verde_color_double_enc_scheme_weight).
+soft_weight(verde_color_mark, verde_color_mark_weight).
 
 """
 """
