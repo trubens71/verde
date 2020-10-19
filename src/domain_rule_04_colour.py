@@ -1,4 +1,35 @@
+import logging
 
+
+def rule_04_ordinal(context, schema_file, input_file, mapping_json, query_fields):
+    logging.warning('rule 04 not yet implemented')
+
+
+"""
+rule development
+% verde
+fieldcolorscheme("Gross_Total_Expenditure_x1000", "{\"scheme\": \"oranges\"}").
+fieldmarkcolor("LA_name","{\"color\": \"black\"}").
+fieldmarkcolor("Geography_code","{\"color\": \"gray\"}").
+fieldmarkcolor("Region_name","{\"color\": \"blue\"}").
+fieldcolorscheme("Setting", "{\"scheme\": \"pastel1\"}").
+
+% first case: color channel is used and we have a scheme for the encoding field.
+verde_color_enc_scheme(V,E,F,CS) :- fieldcolorscheme(F,CS), field(V,E,F), channel(V,E,color).
+
+% second case: if first case not applied, and we have non-aggregated field encoding for which there is a schema...
+verde_color_double_enc_scheme(V,E,F,CS) :- not verde_color_enc_scheme(_,_,_,_), field(V,E,F), not aggregate(V,E,_), discrete(V,E), fieldcolorscheme(F,CS).
+
+% third case: if first two cases does not apply but we have an appropriate mark colors
+verde_mark_color_choices(V,CO) :- not verde_color_enc_scheme(_,_,_,_), not verde_color_double_enc_scheme(_,_,_,_), view(V), fieldmarkcolor(F,CO), fieldtype(F,FT), FT != "number", cardinality(F,CA), num_rows(NR), CA = NR.
+% choose only one
+1 { verde_color_mark(V,CO): verde_mark_color_choices(V,CO)} 1 :- verde_mark_color_choices(_,_).
+
+#show verde_color_enc_scheme/4.
+#show verde_color_double_enc_scheme/4.
+#show verde_color_mark/2.
+
+"""
 """
 Draco colour rules.
 

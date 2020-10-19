@@ -132,12 +132,23 @@ class Experiment:
         else:
             logging.warning('cannot get verde visualisations due to trial config conflict')
 
-        if self.execute.make_vegalite_concat.do and self.baseline_vis_results_json and self.verde_vis_results_json:
-            vresults.make_vegalite_concat(self.id, self.directory,
-                                          [self.baseline_vis_results_json, self.verde_vis_results_json],
-                                          ['baseline', 'verde'])
-        else:
-            logging.warning('cannot create concatenated baseline and verde vega-lite spec due to trial config conflict')
+        result_sets = []
+        set_labels = []
+        if self.execute.make_vegalite_concat.do:
+            if self.baseline_vis_results_json and self.verde_vis_results_json:
+                result_sets = [self.baseline_vis_results_json, self.verde_vis_results_json]
+                set_labels = ['baseline', 'verde']
+            elif self.baseline_vis_results_json:
+                result_sets = [self.baseline_vis_results_json]
+                set_labels = ['baseline']
+            elif self.verde_vis_results_json:
+                result_sets = [self.verde_vis_results_json]
+                set_labels = ['verde']
+            else:
+                logging.warning(
+                    'cannot create concatenated baseline and verde vega-lite spec due to trial config conflict')
+            if result_sets and set_labels:
+                vresults.make_vegalite_concat(self.id, self.directory, result_sets, set_labels)
 
         if self.execute.compare_baseline_verde.do and self.baseline_vis_results_json and self.verde_vis_results_json:
             vcompare.compare_baseline_to_verde(self.id, self.directory,

@@ -3,6 +3,7 @@ import src.draco_proxy as vdraco
 import src.domain_rule_01_causal as vrule01
 import src.domain_rule_02_precision as vrule02
 import src.domain_rule_03_ordinal as vrule03
+import src.domain_rule_04_colour as vrule04
 import logging
 import json
 import os
@@ -40,6 +41,11 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
         lp = lp + vrule03.rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields)
     else:
         logging.warning('verde rule_03_ordinal_sort is disabled in config')
+
+    if rule_config.rule_04_entity_colours.do:
+        lp = lp + vrule04.rule_04_ordinal(context, schema_file, input_file, mapping_json, query_fields)
+    else:
+        logging.warning('verde rule_04_entity_colours is disabled in config')
 
     # Write out the partial lp containing the data schema and our verde soft rules
     if rule_config.write_lp:
