@@ -17,7 +17,7 @@
       fix_input_file_column_names:
         do: true
       create_baseline_schema_query_lp:
-        do: false
+        do: true
         write_lp: true
       create_verde_rules_lp:
         do: true  # overall switch, followed by rule-specific switches

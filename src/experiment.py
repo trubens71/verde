@@ -32,6 +32,7 @@ class Experiment:
         self.verde_vis_results = None
         self.verde_vis_results_json = None
         self.verde_base_lp_override_dir = None
+        self.verde_rule_template_dir = None
 
         # create a composite id of trial and experiment
         self.id = f"{trial.trial_id}.{exp['experiment_id']}"
@@ -105,7 +106,8 @@ class Experiment:
                                                                       self.id,
                                                                       self.directory,
                                                                       self.execute.create_verde_rules_lp,
-                                                                      self.baseline_schema_query_lp)
+                                                                      self.baseline_schema_query_lp,
+                                                                      self.verde_rule_template_dir)
         else:
             logging.warning('create_verde_rules_lp turned off in trial config')
 

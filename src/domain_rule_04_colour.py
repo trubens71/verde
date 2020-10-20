@@ -46,7 +46,7 @@ def rule_04_ordinal(context, schema_file, mapping_json):
                 field_colour_scheme[field] = colour_scheme
 
     # TODO add template folder to context
-    template = vutils.get_jinja_template('../asp/verde_rule_templates',
+    template = vutils.get_jinja_template(context.verde_rule_template_dir,
                                          context.rule_config.rule_04_entity_colours.template)
 
     return template.render(field_mark_colour=field_mark_colour,

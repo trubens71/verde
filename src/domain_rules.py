@@ -11,7 +11,8 @@ from addict import Dict
 
 
 def create_verde_rules_lp(schema_file, input_file, mapping_file,
-                          query_fields, trial_id, directory, rule_config, baseline_lp):
+                          query_fields, trial_id, directory, rule_config, baseline_lp,
+                          verde_rule_template_dir):
 
     logging.info(f'creating verde rules lp based on {schema_file} and {mapping_file}')
 
@@ -19,6 +20,7 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
     context.id = trial_id
     context.directory = directory
     context.rule_config = rule_config
+    context.verde_rule_template_dir = verde_rule_template_dir
 
     # Load the input mapping json
     with open(mapping_file) as f:
@@ -43,7 +45,9 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
         logging.warning('verde rule_03_ordinal_sort is disabled in config')
 
     if rule_config.rule_04_entity_colours.do:
-        lp = lp + vrule04.rule_04_ordinal(context, schema_file, mapping_json)
+        # TODO fix when using jinja for all rules
+        lp_str = vrule04.rule_04_ordinal(context, schema_file, mapping_json)
+        lp = lp + lp_str.split('\n')
     else:
         logging.warning('verde rule_04_entity_colours is disabled in config')
 
