@@ -25,6 +25,7 @@ def get_schema_nodes_and_edges(domain_schema_file_path, for_rule='rule01'):
     compose_edges = []
     explain_edges = []
     domain_node_ordinals = {}
+    domain_node_colours = {}
 
     def walk(d, path=None, dom_path=None):
 
@@ -82,6 +83,10 @@ def get_schema_nodes_and_edges(domain_schema_file_path, for_rule='rule01'):
                         logging.debug('ORDINAL RULE VALUES FOR {} ARE {}'.format(nodes[-1][0], vrd_v))
                         nodes[-1][1]['ordinal'] = ','.join(vrd_v)
                         domain_node_ordinals['.'.join(dom_path)] = vrd_v
+                    elif vrd_k == 'colour':
+                        logging.debug('COLOUR RULE VALUES FOR {} ARE {}'.format(nodes[-1][0], vrd_v))
+                        nodes[-1][1]['colour'] = str(vrd_v)
+                        domain_node_colours['.'.join(dom_path)] = vrd_v
                     else:
                         logging.warning('ignored verde_rule_directive {} with values {}'.format(vrd_k, vrd_v))
 
@@ -111,6 +116,8 @@ def get_schema_nodes_and_edges(domain_schema_file_path, for_rule='rule01'):
 
     if for_rule == 'rule03':
         return domain_node_ordinals
+    elif for_rule == 'rule04':
+        return domain_node_colours
     else:
         return nodes, property_edges, compose_edges, explain_edges
 

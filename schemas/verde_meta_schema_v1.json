@@ -14,36 +14,6 @@
           }
         }
       ]
-    },
-    "verde_rule_directive": {
-      "type": "object",
-      "properties": {
-        "explains": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "colour": {
-          "type": "object",
-          "properties": {
-            "scheme": {
-              "type": "string"
-            },
-            "mark_colour": {
-              "type": "string"
-            }
-          }
-        },
-        "ordinal": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 2
-        }
-      },
-      "additionalProperties": false
     }
   },
   "allOf": [
@@ -123,7 +93,34 @@
       "$ref": "#"
     },
     "verde_rule_directive": {
-      "$ref": "#/definitions/verde_rule_directive"
+      "type": "object",
+      "properties": {
+        "explains": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "colour": {
+          "type": "object",
+          "properties": {
+            "scheme": {
+              "type": "string"
+            },
+            "mark_colour": {
+              "type": "string"
+            }
+          }
+        },
+        "ordinal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

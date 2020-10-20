@@ -1,8 +1,77 @@
 import logging
+import src.domain_rule_01_causal as vrule01
+import jinja2 as jj
 
 
 def rule_04_ordinal(context, schema_file, input_file, mapping_json, query_fields):
-    logging.warning('rule 04 not yet implemented')
+    """
+    Uses rule01 code to walk the domain model, pulling out colour directives; then getting the field to node
+    mappings. Writes field-based asp rules with directives, for mark colours and colour schemes.
+    :param context:
+    :param schema_file:
+    :param input_file:
+    :param mapping_json:
+    :param query_fields:
+    :return:
+    """
+    logging.info('applying verde rule 04 (colour)')
+
+    # get domain nodes with their colour directives, borrowing from rule01 code.
+    domain_node_colours = vrule01.get_schema_nodes_and_edges(schema_file, for_rule='rule04')
+
+    # we will add draco rules for all mapped fields, not just the query fields,
+    # in case draco introduces additional fields
+    mapped_fields = [m['column_name'] for m in mapping_json]
+
+    # get the mapped nodes for each field, borrowing from rule01 code
+    field_nodes = vrule01.get_schema_nodes_for_source_fields(mapped_fields, mapping_json)
+
+    field_mark_colour = {}
+    field_colour_scheme = {}
+
+    # iterate over the fields to find appropriate nearest colours in the domain model.
+    for i, field in enumerate(field_nodes.keys()):
+        for j, node in enumerate(field_nodes[field]['schema_nodes']):
+            mark_colour = find_nearest_colour(domain_node_colours, node, prop='mark_colour')
+            if mark_colour:
+                if field in field_mark_colour:
+                    logging.warning(f'found multiple possible mark colours for {field}'
+                                    f'overriding with {mark_colour}')
+                field_mark_colour[field] = mark_colour
+            colour_scheme = find_nearest_colour(domain_node_colours, node, prop='scheme')
+            if colour_scheme:
+                if field in field_colour_scheme:
+                    logging.warning(f'found multiple possible colour schemes for {field}'
+                                    f'overriding with {colour_scheme}')
+                field_colour_scheme[field] = colour_scheme
+
+    # TODO now implemented rules via jinja
+    pass
+
+
+def find_nearest_colour(domain_node_colours, node, prop):
+    """
+    Iterate over the domain nodes with colour directives, looking for the
+    closest match for colour properties. If there is no colour props for the node
+    we will take the closest available parent node's colours (ie. we inherit)
+    e.g. if we have colours for funder.org_unit, and our node of interest is
+    funder.org_unit.nhs_org_unit for which there is no colour, then we'll take the
+    colour of funder.org_unit
+
+    :param domain_node_colours: dictionary of domain nodes to colour props
+    :param node: the node we are offering up.
+    :param prop: either mark_colour or scheme
+    :return:
+    """
+
+    prop_value = ''
+
+    for domain_node in sorted(domain_node_colours):  # sorting then overriding takes care of inheritance...
+        if domain_node == node[0:len(domain_node)]:  # ... provided we work on partial match
+            if prop in domain_node_colours[domain_node]:
+                prop_value = domain_node_colours[domain_node][prop]
+
+    return prop_value
 
 
 """

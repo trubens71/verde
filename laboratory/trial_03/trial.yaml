@@ -16,10 +16,10 @@
       fix_input_file_column_names:
         do: true
       create_baseline_schema_query_lp:
-        do: true
+        do: false
         write_lp: true
       create_verde_rules_lp:
-        do: false  # overall switch, followed by rule-specific switches
+        do: true  # overall switch, followed by rule-specific switches
         write_lp: true
         rule_01_causal_relationships:
           do: false
@@ -45,18 +45,18 @@
       compare_baseline_verde:
         do: true
   experiments:
-    - experiment_id: exp_01_1_2a
-      do: false
-      experiment_desc: for development of rule04 (colour) - color single encoding (1) and mark colour (2a)
+    - experiment_id: exp_01_enc_and_mark
+      do: true
+      experiment_desc: for development of rule04 (colour) - color single encoding and mark colour
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
       query:  # in dziban python query format, supports unfixed input file column names.
         - field('Social care-related quality of life score (All)', scale='zero')
         - field('Gross Total Expenditure (x1000)', scale='log')
         - field('Support provided to carers during the year', scale='zero')
-    - experiment_id: exp_02_2b
-      do: true
-      experiment_desc: for development of rule04 (colour) - double encoding with colour (2b)
+    - experiment_id: exp_02_double_enc
+      do: false
+      experiment_desc: for development of rule04 (colour) - double encoding with colour
       input_data_file: ../asc_data/processed/set_01/AFR_T41_region_tidy.csv
       input_mapping_file: ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json
       query:  # in dziban python query format, supports unfixed input file column names.
