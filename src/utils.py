@@ -6,6 +6,7 @@ import os
 import pandas as pd
 import re
 import glob
+import jinja2
 
 
 def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, postfix='_colfix'):
@@ -125,6 +126,16 @@ def delete_temp_files(directory, prefix):
     for file in files:
         logging.debug(f'deleting {file}')
         os.remove(file)
+
+
+def get_jinja_template(directory, template_file):
+    logging.info(f'loading rule template file {os.path.join(directory, template_file)}')
+    if not os.path.exists(os.path.join(directory, template_file)):
+        logging.fatal('template file not found')
+        exit(1)
+    file_loader = jinja2.FileSystemLoader(directory)
+    env = jinja2.Environment(loader=file_loader)
+    return env.get_template(template_file)
 
 
 def configure_logger(log_file, level=logging.INFO, show_mod_func=False):

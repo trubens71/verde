@@ -43,7 +43,7 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
         logging.warning('verde rule_03_ordinal_sort is disabled in config')
 
     if rule_config.rule_04_entity_colours.do:
-        lp = lp + vrule04.rule_04_ordinal(context, schema_file, input_file, mapping_json, query_fields)
+        lp = lp + vrule04.rule_04_ordinal(context, schema_file, mapping_json)
     else:
         logging.warning('verde rule_04_entity_colours is disabled in config')
 

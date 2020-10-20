@@ -7,6 +7,7 @@
     domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json
     draco_base_lp_dir: ../asp/draco_base
     verde_base_lp_override_dir: ../asp/verde_override  # must contain same file names as draco base in order to override
+    verde_rule_template_dir: ../asp/verde_rule_templates
     num_models: 20  # how many ranked visualisation models to solve for (topk in Draco)
     execute:
       validate_domain_schema:
@@ -30,6 +31,7 @@
           do: false
         rule_04_entity_colours:
           do: true
+          template: rule04_colour.lpt
         rule_05_eliminate_codes:
           do: false
         rule_06_summary_by_grouping:
@@ -46,7 +48,7 @@
         do: true
   experiments:
     - experiment_id: exp_01_enc_and_mark
-      do: true
+      do: false
       experiment_desc: for development of rule04 (colour) - color single encoding and mark colour
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
@@ -55,7 +57,7 @@
         - field('Gross Total Expenditure (x1000)', scale='log')
         - field('Support provided to carers during the year', scale='zero')
     - experiment_id: exp_02_double_enc
-      do: false
+      do: true
       experiment_desc: for development of rule04 (colour) - double encoding with colour
       input_data_file: ../asc_data/processed/set_01/AFR_T41_region_tidy.csv
       input_mapping_file: ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json

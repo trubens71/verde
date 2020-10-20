@@ -1,9 +1,9 @@
 import logging
 import src.domain_rule_01_causal as vrule01
-import jinja2 as jj
+import src.utils as vutils
 
 
-def rule_04_ordinal(context, schema_file, input_file, mapping_json, query_fields):
+def rule_04_ordinal(context, schema_file, mapping_json):
     """
     Uses rule01 code to walk the domain model, pulling out colour directives; then getting the field to node
     mappings. Writes field-based asp rules with directives, for mark colours and colour schemes.
@@ -45,8 +45,12 @@ def rule_04_ordinal(context, schema_file, input_file, mapping_json, query_fields
                                     f'overriding with {colour_scheme}')
                 field_colour_scheme[field] = colour_scheme
 
-    # TODO now implemented rules via jinja
-    pass
+    # TODO add template folder to context
+    template = vutils.get_jinja_template('../asp/verde_rule_templates',
+                                         context.rule_config.rule_04_entity_colours.template)
+
+    return template.render(field_mark_colour=field_mark_colour,
+                           field_colour_scheme=field_colour_scheme)
 
 
 def find_nearest_colour(domain_node_colours, node, prop):
