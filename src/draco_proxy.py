@@ -7,11 +7,10 @@ import src.utils as vutils
 import logging
 import re
 import json
-from collections import defaultdict
+from addict import Dict
 
 
 def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
-
     logging.info('creating baseline schema and query lp')
     # use dziban to construct the schema logic program
     df = pd.read_csv(input_file)
@@ -38,25 +37,39 @@ def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
 
 
 def run_draco(query, lp_files, num_models):
-
     return draco(query, files=lp_files, topk=True, k=num_models, silence_warnings=True)
 
 
 def get_vega_lite_spec(result):
+    """
+    Get a vega-lite spec from the properties returned by clingo.
+    Basically a wrapper around draco's asp2vl.js, but that will
+    not handle the new properties introduced by verde so we need
+    to do some pre and post processing.
+    :param result: draco result object
+    :return: json vega-lite spec
+    """
 
     view = get_default_view()
 
     # handle new verde props (e.g. ordinal sort) that asp2vl will baulk at. Should really extend draco asp2vl!
-    custom_sorts = []
-    for i, prop in enumerate(result.props[view]):
-        if prop.startswith('verde_ordinal_sort('):
-            # remove the sort property and keep for post processing
-            custom_sorts.append(result.props[view].pop(i))
+    custom_sorts = [p for p in result.props[view] if p.startswith('verde_ordinal_sort')]
+    enc_colour_schemes = [p for p in result.props[view] if p.startswith('verde_color_enc_scheme')]
+    double_enc_colour_schemes = [p for p in result.props[view] if p.startswith('verde_color_double_enc_scheme')]
+    mark_colours = [p for p in result.props[view] if p.startswith('verde_color_mark')]
+    result.props[view] = [p for p in result.props[view] if not p.startswith('verde')]
 
-    spec = result.as_vl(view)
+    logging.debug(f'found {len(custom_sorts)} custom sorts')
+    logging.debug(f'found {len(enc_colour_schemes)} encodings of the colour channel')
+    logging.debug(f'found {len(double_enc_colour_schemes)} double encodings')
+    logging.debug(f'found {len(mark_colours)} mark colours')
+
+    # use draco to get the base spec
+    spec = Dict(result.as_vl(view))
 
     # post-process the vega-lite spec to add in any custom sorts
-    # get the part from custom_ordinal_sort(view,encoding,field,custom_sort_value_list)
+
+    # get parts from custom_ordinal_sort(view,encoding,field,custom_sort_value_list)
     regex = re.compile(r'\((.*?),(.*?),(.*?),\"(.*?)\",\"(.*?)\"\)')
 
     for custom_sort in custom_sorts:
@@ -66,13 +79,33 @@ def get_vega_lite_spec(result):
         spec['encoding'][channel]['sort'] = sort_values
         # TODO spec['encoding'][channel]['type'] = 'ordinal' ... which will impact compare.compare_specs()
 
-    # put the props back
-    result.props[view] = result.props[view] + custom_sorts
+    # get parts from verde_color_(double)_enc_scheme(view,encoding,field,field_type,scheme)
+    regex = re.compile(r'\((.*?),(.*?),\"(.*?)\",(.*?),\"(.*?)\"\)')
 
-    # TODO validate the spec against the vega-lite schema? Quite expensive to do for each vis. Do it in compare?
+    for colour_scheme in enc_colour_schemes + double_enc_colour_schemes:
+        view, encoding, field, field_type, scheme = re.search(regex, colour_scheme).groups()
+        scheme = json.loads(scheme)
+        spec['encoding']['color']['field'] = field
+        spec['encoding']['color']['type'] = field_type
+        spec['encoding']['color']['scale'] = scheme
+
+    # get parts from verde_color_mark(view,color)
+    regex = re.compile(r'\((.*?),\"(.*?)\"\)')
+
+    for mark_colour in mark_colours:  # should only be one!
+        view, color = re.search(regex, mark_colour).groups()
+        color = json.loads(color)
+        mark_type = spec['mark']  # draco uses string shorthand for the mark prop, we extend to dict longhand
+        spec.pop('mark', None)
+        spec['mark']['type'] = mark_type
+        spec['mark'].update(color)
+
+    # put the props back
+    result.props[view] = result.props[view] + custom_sorts + enc_colour_schemes + \
+                         double_enc_colour_schemes + mark_colours
+
     return spec
 
 
 def get_default_view():
-
     return Chart.DEFAULT_NAME

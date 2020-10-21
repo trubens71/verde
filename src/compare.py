@@ -9,6 +9,8 @@ import json
 import src.utils as vutils
 import dictdiffer
 
+diff_set = set()
+
 
 def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_results,
                               baseline_label='baseline', verde_label='verde'):
@@ -51,6 +53,7 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
                             'crossed': 'not',
                             'match_type': match_type})
 
+    logging.debug(f'found {len(diff_set)} spec diffs')
     # some summary stats
     b_not_in_v = [baseline_results[i]['matches'] for i,_ in enumerate(baseline_results) ].count(None)
     v_not_in_b = [verde_results[i]['matches'] for i,_ in enumerate(verde_results) ].count(None)
@@ -173,8 +176,23 @@ def compare_specs(b_spec, v_spec):
         # rule 03 introduced ordinal sort
         if diff[0] == 'add' and diff[2][0][0] == 'sort':
             pass
+        # rule 04 introduced a colour channel encoding
+        elif diff[0] == 'add' and diff[1] == 'encoding' and len(diff[2][0]) == 1 and diff[2][0][0] == 'color':
+            logging.debug('')
+        # rule 04 added a scale to a colour encoding
+        elif diff[0] == 'add' and diff[1] == 'encoding.color.scale':
+            pass
+        elif diff[0] == 'remove' and diff[1] == 'encoding.color.scale':
+            pass
+        elif diff[0] == 'add' and diff[1] == 'encoding' and diff[2][0][0] == 'color' and ("{'scheme':" in str(diff)):  # yuck!
+            logging.debug('')
+        # rule 04 changes mark from shorthand to longhand
+        elif diff[0] == 'change' and diff[1] == 'mark' and isinstance(diff[2][1], dict):
+            if diff[2][0] == diff[2][1]['type']:  # ok if mark types are the same
+                pass
         else:
             verde_introduced_diffs = False
+            diff_set.add(str(diff))
             break
 
     if verde_introduced_diffs:

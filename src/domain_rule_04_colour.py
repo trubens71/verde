@@ -9,9 +9,7 @@ def rule_04_ordinal(context, schema_file, mapping_json):
     mappings. Writes field-based asp rules with directives, for mark colours and colour schemes.
     :param context:
     :param schema_file:
-    :param input_file:
     :param mapping_json:
-    :param query_fields:
     :return:
     """
     logging.info('applying verde rule 04 (colour)')

@@ -132,9 +132,14 @@ def write_results_json(trial_id, directory, input_data_file, results, label):
     :param label:
     :return: results
     """
+
+    logging.info('processing results')
+
     results_json = []
 
-    for result in results:
+    for i, result in enumerate(results):
+
+        logging.debug(f'processing model {i}')
 
         # organise the soft rule violation counts and weights
         violations = {}
@@ -180,6 +185,8 @@ def write_results_vegalite(trial_id, directory, label, json_results):
     :return:
     """
 
+    logging.info('writing vega-lite specs')
+
     vl_dir = os.path.join(directory,'vegalite')
     # make the sub-dir if necessary
     if not os.path.isdir(vl_dir):
@@ -209,6 +216,7 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels):
     :param json_results_list:
     :return:
     """
+
     vl = {'$schema': json_results_list[0][0]['vl']['$schema'],
           'data': {'url': json_results_list[0][0]['vl']['data']['url']},
           'title': {'text': trial_id, 'anchor': 'middle'},
@@ -223,6 +231,9 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels):
             spec.pop('data', None)
             spec['title'] = f'{label} model {i:03} cost {model["cost"]}'
             row_specs.append(spec)
+            # TODO review this workaround for https://github.com/vega/vega-lite/issues/4680
+            if spec['encoding']['column'] or spec['encoding']['row']:
+                row_specs.append({"mark": "text"})
         vl['hconcat'].append({'vconcat': row_specs})
 
     vl_output_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_all_vl.json')

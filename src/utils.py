@@ -1,3 +1,7 @@
+"""
+Common utility functions, mostly file handling
+"""
+
 import logging
 import sys
 import json
@@ -23,6 +27,7 @@ def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, p
     :param postfix:
     :return: output_csv_file, output_map_file, query
     """
+
     if not os.path.isdir(output_dir):
         os.mkdir(output_dir)
 
@@ -32,7 +37,8 @@ def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, p
     output_csv_file = os.path.basename(input_csv_file)
     output_csv_file = prefix + os.path.splitext(output_csv_file)[0] + postfix + '.csv'
     output_csv_file = os.path.join(output_dir, output_csv_file)
-    logging.info(f'fixing csv column headers (special chars disallowed by clingo) in {input_csv_file} to {output_csv_file}')
+    logging.info(f'fixing csv column headers (special chars disallowed by clingo) in '
+                 f'{input_csv_file} to {output_csv_file}')
     df = pd.read_csv(input_csv_file)
     # replace non-alpha/digit with underscores, tidy up multiple and leading/trailing underscores.
     df.rename(columns=lambda x: re.sub('[^A-Za-z0-9]', '_', x), inplace=True)
@@ -45,9 +51,11 @@ def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, p
     output_map_file = prefix + os.path.splitext(output_map_file)[0] + postfix + '.json'
     output_map_file = os.path.join(output_dir, output_map_file)
     logging.info(f'fixing map file column names in {input_map_file} to {output_map_file}')
+
     # read input
     with open(input_map_file) as f:
         j = json.load(f)
+
     # replace non-alpha/digit with underscores, tidy up multiple and leading/trailing underscores.
     for i, column in enumerate(j):
         column_name = column['column_name']
@@ -55,6 +63,7 @@ def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, p
         column_name = re.sub('_{2,}', '_', column_name)
         column_name = re.sub('^_|_$', '', column_name)
         j[i]['column_name'] = column_name
+
     # write output
     with open(output_map_file, 'w') as f:
         json.dump(j, f)
@@ -73,12 +82,14 @@ def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, p
 
 
 def validate_json_doc(doc_file_path, schema_file_path=None):
+
     """
     Validate a JSON document against a schema
     :param doc_file_path:
     :param schema_file_path:
     :return: success
     """
+
     logging.info('validating {} against {}'.format(doc_file_path, schema_file_path))
 
     if schema_file_path:
@@ -119,6 +130,12 @@ def write_list_to_file(content_list, output_file, desc=''):
 
 def delete_temp_files(directory, prefix):
 
+    """
+    For each experiment we clear out any previous intermediary and output files
+    :param directory:
+    :param prefix:
+    :return:
+    """
     logging.info(f'deleting experiment output files {prefix}* recursively from {directory}')
     glob_path = f'{directory}/**/{prefix}*'
     files = glob.glob(glob_path, recursive=True)
@@ -129,30 +146,44 @@ def delete_temp_files(directory, prefix):
 
 
 def get_jinja_template(directory, template_file):
-    logging.info(f'loading rule template file {os.path.join(directory, template_file)}')
-    if not os.path.exists(os.path.join(directory, template_file)):
+
+    """
+    Does what is says on the tin.
+    :param directory:
+    :param template_file:
+    :return:
+    """
+    full_path = os.path.join(directory, template_file)
+    logging.info(f'loading rule template file {full_path}')
+
+    if not os.path.isfile(full_path):
         logging.fatal('template file not found')
         exit(1)
+
     file_loader = jinja2.FileSystemLoader(directory)
     env = jinja2.Environment(loader=file_loader)
     return env.get_template(template_file)
 
 
 def configure_logger(log_file, level=logging.INFO, show_mod_func=False):
+
     """
     Creates a logging instance which writes to file and stdout
     :param log_file: path to logfile
     :param level: logging.DEBUG, logging.INFO (default)
     :return: logging instance
     """
+
     # Clear out old loggers (for Jupyter use when the handlers stay in scope between runs)
     for h in logging.getLogger('').handlers:
         logging.getLogger('').removeHandler(h)
+
     # configure logging to write to file and stdout with a nice format and
     # for info and above messages
     fh = logging.StreamHandler(sys.stdout)
     ch = logging.FileHandler(log_file, mode='w')
-    if show_mod_func:
+
+    if show_mod_func:  # including the module name and function name in log format
         formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(module)s.%(funcName)s : %(message)s',
                                       "%Y-%m-%d %H:%M:%S")
     else:
@@ -162,4 +193,5 @@ def configure_logger(log_file, level=logging.INFO, show_mod_func=False):
     logging.getLogger('').addHandler(fh)
     logging.getLogger('').addHandler(ch)
     logging.getLogger('').setLevel(level)
+
     return logging
