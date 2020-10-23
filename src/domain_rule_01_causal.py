@@ -356,7 +356,7 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
     # care of the one-to-many field-to-node situation. i.e. get the shortest path from all entry points to the graph.
     field_nodes, field_schema_edges = get_field_nodes_and_edges_to_schema(field_to_nodes)
     # Build the graph
-    rule_config = CONTEXT.rule_config.rule_01v02_causal_relationships
+    rule_config = CONTEXT.rule_config.rule_01_causal_relationships  # TODO check this gets picked up
     property_edge_weight = rule_config.property_edge_weight if rule_config.property_edge_weight else 1.0
     compose_edge_weight = rule_config.compose_edge_weight if rule_config.compose_edge_weight else 0.5
     explain_edge_weight = rule_config.explain_edge_weight if rule_config.explain_edge_weight else 0.1
@@ -375,7 +375,7 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
     channels = ['x', 'y', 'size', 'color']  # order of this list is important
     # itertools.combinations is deterministic according to docs, so pairs will be ordered as they appear in the list
     channel_pairs = list(itertools.combinations(channels, 2))
-    soft_weight = CONTEXT.rule_config.rule_01v02_causal_relationships.draco_soft_weight or 100
+    soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100  # TODO check this gets picked up
 
     for i, field_pair in enumerate(field_pairs):
 

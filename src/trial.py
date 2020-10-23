@@ -1,11 +1,17 @@
+"""
+Class to hold the trial data and loads its experiments.
+"""
+
 import logging
 import os
 import yaml
 from src.experiment import Experiment
+import src.utils as vutils
 from addict import Dict
 
 
 class Trial:
+
     """
     Data structure to hold the trial config and its experiment objects
     """
@@ -31,11 +37,21 @@ class Trial:
         self.trial_id = self._raw_config['trial_id']
         self.trial_desc = self._raw_config['trial_desc']
         self.global_config = self._raw_config['global_config']
+        self.regression_test = self._raw_config['regression_test']
 
         # create the experiment objects
         self.experiments = []
         for exp in self._raw_config['experiments']:
             self.experiments.append(Experiment(self, exp))
 
+    def exec_regression_test(self):
 
+        """
+        Will compare output files against a regression test baseline
+        :return:
+        """
 
+        if self.regression_test['do']:
+            vutils.regression_test(self.directory)
+        else:
+            logging.warning('regression test disabled in config')

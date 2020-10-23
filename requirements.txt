@@ -14,3 +14,4 @@ vega_datasets~=0.8.0
 numpy~=1.19.1
 dictdiffer~=0.8.0
 nltk~=3.4.4
+jinja2~=2.11.2

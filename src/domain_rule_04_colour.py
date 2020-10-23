@@ -1,9 +1,14 @@
+"""
+Verde rule 04 adds colour schemes and mark colours, where specified in the domain model.
+"""
+
 import logging
 import src.domain_rule_01_causal as vrule01
 import src.utils as vutils
 
 
-def rule_04_ordinal(context, schema_file, mapping_json):
+def rule_04_colour(context, schema_file, mapping_json):
+
     """
     Uses rule01 code to walk the domain model, pulling out colour directives; then getting the field to node
     mappings. Writes field-based asp rules with directives, for mark colours and colour schemes.
@@ -12,6 +17,7 @@ def rule_04_ordinal(context, schema_file, mapping_json):
     :param mapping_json:
     :return:
     """
+
     logging.info('applying verde rule 04 (colour)')
 
     # get domain nodes with their colour directives, borrowing from rule01 code.
@@ -30,20 +36,19 @@ def rule_04_ordinal(context, schema_file, mapping_json):
     # iterate over the fields to find appropriate nearest colours in the domain model.
     for i, field in enumerate(field_nodes.keys()):
         for j, node in enumerate(field_nodes[field]['schema_nodes']):
-            mark_colour = find_nearest_colour(domain_node_colours, node, prop='mark_colour')
+            mark_colour, distance = find_nearest_colour(domain_node_colours, node, prop='mark_colour')
             if mark_colour:
                 if field in field_mark_colour:
                     logging.warning(f'found multiple possible mark colours for {field}'
                                     f'overriding with {mark_colour}')
-                field_mark_colour[field] = mark_colour
-            colour_scheme = find_nearest_colour(domain_node_colours, node, prop='scheme')
+                field_mark_colour[field] = {'colour': mark_colour, 'distance': distance}
+            colour_scheme, distance = find_nearest_colour(domain_node_colours, node, prop='scheme')
             if colour_scheme:
                 if field in field_colour_scheme:
                     logging.warning(f'found multiple possible colour schemes for {field}'
                                     f'overriding with {colour_scheme}')
-                field_colour_scheme[field] = colour_scheme
+                field_colour_scheme[field] = {'scheme': colour_scheme, 'distance': distance}
 
-    # TODO add template folder to context
     template = vutils.get_jinja_template(context.verde_rule_template_dir,
                                          context.rule_config.rule_04_entity_colours.template)
 
@@ -52,6 +57,7 @@ def rule_04_ordinal(context, schema_file, mapping_json):
 
 
 def find_nearest_colour(domain_node_colours, node, prop):
+
     """
     Iterate over the domain nodes with colour directives, looking for the
     closest match for colour properties. If there is no colour props for the node
@@ -66,75 +72,13 @@ def find_nearest_colour(domain_node_colours, node, prop):
     :return:
     """
 
-    prop_value = ''
+    prop_value = None
+    distance = None
 
     for domain_node in sorted(domain_node_colours):  # sorting then overriding takes care of inheritance...
         if domain_node == node[0:len(domain_node)]:  # ... provided we work on partial match
             if prop in domain_node_colours[domain_node]:
                 prop_value = domain_node_colours[domain_node][prop]
+                distance = node.count('.') - domain_node.count('.')  # bit sneaky but works!
 
-    return prop_value
-
-
-"""
-rule development
-% verde
-fieldcolorscheme("Gross_Total_Expenditure_x1000", "{\"scheme\": \"oranges\"}").
-fieldmarkcolor("LA_name","{\"color\": \"black\"}").
-fieldmarkcolor("Geography_code","{\"color\": \"gray\"}").
-fieldmarkcolor("Region_name","{\"color\": \"blue\"}").
-fieldcolorscheme("Setting", "{\"scheme\": \"pastel1\"}").
-
-% first case: color channel is used and we have a scheme for the encoding field.
-verde_color_enc_scheme(V,E,F,CS) :- fieldcolorscheme(F,CS), field(V,E,F), channel(V,E,color).
-
-% second case: if first case not applied, and we have non-aggregated field encoding for which there is a schema...
-verde_color_double_enc_scheme(V,E,F,CS) :- not verde_color_enc_scheme(_,_,_,_), field(V,E,F), not aggregate(V,E,_), discrete(V,E), fieldcolorscheme(F,CS).
-
-% third case: if first two cases does not apply but we have an appropriate mark color
-verde_mark_color_choices(V,CO) :- not verde_color_enc_scheme(_,_,_,_), not verde_color_double_enc_scheme(_,_,_,_), view(V), fieldmarkcolor(F,CO), fieldtype(F,FT), FT != "number", cardinality(F,CA), num_rows(NR), CA = NR.
-% choose only one
-1 { verde_color_mark(V,CO): verde_mark_color_choices(V,CO)} 1 :- verde_mark_color_choices(_,_).
-
-#show verde_color_enc_scheme/4.
-#show verde_color_double_enc_scheme/4.
-#show verde_color_mark/2.
-
-soft(verde_color_enc_scheme,V,E) :- verde_color_enc_scheme(V,E,F,CS).
-soft(verde_color_double_enc_scheme,V,E) :- verde_color_double_enc_scheme(V,E,F,CS).
-soft(verde_color_mark,V,CO) :- verde_color_mark(V,CO).
-
-#const verde_color_enc_scheme_weight = 0.
-#const verde_color_double_enc_scheme_weight = 0.
-#const verde_color_mark_weight = 0.
-
-soft_weight(verde_color_enc_scheme, verde_color_enc_scheme_weight).
-soft_weight(verde_color_double_enc_scheme, verde_color_double_enc_scheme_weight).
-soft_weight(verde_color_mark, verde_color_mark_weight).
-
-"""
-"""
-Draco colour rules.
-
-They all relate to use of the colour channel, therefore conclude that
-colour and schema choices are deferred to vega-lite
-
-% @constraint Prefer not to use high cardinality nominal for color.
-soft(high_cardinality_nominal_color,V,E) :- type(V,E,nominal), channel(V,E,color), enc_cardinality(V,E,C), C > 10.
-#const high_cardinality_nominal_color_weight = 10.
-
-% @constraint Continuous on color channel.
-soft(continuous_color,V,E) :- channel(V,E,color), continuous(V,E).
-#const continuous_color_weight = 10.
-
-% @constraint Ordered on color channel.
-soft(ordered_color,V,E) :- channel(V,E,color), discrete(V,E), not type(V,E,nominal).
-#const ordered_color_weight = 8.
-
-% @constraint Nominal on color channel.
-soft(nominal_color,V,E) :- channel(V,E,color), type(V,E,nominal).
-#const nominal_color_weight = 6.
-
-There are other colour rules related to entropy, interesting, value/summary task, which we do not encounter.
-Those are still concerned with encoding the colour channel.
-"""
+    return prop_value, distance

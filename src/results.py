@@ -1,3 +1,8 @@
+"""
+Get the visualisations from Draco and process the results.
+Includes generation of a vega-lite spec which concatenates the specs for viewing.
+"""
+
 import logging
 import src.draco_proxy as vdraco
 import os
@@ -206,7 +211,7 @@ def write_results_vegalite(trial_id, directory, label, json_results):
     return json_results
 
 
-def make_vegalite_concat(trial_id, directory, json_results_list, labels):
+def make_vegalite_concat(trial_id, directory, json_results_list, labels, vega_lite_schema):
 
     """
     create a concatenated vega-lite spec for the results.
@@ -217,10 +222,13 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels):
     :return:
     """
 
+    resolve_spec = {"scale": {"color": "independent", "size": "independent"}}
+
     vl = {'$schema': json_results_list[0][0]['vl']['$schema'],
           'data': {'url': json_results_list[0][0]['vl']['data']['url']},
           'title': {'text': trial_id, 'anchor': 'middle'},
-          'hconcat': []}
+          'hconcat': [],
+          'resolve': resolve_spec}
 
     # if passed multiple results sets then we arrange them in columns
     for json_result, label in zip(json_results_list, labels):
@@ -231,16 +239,19 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels):
             spec.pop('data', None)
             spec['title'] = f'{label} model {i:03} cost {model["cost"]}'
             row_specs.append(spec)
-            # TODO review this workaround for https://github.com/vega/vega-lite/issues/4680
+            # TODO review this workaround against progress on https://github.com/vega/vega-lite/issues/4680
             if spec['encoding']['column'] or spec['encoding']['row']:
                 row_specs.append({"mark": "text"})
-        vl['hconcat'].append({'vconcat': row_specs})
+        vl['hconcat'].append({'vconcat': row_specs, 'resolve': resolve_spec})
 
     vl_output_file = os.path.join(directory, 'vegalite', f'{trial_id}_view_all_vl.json')
 
     logging.info(f'writing concatenated vega-lite spec to {vl_output_file}')
     with open(vl_output_file, 'w') as f:
         json.dump(vl, f)
+
+    if not vutils.validate_json_doc(vl_output_file, vega_lite_schema):
+        exit(1)
 
     # create a vega-embed html file...
 
@@ -261,7 +272,7 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels):
         <script type="text/javascript">
           var spec = "VIS_SPEC";
           vegaEmbed('#vis', spec).then(function(result) {}).catch(console.error);
-        </script>   
+        </script> 
     </body>
     </html>
     """

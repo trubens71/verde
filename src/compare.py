@@ -1,3 +1,8 @@
+"""
+Compares the visualisations from baseline Draco with those generated with Verde rules.
+Produces vega-lite interactive visualisation to explore the differences.
+"""
+
 import logging
 from shapely.geometry import LineString
 import os
@@ -8,8 +13,9 @@ import datetime
 import json
 import src.utils as vutils
 import dictdiffer
+from collections import defaultdict
 
-diff_set = set()
+checks = defaultdict(int)
 
 
 def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_results,
@@ -53,7 +59,10 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
                             'crossed': 'not',
                             'match_type': match_type})
 
-    logging.debug(f'found {len(diff_set)} spec diffs')
+    global checks
+    check_log = dict(checks)
+    logging.debug(f'check counts = {check_log}')
+
     # some summary stats
     b_not_in_v = [baseline_results[i]['matches'] for i,_ in enumerate(baseline_results) ].count(None)
     v_not_in_b = [verde_results[i]['matches'] for i,_ in enumerate(verde_results) ].count(None)
@@ -139,6 +148,14 @@ def compare_baseline_to_verde(trial_id, directory, baseline_results, verde_resul
 
 
 def find_crossed_matches(matches):
+
+    """
+    Determines which of the matched visualisations have different rankings
+    such that their lines are crossed in the exploratory visualisation.
+    :param matches:
+    :return:
+    """
+
     for i, _ in enumerate(matches):
         matches[i]['crossed'] = False
 
@@ -164,7 +181,6 @@ def compare_specs(b_spec, v_spec):
     """
 
     match_type = None
-    verde_introduced_diffs = False
 
     if b_spec == v_spec:
         return 'exact'
@@ -172,27 +188,29 @@ def compare_specs(b_spec, v_spec):
     dict_diff = dictdiffer.diff(b_spec, v_spec)
     verde_introduced_diffs = True
 
+    global checks
+
     for diff in dict_diff:
         # rule 03 introduced ordinal sort
         if diff[0] == 'add' and diff[2][0][0] == 'sort':
-            pass
-        # rule 04 introduced a colour channel encoding
+            checks[1] += 1
+        # rule 04 colour encoding checks, this is a bit scrappy and actually think only 5 and 6 apply
         elif diff[0] == 'add' and diff[1] == 'encoding' and len(diff[2][0]) == 1 and diff[2][0][0] == 'color':
-            logging.debug('')
-        # rule 04 added a scale to a colour encoding
+            checks[2] += 1
         elif diff[0] == 'add' and diff[1] == 'encoding.color.scale':
-            pass
+            checks[3] += 1
         elif diff[0] == 'remove' and diff[1] == 'encoding.color.scale':
-            pass
+            checks[4] += 1
+        elif diff[0] == 'add' and diff[1] == 'encoding.color' and diff[2][0][0] == 'scale':
+            checks[5] += 1
         elif diff[0] == 'add' and diff[1] == 'encoding' and diff[2][0][0] == 'color' and ("{'scheme':" in str(diff)):  # yuck!
-            logging.debug('')
+            checks[6] += 1
         # rule 04 changes mark from shorthand to longhand
         elif diff[0] == 'change' and diff[1] == 'mark' and isinstance(diff[2][1], dict):
             if diff[2][0] == diff[2][1]['type']:  # ok if mark types are the same
-                pass
+                checks[7] += 1
         else:
             verde_introduced_diffs = False
-            diff_set.add(str(diff))
             break
 
     if verde_introduced_diffs:
@@ -202,6 +220,15 @@ def compare_specs(b_spec, v_spec):
 
 
 def write_single_vis_viewer(trial_id, directory):
+
+    """
+    When you click a dot in the exploratory visualisation (of visualisations) it
+    displays the actual vis in question. This is simple vega-embed wrapper to
+    facilitate that display.
+    :param trial_id:
+    :param directory:
+    :return:
+    """
 
     html = """
     <!DOCTYPE html>
@@ -229,7 +256,13 @@ def write_single_vis_viewer(trial_id, directory):
         var spec = vl_json;
         vegaEmbed('#vis', spec).then(function(result) {}).catch(console.error);
     </script>
-    
+    <pre id="spec_json"></pre>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $.get(vl_json, function(data, status){
+            document.getElementById('spec_json').textContent += JSON.stringify(data, undefined, 2);
+        });
+    </script>      
     </body>
     </html>    
     """
@@ -241,6 +274,19 @@ def write_single_vis_viewer(trial_id, directory):
 def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_data_file,
                                      violations_data_file, props_data_file,
                                      baseline_label='baseline', verde_label='verde'):
+
+    """
+    Uses altair to generate the exploratory visualisation.
+    :param trial_id:
+    :param directory:
+    :param vis_data_file:
+    :param match_data_file:
+    :param violations_data_file:
+    :param props_data_file:
+    :param baseline_label:
+    :param verde_label:
+    :return:
+    """
 
     vl_viewer = f'{trial_id}_view_one_vl.html?vl_json='
 
@@ -397,6 +443,7 @@ def create_exploratory_visualisation(trial_id, directory, vis_data_file, match_d
 
 
 if __name__ == "__main__":
+
     # an entry point to let us compare across two experiments, particularly two verde sets
     # Note that the vis will still refer to baseline and verde.
     logging = vutils.configure_logger('compare.log', logging.DEBUG)

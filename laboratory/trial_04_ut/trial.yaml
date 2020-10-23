@@ -1,13 +1,15 @@
 ---
-  trial_id: trial_02
-  trial_desc: trivial data set for dev and unit testing of rules 03 (ordinal)
-  global_config:  # global settings take precedence over experiments if duplicated there, but might change that!
+  trial_id: trial_04_ut
+  trial_desc: trivial data set for dev and unit testing of rules 04 (colour)
+  global_config:  # global settings are overridden by experiments if any node herein is found there!
     verde_meta_schema: ../schemas/verde_meta_schema.json
     domain_schema: ../schemas/verde_asc_domain_schema.json
     domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json
     draco_base_lp_dir: ../asp/draco_base
     verde_base_lp_override_dir: ../asp/verde_override  # must contain same file names as draco base in order to override
-    num_models: 20  # how many ranked visualisation models to solve for (topk in Draco)
+    verde_rule_template_dir: ../asp/verde_rule_templates
+    vega_lite_schema: ../schemas/vega_lite_v3_schema.json
+    num_models: 50  # how many ranked visualisation models to solve for (topk in Draco)
     execute:
       validate_domain_schema:
         do: true
@@ -23,17 +25,17 @@
         write_lp: true
         rule_01_causal_relationships:
           do: false
+          template: rule_01_causal.lpt
           export_graphml: true
         rule_02_data_precision:
           do: false
+          template: rule_02_precision.lpt
         rule_03_ordinal_sort:
+          do: false
+          template: rule_03_sort.lpt
+        rule_04_entity_colours:
           do: true
-        rule_04_eliminate_codes:
-          do: false
-        rule_05_entity_colours:
-          do: false
-        rule_06_summary_by_grouping:
-          do: false
+          template: rule_04_colour.lpt
       get_baseline_visualisations:
         do: true
         write_lp: true
@@ -45,11 +47,22 @@
       compare_baseline_verde:
         do: true
   experiments:
+    - experiment_id: exp_01
+      do: true
+      experiment_desc: for development of rule04 (colour) - color single encoding and mark colour
+      input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
+      input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
+      query:  # in dziban python query format, supports unfixed input file column names.
+        - field('Social care-related quality of life score (All)', scale='zero')
+        - field('Gross Total Expenditure (x1000)', scale='log')
+        - field('Support provided to carers during the year', scale='zero')
     - experiment_id: exp_02
       do: true
-      experiment_desc: ordinal sort of order of long-term setting
+      experiment_desc: for development of rule04 (colour) - double encoding with colour
       input_data_file: ../asc_data/processed/set_01/AFR_T41_region_tidy.csv
       input_mapping_file: ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json
       query:  # in dziban python query format, supports unfixed input file column names.
         - field('Setting')
         - field('Gross Current Expenditure (x1000)')
+  regression_test:
+    do: true

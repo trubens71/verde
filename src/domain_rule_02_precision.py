@@ -8,6 +8,7 @@ def rule_02_data_precision(context, mapping_json, query_fields):
     Each field in the mapping json will either have a strength between zero and one, for example fields from survey data
     will have a low strength than those from administrative systems. We will assign an imprecision to each channel,
     for examples x=0, size=1. Our goal is to write rules which prefer stronger fields on more precise channels.
+    :param query_fields:
     :param context:
     :param mapping_json:
     :return:

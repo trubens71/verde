@@ -95,15 +95,3 @@ def get_field_unique_values(source_data_file):
         column_values[column]['unique_values'] = list(df[column].unique())
 
     return column_values
-
-
-"""
-ASP development notes
-% verde rule 03: adding custom sort orders for ordinals
-fieldcustomsortorder("Setting", "['community', 'home', 'residential home', 'nursing home']").
-custom_ordinal_sort(V,E,C,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), type(V,E,(nominal;ordinal)), channel(V,E,C).
-#show custom_ordinal_sort/5.
-soft(custom_ordinal_sort,V,E):- custom_ordinal_sort(V,E,C,F,O).
-#const custom_ordinal_sort_weight = 0.
-soft_weight(custom_ordinal_sort, custom_ordinal_sort_weight).
-"""

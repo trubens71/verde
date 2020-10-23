@@ -1,3 +1,7 @@
+"""
+Orchestrates the generation of Verde rules
+"""
+
 import src.utils as vutils
 import src.draco_proxy as vdraco
 import src.domain_rule_01_causal as vrule01
@@ -13,6 +17,19 @@ from addict import Dict
 def create_verde_rules_lp(schema_file, input_file, mapping_file,
                           query_fields, trial_id, directory, rule_config, baseline_lp,
                           verde_rule_template_dir):
+    """
+    Works through each implemented verde rule.
+    :param schema_file:
+    :param input_file:
+    :param mapping_file:
+    :param query_fields:
+    :param trial_id:
+    :param directory:
+    :param rule_config:
+    :param baseline_lp:
+    :param verde_rule_template_dir:
+    :return:
+    """
 
     logging.info(f'creating verde rules lp based on {schema_file} and {mapping_file}')
 
@@ -46,7 +63,7 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
 
     if rule_config.rule_04_entity_colours.do:
         # TODO fix when using jinja for all rules
-        lp_str = vrule04.rule_04_ordinal(context, schema_file, mapping_json)
+        lp_str = vrule04.rule_04_colour(context, schema_file, mapping_json)
         lp = lp + lp_str.split('\n')
     else:
         logging.warning('verde rule_04_entity_colours is disabled in config')
@@ -58,16 +75,3 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
 
     return baseline_lp + lp
 
-
-def bind_fields_to_encodings(fields):
-    """
-    Binds each field in query to an encoding in the base query.
-    :param fields: dictionary of encodings and fields
-    :return: a logic program of form: field(v_v,e0,"Displacement").
-    """
-
-    lp = ['\n% verde generated logic program','% binding fields to encodings']
-    base_view = vdraco.get_default_view()
-    for encoding_id in sorted(fields.keys()):
-        lp.append(f'field({base_view},{encoding_id},"{fields[encoding_id]["source_field"]}").')
-    return lp

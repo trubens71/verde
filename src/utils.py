@@ -11,6 +11,8 @@ import pandas as pd
 import re
 import glob
 import jinja2
+import filecmp
+import yaml
 
 
 def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, postfix='_colfix'):
@@ -84,7 +86,7 @@ def fix_column_headings(input_csv_file, input_map_file, id, query, output_dir, p
 def validate_json_doc(doc_file_path, schema_file_path=None):
 
     """
-    Validate a JSON document against a schema
+    Validate a JSON or YAML document against a schema
     :param doc_file_path:
     :param schema_file_path:
     :return: success
@@ -98,8 +100,17 @@ def validate_json_doc(doc_file_path, schema_file_path=None):
     else:
         schema = jsonschema.Draft7Validator.META_SCHEMA
 
-    with open(doc_file_path, 'r') as f:
-        doc = json.load(f)
+    _, file_extension = os.path.splitext(doc_file_path)
+    file_extension = file_extension.lower()
+
+    if file_extension == '.json':
+        with open(doc_file_path, 'r') as f:
+            doc = json.load(f)
+    elif file_extension in ['.yaml', '.yml']:
+        with open(doc_file_path, 'r') as f:
+            doc = yaml.load(f, Loader=yaml.FullLoader)
+    else:
+        logging.fatal(f'can only validate json or yaml, not this {doc_file_path}')
 
     success = False
 
@@ -137,12 +148,17 @@ def delete_temp_files(directory, prefix):
     :return:
     """
     logging.info(f'deleting experiment output files {prefix}* recursively from {directory}')
-    glob_path = f'{directory}/**/{prefix}*'
-    files = glob.glob(glob_path, recursive=True)
+    # glob_path = f'{directory}/**/{prefix}*'
+    # files = glob.glob(glob_path, recursive=True)
 
-    for file in files:
-        logging.debug(f'deleting {file}')
-        os.remove(file)
+    paths = [os.path.join(directory, f'{prefix}*'),
+             os.path.join(directory, 'data', f'{prefix}*'),
+             os.path.join(directory, 'vegalite', f'{prefix}*')]
+
+    for path in paths:
+        files = glob.glob(path, recursive=False)
+        for file in files:
+            os.remove(file)
 
 
 def get_jinja_template(directory, template_file):
@@ -195,3 +211,42 @@ def configure_logger(log_file, level=logging.INFO, show_mod_func=False):
     logging.getLogger('').setLevel(level)
 
     return logging
+
+
+def regression_test(trial_dir):
+
+    """
+    Compare the files in the
+    :param trial_dir:
+    :return:
+    """
+
+    logging.info(f'Comparing outputs against regression baseline in {trial_dir}')
+
+    if not os.path.exists(trial_dir):
+        logging.warning(f'{trial_dir} not found')
+        return False
+
+    regression_dir = os.path.join(trial_dir,'regression')
+
+    if not os.path.exists(regression_dir):
+        logging.warning(f'no regression baseline dir found at {regression_dir}')
+        return False
+
+    logging.info('comparing files in trial root directory')
+    filecmp.dircmp(trial_dir, regression_dir).report()
+
+    logging.info('comparing files in trial vegalite sub-directory')
+    filecmp.dircmp(os.path.join(trial_dir, 'vegalite'),
+                   os.path.join(regression_dir, 'vegalite')
+                   ).report()
+
+    logging.info('comparing files in trial data sub-directory')
+    filecmp.dircmp(os.path.join(trial_dir, 'data'),
+                   os.path.join(regression_dir, 'data')
+                   ).report()
+
+
+if __name__ == '__main__':
+    regression_test('../laboratory/trial_04_ut')
+

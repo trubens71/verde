@@ -1,9 +1,15 @@
+"""
+Class to hold the experiment configuration and orchestrate its execution.
+"""
+
 import logging
 import src.utils as vutils
 import src.draco_proxy as vdraco
 import src.domain_rules as vrules
 import src.results as vresults
 import src.compare as vcompare
+import json
+from deepmerge import always_merger
 
 
 class Experiment:
@@ -33,6 +39,7 @@ class Experiment:
         self.verde_vis_results_json = None
         self.verde_base_lp_override_dir = None
         self.verde_rule_template_dir = None
+        self.vega_lite_schema = None
 
         # create a composite id of trial and experiment
         self.id = f"{trial.trial_id}.{exp['experiment_id']}"
@@ -44,16 +51,22 @@ class Experiment:
         self.directory = trial.directory
 
         # copy the experiment config into the class
-        for k, v in exp.items():
-            setattr(self, k, v)
+        # for k, v in exp.items():
+        #     setattr(self, k, v)
 
         # override with any duplicated values from the trial
-        for trial_k, trial_v in trial.global_config.items():
-            if hasattr(self, trial_k) and getattr(self, trial_k) is not None:
-                logging.warning(f"global config {trial_k}={trial_v} overriding {getattr(self, trial_k)} in {self.id}")
-            setattr(self, trial_k, trial_v)
+        # for trial_k, trial_v in trial.global_config.items():
+        #     if hasattr(self, trial_k) and getattr(self, trial_k) is not None:
+        #         logging.warning(f"global config {trial_k}={trial_v} overriding {getattr(self, trial_k)} in {self.id}")
+        #     setattr(self, trial_k, trial_v)
+
+        trial_global_config = trial.global_config.deepcopy()
+
+        for config_k, config_v in always_merger.merge(trial_global_config, exp).items():
+            setattr(self, config_k, config_v)
 
     def run(self):
+
         """
         Run the experiment
         :return: None
@@ -150,7 +163,8 @@ class Experiment:
                 logging.warning(
                     'cannot create concatenated baseline and verde vega-lite spec due to trial config conflict')
             if result_sets and set_labels:
-                vresults.make_vegalite_concat(self.id, self.directory, result_sets, set_labels)
+                vresults.make_vegalite_concat(self.id, self.directory, result_sets,
+                                              set_labels, self.vega_lite_schema)
 
         if self.execute.compare_baseline_verde.do and self.baseline_vis_results_json and self.verde_vis_results_json:
             vcompare.compare_baseline_to_verde(self.id, self.directory,

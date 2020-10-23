@@ -1,4 +1,7 @@
-# All use of draco and dziban done here
+"""
+Marshals all calls to Draco,
+"""
+
 from dziban.mkiv import Chart
 from draco.run import run as draco
 import pandas as pd
@@ -11,6 +14,17 @@ from addict import Dict
 
 
 def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
+
+    """
+    Use to draco to get the basic fields, types and cardinality, along with the query fields.
+    :param input_file:
+    :param query:
+    :param id:
+    :param directory:
+    :param write_lp:
+    :return:
+    """
+
     logging.info('creating baseline schema and query lp')
     # use dziban to construct the schema logic program
     df = pd.read_csv(input_file)
@@ -37,10 +51,18 @@ def get_baseline_schema_query_lp(input_file, query, id, directory, write_lp):
 
 
 def run_draco(query, lp_files, num_models):
+
+    """
+    :param query:
+    :param lp_files:
+    :param num_models:
+    :return: draco result set
+    """
     return draco(query, files=lp_files, topk=True, k=num_models, silence_warnings=True)
 
 
 def get_vega_lite_spec(result):
+
     """
     Get a vega-lite spec from the properties returned by clingo.
     Basically a wrapper around draco's asp2vl.js, but that will
@@ -79,21 +101,21 @@ def get_vega_lite_spec(result):
         spec['encoding'][channel]['sort'] = sort_values
         # TODO spec['encoding'][channel]['type'] = 'ordinal' ... which will impact compare.compare_specs()
 
-    # get parts from verde_color_(double)_enc_scheme(view,encoding,field,field_type,scheme)
-    regex = re.compile(r'\((.*?),(.*?),\"(.*?)\",(.*?),\"(.*?)\"\)')
+    # get parts from verde_color_(double)_enc_scheme(view,encoding,field,field_type,scheme,distance)
+    regex = re.compile(r'\((.*?),(.*?),\"(.*?)\",(.*?),\"(.*?)\",(.*?)\)')
 
     for colour_scheme in enc_colour_schemes + double_enc_colour_schemes:
-        view, encoding, field, field_type, scheme = re.search(regex, colour_scheme).groups()
+        view, encoding, field, field_type, scheme, distance = re.search(regex, colour_scheme).groups()
         scheme = json.loads(scheme)
         spec['encoding']['color']['field'] = field
         spec['encoding']['color']['type'] = field_type
         spec['encoding']['color']['scale'] = scheme
 
-    # get parts from verde_color_mark(view,color)
-    regex = re.compile(r'\((.*?),\"(.*?)\"\)')
+    # get parts from verde_color_mark(view,color,distance)
+    regex = re.compile(r'\((.*?),\"(.*?)\",(.*?)\)')
 
     for mark_colour in mark_colours:  # should only be one!
-        view, color = re.search(regex, mark_colour).groups()
+        view, color, distance = re.search(regex, mark_colour).groups()
         color = json.loads(color)
         mark_type = spec['mark']  # draco uses string shorthand for the mark prop, we extend to dict longhand
         spec.pop('mark', None)
@@ -108,4 +130,10 @@ def get_vega_lite_spec(result):
 
 
 def get_default_view():
+
+    """
+    We only ever deal with a single view (unlike Dziban), so view is always v_v
+    :return: v_v
+    """
+
     return Chart.DEFAULT_NAME
