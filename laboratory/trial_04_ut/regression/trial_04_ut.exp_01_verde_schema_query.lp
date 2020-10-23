@@ -114,9 +114,9 @@ verde_mark_color_choices(V,CO,D) :- not channel(_,_,color),
 #show verde_color_mark/3.
 
 % set these as zero weight soft rules, helps in the comparative analysis v baseline
-soft(verde_color_enc_scheme,V,E) :- verde_color_enc_scheme(V,E,F,CS).
-soft(verde_color_double_enc_scheme,V,E) :- verde_color_double_enc_scheme(V,E,F,CS).
-soft(verde_color_mark,V,CO) :- verde_color_mark(V,CO).
+soft(verde_color_enc_scheme,V,E) :- verde_color_enc_scheme(V,E,F,T,CS,D).
+soft(verde_color_double_enc_scheme,V,E) :- verde_color_double_enc_scheme(V,E,F,T,CS,D).
+soft(verde_color_mark,V,CO) :- verde_color_mark(V,CO,D).
 
 #const verde_color_enc_scheme_weight = 0.
 #const verde_color_double_enc_scheme_weight = 0.

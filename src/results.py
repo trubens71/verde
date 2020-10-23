@@ -238,6 +238,14 @@ def make_vegalite_concat(trial_id, directory, json_results_list, labels, vega_li
             spec.pop('$schema', None)
             spec.pop('data', None)
             spec['title'] = f'{label} model {i:03} cost {model["cost"]}'
+
+            # draco is adding scales to column and row encodings which is not valid in
+            # the vega schema, which does no harm but breaks our validation of this file.
+            spec['encoding']['column'].pop('scale', None)  # delete if there
+            spec['encoding']['row'].pop('scale', None)  # delete if there
+            # also doing something odd with stack which appears as an undefined encoding
+            spec['encoding'].pop('undefined', None)  # delete if there
+
             row_specs.append(spec)
             # TODO review this workaround against progress on https://github.com/vega/vega-lite/issues/4680
             if spec['encoding']['column'] or spec['encoding']['row']:
