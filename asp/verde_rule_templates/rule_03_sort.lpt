@@ -25,4 +25,4 @@ soft(verde_ordinal_sort,V,E):- verde_ordinal_sort(V,E,C,F,O).
 #const verde_ordinal_sort_weight = 0.
 soft_weight(verde_ordinal_sort, verde_ordinal_sort_weight).
 
-% *** end of verde rule04 lp *** --------------------------------------------------------------------------------------%
+% *** end of verde rule 03 lp *** -------------------------------------------------------------------------------------%

@@ -5,6 +5,7 @@ import networkx as nx
 import os
 from addict import Dict
 import itertools
+from collections import defaultdict
 
 CONTEXT = Dict()
 
@@ -377,6 +378,8 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
     channel_pairs = list(itertools.combinations(channels, 2))
     soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100  # TODO check this gets picked up
 
+    rules = defaultdict(dict)
+
     for i, field_pair in enumerate(field_pairs):
 
         # get preference for explanatory versus response variables for the two fields
@@ -385,9 +388,15 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
         for j, channel_pair in enumerate(channel_pairs):
 
             expl_channel, resp_channel = channel_pair  # based on channel list order and deterministic itertools.
-            rule = f'rule01v03_{i:02}_{j:02}'
-
             # create a soft rule which assigns a cost to not observing our preference for encoding/channel mappings
+
+            rule_id = f'rule_01_{i:02}_{j:02}'
+            rules[rule_id]['expl_channel'] = expl_channel
+            rules[rule_id]['expl_var'] = expl_var
+            rules[rule_id]['resp_channel'] = resp_channel
+            rules[rule_id]['resp_var'] = resp_var
+
+            rule = f'rule01v03_{i:02}_{j:02}'
             lp.append(f'% for encoding pair {i} / channel pair {j} we prefer '
                       f'{expl_channel}={expl_var} {resp_channel}={resp_var}')
 
@@ -400,7 +409,10 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
             lp.append(f'#const {rule}_weight = {soft_weight}.')
             lp.append(f'soft_weight({rule},{rule}_weight).')
 
-    return lp
+    template = vutils.get_jinja_template(context.verde_rule_template_dir,
+                                         context.rule_config.rule_01_causal_relationships.template)
+
+    return template.render(rules=rules, channels=channels, soft_weight=soft_weight)
 
 
 if __name__ == "__main__":

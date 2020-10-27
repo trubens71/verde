@@ -64,4 +64,4 @@ soft_weight(verde_color_enc_scheme, verde_color_enc_scheme_weight).
 soft_weight(verde_color_double_enc_scheme, verde_color_double_enc_scheme_weight).
 soft_weight(verde_color_mark, verde_color_mark_weight).
 
-% *** end of verde rule04 lp *** --------------------------------------------------------------------------------------%
+% *** end of verde rule 04 lp *** -------------------------------------------------------------------------------------%

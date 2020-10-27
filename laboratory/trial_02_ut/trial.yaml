@@ -1,5 +1,5 @@
 ---
-  trial_id: trial_01_ut
+  trial_id: trial_01
   trial_desc: trivial data set for dev and unit testing of rules 01 (causal) and 02 (precision)
   global_config:
     verde_meta_schema: ../schemas/verde_meta_schema.json
@@ -24,15 +24,14 @@
         do: true
         write_lp: true
         rule_01_causal_relationships:
-          do: true
+          do: false
           template: rule_01_causal.lpt
           property_edge_weight: 1.0
           compose_edge_weight: 0.5
           explain_edge_weight: 0.1
           export_graphml: true
-          draco_soft_weight: 100
         rule_02_data_precision:
-          do: false
+          do: true
           template: rule_02_precision.lpt
         rule_03_ordinal_sort:
           do: false
@@ -51,25 +50,9 @@
       compare_baseline_verde:
         do: true
   experiments:
-    - experiment_id: exp_01
+    - experiment_id: exp_03_r02
       do: true
-      experiment_desc: basic test of expenditure versus quality of life
-      input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
-      input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
-      query:
-        - field('Social care-related quality of life score (All)')
-        - field('Gross Total Expenditure (x1000)')
-    - experiment_id: exp_02
-      do: true
-      experiment_desc: constrain some scaling options
-      input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
-      input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
-      query:
-        - field('Social care-related quality of life score (All)', scale='zero')
-        - field('Gross Total Expenditure (x1000)', scale='log')
-    - experiment_id: exp_03
-      do: true
-      experiment_desc: add a third field
+      experiment_desc: for development of rule02 (precision)
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
       query:

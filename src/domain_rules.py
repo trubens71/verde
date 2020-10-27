@@ -46,8 +46,9 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
     lp = []
     # Apply each verde rule to extend the lp
     if rule_config.rule_01_causal_relationships.do:
-        # ignore previous lp as we are floating fields across encodings
-        lp = vrule01.rule_01_causal_relationships(context, schema_file, mapping_json, query_fields)
+        # TODO fix when using jinja for all rules
+        lp_str = vrule01.rule_01_causal_relationships(context, schema_file, mapping_json, query_fields)
+        lp = lp + lp_str.split('\n')
     else:
         logging.warning('verde rule_01_causal_relationships is disabled in config')
 
