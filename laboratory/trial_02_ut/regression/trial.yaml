@@ -1,6 +1,6 @@
 ---
   trial_id: trial_02_ut
-  trial_desc: trivial data set for dev and unit testing of rules 01 (causal) and 02 (precision)
+  trial_desc: dev and unit testing of rule 02 (precision)
   global_config:
     verde_meta_schema: ../schemas/verde_meta_schema.json
     domain_schema: ../schemas/verde_asc_domain_schema.json
@@ -39,13 +39,13 @@
         rule_04_entity_colours:
           do: false
           template: rule_04_colour.lpt
-      get_baseline_visualisations:
+      create_baseline_visualisations:
         do: true
         write_lp: true
-      get_verde_visualisations:
+      create_verde_visualisations:
         do: true
         write_lp: true
-      make_vegalite_concat:
+      create_vegalite_concat:
         do: true
       compare_baseline_verde:
         do: true
@@ -60,4 +60,4 @@
         - field('Gross Total Expenditure (x1000)', scale='log')
         - field('Support provided to carers during the year', scale='zero')
   regression_test:
-    do: false
+    do: true

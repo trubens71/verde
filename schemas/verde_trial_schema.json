@@ -54,15 +54,15 @@
               "template": "rule_04_colour.lpt"
             }
           },
-          "get_baseline_visualisations": {
+          "create_baseline_visualisations": {
             "do": true,
             "write_lp": true
           },
-          "get_verde_visualisations": {
+          "create_verde_visualisations": {
             "do": true,
             "write_lp": true
           },
-          "make_vegalite_concat": {
+          "create_vegalite_concat": {
             "do": true
           },
           "compare_baseline_verde": {
@@ -175,15 +175,15 @@
                 "template": "rule_04_colour.lpt"
               }
             },
-            "get_baseline_visualisations": {
+            "create_baseline_visualisations": {
               "do": true,
               "write_lp": true
             },
-            "get_verde_visualisations": {
+            "create_verde_visualisations": {
               "do": true,
               "write_lp": true
             },
-            "make_vegalite_concat": {
+            "create_vegalite_concat": {
               "do": true
             },
             "compare_baseline_verde": {
@@ -326,15 +326,15 @@
                   "template": "rule_04_colour.lpt"
                 }
               },
-              "get_baseline_visualisations": {
+              "create_baseline_visualisations": {
                 "do": true,
                 "write_lp": true
               },
-              "get_verde_visualisations": {
+              "create_verde_visualisations": {
                 "do": true,
                 "write_lp": true
               },
-              "make_vegalite_concat": {
+              "create_vegalite_concat": {
                 "do": true
               },
               "compare_baseline_verde": {
@@ -348,9 +348,9 @@
             "fix_input_file_column_names",
             "create_baseline_schema_query_lp",
             "create_verde_rules_lp",
-            "get_baseline_visualisations",
-            "get_verde_visualisations",
-            "make_vegalite_concat",
+            "create_baseline_visualisations",
+            "create_verde_visualisations",
+            "create_vegalite_concat",
             "compare_baseline_verde"
           ],
           "properties": {
@@ -761,10 +761,10 @@
               },
               "additionalProperties": false
             },
-            "get_baseline_visualisations": {
-              "$id": "#/properties/global_config/properties/execute/properties/get_baseline_visualisations",
+            "create_baseline_visualisations": {
+              "$id": "#/properties/global_config/properties/execute/properties/create_baseline_visualisations",
               "type": "object",
-              "title": "The get_baseline_visualisations schema",
+              "title": "The create_baseline_visualisations schema",
               "description": "run draco to get visualisations without no verde rules applied",
               "default": {},
               "examples": [
@@ -779,7 +779,7 @@
               ],
               "properties": {
                 "do": {
-                  "$id": "#/properties/global_config/properties/execute/properties/get_baseline_visualisations/properties/do",
+                  "$id": "#/properties/global_config/properties/execute/properties/create_baseline_visualisations/properties/do",
                   "type": "boolean",
                   "title": "The do schema",
                   "description": "execute or not",
@@ -789,7 +789,7 @@
                   ]
                 },
                 "write_lp": {
-                  "$id": "#/properties/global_config/properties/execute/properties/get_baseline_visualisations/properties/write_lp",
+                  "$id": "#/properties/global_config/properties/execute/properties/create_baseline_visualisations/properties/write_lp",
                   "type": "boolean",
                   "title": "The write_lp schema",
                   "description": "write the full logic program (without verde rules",
@@ -801,10 +801,10 @@
               },
               "additionalProperties": false
             },
-            "get_verde_visualisations": {
-              "$id": "#/properties/global_config/properties/execute/properties/get_verde_visualisations",
+            "create_verde_visualisations": {
+              "$id": "#/properties/global_config/properties/execute/properties/create_verde_visualisations",
               "type": "object",
-              "title": "The get_verde_visualisations schema",
+              "title": "The create_verde_visualisations schema",
               "description": "run draco to get visualisations with verde rules applied",
               "default": {},
               "examples": [
@@ -819,7 +819,7 @@
               ],
               "properties": {
                 "do": {
-                  "$id": "#/properties/global_config/properties/execute/properties/get_verde_visualisations/properties/do",
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_visualisations/properties/do",
                   "type": "boolean",
                   "title": "The do schema",
                   "description": "execute or not",
@@ -829,7 +829,7 @@
                   ]
                 },
                 "write_lp": {
-                  "$id": "#/properties/global_config/properties/execute/properties/get_verde_visualisations/properties/write_lp",
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_visualisations/properties/write_lp",
                   "type": "boolean",
                   "title": "The write_lp schema",
                   "description": "write the full logic program (with verde rules)",
@@ -841,10 +841,10 @@
               },
               "additionalProperties": false
             },
-            "make_vegalite_concat": {
-              "$id": "#/properties/global_config/properties/execute/properties/make_vegalite_concat",
+            "create_vegalite_concat": {
+              "$id": "#/properties/global_config/properties/execute/properties/create_vegalite_concat",
               "type": "object",
-              "title": "The make_vegalite_concat schema",
+              "title": "The create_vegalite_concat schema",
               "description": "produce a single vega-lite concatenation of all recommended visualisations",
               "default": {},
               "examples": [
@@ -857,7 +857,7 @@
               ],
               "properties": {
                 "do": {
-                  "$id": "#/properties/global_config/properties/execute/properties/make_vegalite_concat/properties/do",
+                  "$id": "#/properties/global_config/properties/execute/properties/create_vegalite_concat/properties/do",
                   "type": "boolean",
                   "title": "The do schema",
                   "description": "execute or not",

@@ -124,18 +124,18 @@ class Experiment:
         else:
             logging.warning('create_verde_rules_lp turned off in trial config')
 
-        if self.execute.get_baseline_visualisations.do and self.baseline_schema_query_lp:
+        if self.execute.create_baseline_visualisations.do and self.baseline_schema_query_lp:
             self.baseline_vis_results, self.baseline_vis_results_json = \
                 vresults.get_vis_results(self.id, self.directory, self.input_data_file,
                                          self.baseline_schema_query_lp,
                                          self.draco_base_lp_dir,
                                          num_models=self.num_models,
                                          label='baseline',
-                                         write_lp=self.execute.get_baseline_visualisations.write_lp)
+                                         write_lp=self.execute.create_baseline_visualisations.write_lp)
         else:
             logging.warning('cannot get baseline visualisations due to trial config conflict')
 
-        if self.execute.get_verde_visualisations.do and self.verde_schema_query_lp:
+        if self.execute.create_verde_visualisations.do and self.verde_schema_query_lp:
             self.verde_vis_results, self.verde_vis_results_json = \
                 vresults.get_vis_results(self.id, self.directory, self.input_data_file,
                                          self.verde_schema_query_lp,
@@ -143,13 +143,13 @@ class Experiment:
                                          override_lp_dir=self.verde_base_lp_override_dir,
                                          num_models=self.num_models,
                                          label='verde',
-                                         write_lp=self.execute.get_verde_visualisations.write_lp)
+                                         write_lp=self.execute.create_verde_visualisations.write_lp)
         else:
             logging.warning('cannot get verde visualisations due to trial config conflict')
 
         result_sets = []
         set_labels = []
-        if self.execute.make_vegalite_concat.do:
+        if self.execute.create_vegalite_concat.do:
             if self.baseline_vis_results_json and self.verde_vis_results_json:
                 result_sets = [self.baseline_vis_results_json, self.verde_vis_results_json]
                 set_labels = ['baseline', 'verde']
