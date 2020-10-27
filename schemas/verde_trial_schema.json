@@ -128,7 +128,7 @@
       "$id": "#/properties/global_config",
       "type": "object",
       "title": "The global_config schema",
-      "description": "global settings take precedence over experiments if duplicated there, perhaps an odd choice",
+      "description": "will be overridden by any duplicate nodes in the experiment config",
       "default": {},
       "examples": [
         {

@@ -1,6 +1,11 @@
+"""
+Verde rule 03 adds custom sort orders, where specified in the domain model.
+"""
+
 import logging
 import src.domain_rule_01_causal as vrule01
 import src.domain_rule_03_ordinal_nlp as vrule03nlp
+import src.utils as vutils
 from addict import Dict
 import pandas as pd
 
@@ -8,6 +13,18 @@ custom_sort_cache = Dict()
 
 
 def rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields):
+
+    """
+    Uses rule01 code to walk the domain model, pulling out sort directives; then getting the field to node
+    mappings. Writes field-based asp rules with directives.
+    :param context:
+    :param schema_file:
+    :param input_file:
+    :param mapping_json:
+    :param query_fields:
+    :return:
+    """
+
     logging.info('applying verde rule 03 (custom ordinal sort order))')
     lp = ['\n% verde rule 03: adding custom sort orders for ordinals']
 
@@ -21,6 +38,8 @@ def rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields
     # get the mapped nodes for each field, borrowing from rule01 code
     field_nodes = vrule01.get_schema_nodes_for_source_fields(mapped_fields, mapping_json)
 
+    field_custom_sort = {}
+
     for i, field in enumerate(field_nodes.keys()):
         for j, node in enumerate(field_nodes[field]['schema_nodes']):
             if node in domain_node_ordinals:
@@ -31,21 +50,12 @@ def rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields
                     logging.warning(f'found multiple possible sort orders for field {field}, '
                                     f'overriding with this one...')
                 logging.info(f'adding custom sort for field {field} due to node {node} with order {custom_sort}')
-                # this fact states the association of a sort order to the field
-                lp.append(f'fieldcustomsortorder(\"{field}\", \"{custom_sort}\").')
+                field_custom_sort[field] = custom_sort
 
-    # this rule determines that a custom order exists provided the resulting draco encoding is nominal or ordinal.
-    lp.append('verde_ordinal_sort(V,E,C,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), '
-              'type(V,E,(nominal;ordinal)), channel(V,E,C).')
-    # and this show signals that we need to add the custom sort order to the vega-lite spec.
-    lp.append('#show verde_ordinal_sort/5.')
-    # add a zero weighted soft rule so we can easily spot our custom sort order in the violation comparisons
-    # against the baseline specs.
-    lp.append('soft(verde_ordinal_sort,V,E):- verde_ordinal_sort(V,E,C,F,O).')
-    lp.append('#const verde_ordinal_sort_weight = 0.')
-    lp.append('soft_weight(verde_ordinal_sort, verde_ordinal_sort_weight).')
-    # TODO investigate how to force draco to treat as ordinal. at present we post-fix the encoding type.
-    return lp
+    template = vutils.get_jinja_template(context.verde_rule_template_dir,
+                                         context.rule_config.rule_03_ordinal_sort.template)
+
+    return template.render(field_custom_sort=field_custom_sort)
 
 
 def get_custom_sort_order(source_data_file, field, domain_node, domain_ordinal_terms):

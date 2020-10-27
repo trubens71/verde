@@ -1,3 +1,8 @@
+"""
+Natural language processing functionality for rule 03 (ordinal sort)
+"""
+
+
 from nltk.corpus import wordnet as wn
 from nltk import word_tokenize, pos_tag
 import logging
@@ -81,7 +86,7 @@ def symmetric_sentence_similarity(sentence1, sentence2):
 
 
 """
-end of code reuse described by comment above
+end of code reuse as described by comment at top of file
 """
 
 
@@ -117,11 +122,7 @@ def order_source_data_terms(source_terms, domain_terms):
 
 if __name__ == '__main__':
 
-    # domain_ordinal = ["community care", "home care", "residential home", "nursing home"]
-    #
-    # source_cats = ["Community: Direct Payments", "Community: Home Care",
-    #                "Community: Other Long Term Care", "Community: Supported Living",
-    #                "Nursing", "Residential", "Supported Accommodation"]
+    # a little test case
 
     domain_ordinal = ['small', 'medium', 'large']
     source_cats = ['big', 'little', 'middle']
