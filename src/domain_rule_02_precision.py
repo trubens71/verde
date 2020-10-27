@@ -1,5 +1,14 @@
+"""
+Verde rule 02 uses the strength of the data as specified in the input data domain mapping document,
+and states channel encoding preferences. So imprecise data (e.g. from a survey) will not compete
+with a stronger field for a more effective channel.
+"""
+
+
 import logging
 import itertools
+from collections import defaultdict
+import src.utils as vutils
 
 
 def rule_02_data_precision(context, mapping_json, query_fields):
@@ -33,6 +42,8 @@ def rule_02_data_precision(context, mapping_json, query_fields):
 
     soft_weight = context.rule_config.rule_02_data_precision.draco_soft_weight or 100
 
+    rules = defaultdict(dict)
+
     # Process each pair of fields and then each pair of channels
     for i, (field_a, field_b) in enumerate(list(itertools.combinations(mapping_json, 2))):
 
@@ -57,17 +68,13 @@ def rule_02_data_precision(context, mapping_json, query_fields):
                          f"and {weaker_field} on {less_precise_channel}")
 
             # create a soft rule which assigns a cost to not observing our preference
-            rule = f'rule02_{i:02}_{j:02}'
-            lp.append(f'% for field pair {i} / channel pair {j} we prefer '
-                      f"{more_precise_channel}={stronger_field} "
-                      f"and {less_precise_channel}={weaker_field}")
+            rule_id = f'rule_02_{i:02}_{j:02}'
+            rules[rule_id]['stronger_field'] = stronger_field
+            rules[rule_id]['weaker_field'] = weaker_field
+            rules[rule_id]['more_precise_channel'] = more_precise_channel
+            rules[rule_id]['less_precise_channel'] = less_precise_channel
 
-            lp.append(f'soft({rule},V) :- channel(V,E1,{more_precise_channel}), '
-                      f'field(V,E1,\"{weaker_field}\"), '
-                      f'channel(V,E2,{less_precise_channel}), '
-                      F'field(V,E2,\"{stronger_field}\").')
+    template = vutils.get_jinja_template(context.verde_rule_template_dir,
+                                         context.rule_config.rule_02_data_precision.template)
 
-            lp.append(f'#const {rule}_weight = {soft_weight}.')
-            lp.append(f'soft_weight({rule},{rule}_weight).')
-
-    return lp
+    return template.render(rules=rules, channels=channel_imprecision, soft_weight=soft_weight)

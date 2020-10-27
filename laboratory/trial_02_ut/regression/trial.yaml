@@ -60,4 +60,4 @@
         - field('Gross Total Expenditure (x1000)', scale='log')
         - field('Support provided to carers during the year', scale='zero')
   regression_test:
-    do: true
+    do: false

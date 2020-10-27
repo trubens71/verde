@@ -1,3 +1,9 @@
+"""
+Verde rule 01 determines possible causal relationships in the data from the domain model,
+and states channel encoding preferences.
+"""
+
+
 import src.utils as vutils
 import logging
 import json
@@ -371,12 +377,11 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
 
     # Because we may have more than two fields in the query we need to consider all pairings that might get encoded
     # to the channels, then get our preferences for each pair as we write the lp
-    lp = ['\n% verde rule 01v03: x/y/size/colour encoding preferences based on possible causal relationships']
     field_pairs = list(itertools.combinations(field_to_nodes.keys(), 2))
     channels = ['x', 'y', 'size', 'color']  # order of this list is important
     # itertools.combinations is deterministic according to docs, so pairs will be ordered as they appear in the list
     channel_pairs = list(itertools.combinations(channels, 2))
-    soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100  # TODO check this gets picked up
+    soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100
 
     rules = defaultdict(dict)
 
@@ -389,25 +394,11 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
 
             expl_channel, resp_channel = channel_pair  # based on channel list order and deterministic itertools.
             # create a soft rule which assigns a cost to not observing our preference for encoding/channel mappings
-
             rule_id = f'rule_01_{i:02}_{j:02}'
             rules[rule_id]['expl_channel'] = expl_channel
             rules[rule_id]['expl_var'] = expl_var
             rules[rule_id]['resp_channel'] = resp_channel
             rules[rule_id]['resp_var'] = resp_var
-
-            rule = f'rule01v03_{i:02}_{j:02}'
-            lp.append(f'% for encoding pair {i} / channel pair {j} we prefer '
-                      f'{expl_channel}={expl_var} {resp_channel}={resp_var}')
-
-            lp.append(f'soft({rule},V) :- channel(V,E1,{expl_channel}), '
-                      f'field(V,E1,\"{resp_var}\"), '
-                      f'channel(V,E2,{resp_channel}), '
-                      f'field(V,E2,\"{expl_var}\"), '
-                      f' is_c_c(V).')
-
-            lp.append(f'#const {rule}_weight = {soft_weight}.')
-            lp.append(f'soft_weight({rule},{rule}_weight).')
 
     template = vutils.get_jinja_template(context.verde_rule_template_dir,
                                          context.rule_config.rule_01_causal_relationships.template)

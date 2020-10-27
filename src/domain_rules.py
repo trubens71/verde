@@ -43,33 +43,29 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
     with open(mapping_file) as f:
         mapping_json = json.load(f)
 
-    lp = []
+    lp_str = ""
     # Apply each verde rule to extend the lp
     if rule_config.rule_01_causal_relationships.do:
-        # TODO fix when using jinja for all rules
-        lp_str = vrule01.rule_01_causal_relationships(context, schema_file, mapping_json, query_fields)
-        lp = lp + lp_str.split('\n')
+        lp_str += vrule01.rule_01_causal_relationships(context, schema_file, mapping_json, query_fields)
     else:
         logging.warning('verde rule_01_causal_relationships is disabled in config')
 
     if rule_config.rule_02_data_precision.do:
-        lp = lp + vrule02.rule_02_data_precision(context, mapping_json, query_fields)
+        lp_str += vrule02.rule_02_data_precision(context, mapping_json, query_fields)
     else:
         logging.warning('verde rule_02_data_precision is disabled in config')
 
     if rule_config.rule_03_ordinal_sort.do:
-        # TODO fix when using jinja for all rules
-        lp_str = vrule03.rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields)
-        lp = lp + lp_str.split('\n')
+        lp_str += vrule03.rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields)
     else:
         logging.warning('verde rule_03_ordinal_sort is disabled in config')
 
     if rule_config.rule_04_entity_colours.do:
-        # TODO fix when using jinja for all rules
-        lp_str = vrule04.rule_04_colour(context, schema_file, mapping_json)
-        lp = lp + lp_str.split('\n')
+        lp_str += vrule04.rule_04_colour(context, schema_file, mapping_json)
     else:
         logging.warning('verde rule_04_entity_colours is disabled in config')
+
+    lp = lp_str.split('\n')  # bit messy, we used lists elsewhere then moved to jinja templates
 
     # Write out the partial lp containing the data schema and our verde soft rules
     if rule_config.write_lp:
