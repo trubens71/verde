@@ -1,6 +1,6 @@
 ---
   trial_id: trial_01_ut
-  trial_desc: trivial data set for dev and unit testing of rules 01 (causal) and 02 (precision)
+  trial_desc: trivial data set for dev and unit testing of rule 01 (causal)
   global_config:
     verde_meta_schema: ../schemas/verde_meta_schema.json
     domain_schema: ../schemas/verde_asc_domain_schema.json
