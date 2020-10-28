@@ -36,13 +36,13 @@
         rule_04_entity_colours:
           do: true
           template: rule_04_colour.lpt
-      get_baseline_visualisations:
+      create_baseline_visualisations:
         do: true
         write_lp: true
-      get_verde_visualisations:
+      create_verde_visualisations:
         do: true
         write_lp: true
-      make_vegalite_concat:
+      create_vegalite_concat:
         do: true
       compare_baseline_verde:
         do: true
