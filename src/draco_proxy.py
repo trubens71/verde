@@ -1,5 +1,9 @@
 """
-Marshals all calls to Draco,
+draco_proxy.py
+
+Marshals all calls to Draco. Includes some pre and post processing to
+account for vega-lite properties we have added that are not supported
+by draco's asp2vl javascript.
 """
 
 from dziban.mkiv import Chart

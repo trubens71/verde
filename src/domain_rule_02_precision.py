@@ -1,7 +1,11 @@
 """
+domain_rule_02_precision.py
+
 Verde rule 02 uses the strength of the data as specified in the input data domain mapping document,
 and states channel encoding preferences. So imprecise data (e.g. from a survey) will not compete
 with a stronger field for a more effective channel.
+
+Entry point: rule_02_data_precision()
 """
 
 

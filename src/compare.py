@@ -1,6 +1,10 @@
 """
+compare.py
+
 Compares the visualisations from baseline Draco with those generated with Verde rules.
 Produces vega-lite interactive visualisation to explore the differences.
+
+Entry point: compare_baseline_to_verde()
 """
 
 import logging

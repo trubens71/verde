@@ -1,4 +1,6 @@
 """
+domain_rule_04_colour.py
+
 Verde rule 04 adds colour schemes and mark colours, where specified in the domain model.
 """
 

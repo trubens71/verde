@@ -1,4 +1,6 @@
 """
+trial.py
+
 Class to hold the trial data and loads its experiments.
 """
 

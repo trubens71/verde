@@ -1,6 +1,10 @@
 """
+domain_rule_01_causal.py
+
 Verde rule 01 determines possible causal relationships in the data from the domain model,
 and states channel encoding preferences.
+
+Entry point: rule_01_causal_relationships()
 """
 
 
@@ -15,8 +19,63 @@ from collections import defaultdict
 
 CONTEXT = Dict()
 
-# TODO per github issue #7, consider whether we should write rules for all fields, not just the query fields.
-#      Will be slower but might be important if we can get draco to start introducing further fields
+
+def rule_01_causal_relationships(context, schema_file, mapping_json, query_fields):
+
+    global CONTEXT
+    CONTEXT = context
+    logging.info('applying verde rule 01v03 (causal relationships)')
+
+    # Walk the domain schema to get nodes and edges
+    dom_schema_nodes_edges = get_schema_nodes_and_edges(schema_file)
+
+    # Each field from our input data may have one or more mappings into the schema
+    field_to_nodes = get_schema_nodes_for_source_fields(query_fields, mapping_json)
+    # This is a bit of a trick, but let the Dijkstra shortest_path algorithm take
+    # care of the one-to-many field-to-node situation. i.e. get the shortest path from all entry points to the graph.
+    field_nodes, field_schema_edges = get_field_nodes_and_edges_to_schema(field_to_nodes)
+    # Build the graph
+    rule_config = CONTEXT.rule_config.rule_01_causal_relationships  # TODO check this gets picked up
+    property_edge_weight = rule_config.property_edge_weight if rule_config.property_edge_weight else 1.0
+    compose_edge_weight = rule_config.compose_edge_weight if rule_config.compose_edge_weight else 0.5
+    explain_edge_weight = rule_config.explain_edge_weight if rule_config.explain_edge_weight else 0.1
+
+    dom_schema_graph = build_graph(*dom_schema_nodes_edges,
+                                   field_nodes=field_nodes,
+                                   field_edges=field_schema_edges,
+                                   property_edge_weight=property_edge_weight,
+                                   compose_edge_weight=compose_edge_weight,
+                                   explain_edge_weight=explain_edge_weight)
+
+    # Because we may have more than two fields in the query we need to consider all pairings that might get encoded
+    # to the channels, then get our preferences for each pair as we write the lp
+    field_pairs = list(itertools.combinations(field_to_nodes.keys(), 2))
+    channels = ['x', 'y', 'size', 'color']  # order of this list is important
+    # itertools.combinations is deterministic according to docs, so pairs will be ordered as they appear in the list
+    channel_pairs = list(itertools.combinations(channels, 2))
+    soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100
+
+    rules = defaultdict(dict)
+
+    for i, field_pair in enumerate(field_pairs):
+
+        # get preference for explanatory versus response variables for the two fields
+        expl_var, resp_var = determine_explanatory_response_preference(dom_schema_graph, field_pair)
+
+        for j, channel_pair in enumerate(channel_pairs):
+
+            expl_channel, resp_channel = channel_pair  # based on channel list order and deterministic itertools.
+            # create a soft rule which assigns a cost to not observing our preference for encoding/channel mappings
+            rule_id = f'rule_01_{i:02}_{j:02}'
+            rules[rule_id]['expl_channel'] = expl_channel
+            rules[rule_id]['expl_var'] = expl_var
+            rules[rule_id]['resp_channel'] = resp_channel
+            rules[rule_id]['resp_var'] = resp_var
+
+    template = vutils.get_jinja_template(context.verde_rule_template_dir,
+                                         context.rule_config.rule_01_causal_relationships.template)
+
+    return template.render(rules=rules, channels=channels, soft_weight=soft_weight)
 
 
 def get_schema_nodes_and_edges(domain_schema_file_path, for_rule='rule01'):
@@ -343,67 +402,6 @@ def get_field_nodes_and_edges_to_schema(field_nodes):
         all_edges = all_edges + edges
 
     return nodes, all_edges
-
-
-def rule_01_causal_relationships(context, schema_file, mapping_json, query_fields):
-
-    # sort this out higher up, later!
-    # query_fields = [query_enc_fields[enc]['source_field'] for enc in query_enc_fields.keys()]
-
-    global CONTEXT
-    CONTEXT = context
-    logging.info('applying verde rule 01v03 (causal relationships)')
-
-    # Walk the domain schema to get nodes and edges
-    dom_schema_nodes_edges = get_schema_nodes_and_edges(schema_file)
-
-    # Each field from our input data may have one or more mappings into the schema
-    field_to_nodes = get_schema_nodes_for_source_fields(query_fields, mapping_json)
-    # This is a bit of a trick, but let the Dijkstra shortest_path algorithm take
-    # care of the one-to-many field-to-node situation. i.e. get the shortest path from all entry points to the graph.
-    field_nodes, field_schema_edges = get_field_nodes_and_edges_to_schema(field_to_nodes)
-    # Build the graph
-    rule_config = CONTEXT.rule_config.rule_01_causal_relationships  # TODO check this gets picked up
-    property_edge_weight = rule_config.property_edge_weight if rule_config.property_edge_weight else 1.0
-    compose_edge_weight = rule_config.compose_edge_weight if rule_config.compose_edge_weight else 0.5
-    explain_edge_weight = rule_config.explain_edge_weight if rule_config.explain_edge_weight else 0.1
-
-    dom_schema_graph = build_graph(*dom_schema_nodes_edges,
-                                   field_nodes=field_nodes,
-                                   field_edges=field_schema_edges,
-                                   property_edge_weight=property_edge_weight,
-                                   compose_edge_weight=compose_edge_weight,
-                                   explain_edge_weight=explain_edge_weight)
-
-    # Because we may have more than two fields in the query we need to consider all pairings that might get encoded
-    # to the channels, then get our preferences for each pair as we write the lp
-    field_pairs = list(itertools.combinations(field_to_nodes.keys(), 2))
-    channels = ['x', 'y', 'size', 'color']  # order of this list is important
-    # itertools.combinations is deterministic according to docs, so pairs will be ordered as they appear in the list
-    channel_pairs = list(itertools.combinations(channels, 2))
-    soft_weight = CONTEXT.rule_config.rule_01_causal_relationships.draco_soft_weight or 100
-
-    rules = defaultdict(dict)
-
-    for i, field_pair in enumerate(field_pairs):
-
-        # get preference for explanatory versus response variables for the two fields
-        expl_var, resp_var = determine_explanatory_response_preference(dom_schema_graph, field_pair)
-
-        for j, channel_pair in enumerate(channel_pairs):
-
-            expl_channel, resp_channel = channel_pair  # based on channel list order and deterministic itertools.
-            # create a soft rule which assigns a cost to not observing our preference for encoding/channel mappings
-            rule_id = f'rule_01_{i:02}_{j:02}'
-            rules[rule_id]['expl_channel'] = expl_channel
-            rules[rule_id]['expl_var'] = expl_var
-            rules[rule_id]['resp_channel'] = resp_channel
-            rules[rule_id]['resp_var'] = resp_var
-
-    template = vutils.get_jinja_template(context.verde_rule_template_dir,
-                                         context.rule_config.rule_01_causal_relationships.template)
-
-    return template.render(rules=rules, channels=channels, soft_weight=soft_weight)
 
 
 if __name__ == "__main__":

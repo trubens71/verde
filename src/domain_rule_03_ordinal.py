@@ -1,5 +1,9 @@
 """
+domain_rule_03_ordinal.py
+
 Verde rule 03 adds custom sort orders, where specified in the domain model.
+
+Entry point:  rule_03_ordinal()
 """
 
 import logging
@@ -12,7 +16,7 @@ import pandas as pd
 custom_sort_cache = Dict()
 
 
-def rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields):
+def rule_03_ordinal_sort(context, schema_file, input_file, mapping_json, query_fields):
 
     """
     Uses rule01 code to walk the domain model, pulling out sort directives; then getting the field to node

@@ -1,6 +1,10 @@
 """
+results.py
+
 Get the visualisations from Draco and process the results.
 Includes generation of a vega-lite spec which concatenates the specs for viewing.
+
+Entry point : get_vis_results()
 """
 
 import logging

@@ -1,5 +1,9 @@
 """
+domain_rules.py
+
 Orchestrates the generation of Verde rules
+
+Entry point: create_verde_rules_lp()
 """
 
 import src.utils as vutils
