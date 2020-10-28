@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://raw.githubusercontent.com/trubens71/schemas/master/verde_asc_domain_mapping_schema.json#",
+  "$id": "https://raw.githubusercontent.com/trubens71/verde/master/schemas/verde_asc_domain_mapping_schema.json#",
   "title": "Input data mapping to Domain Model for Adult Social Care in England",
   "description": "Used to validate a mapping from input data to the domain model.",
   "definitions": {
