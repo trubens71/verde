@@ -1,1 +1,0 @@
-{"$schema": "https://vega.github.io/schema/vega-lite/v3.json", "data": {"url": "data/AFR_T1_ASCOF_1A_fixhdr.json"}, "mark": "point", "encoding": {"y": {"type": "quantitative", "field": "Social_care_related_quality_of_life_score_All", "scale": {"zero": true}}, "x": {"type": "quantitative", "field": "Gross_Total_Expenditure_x1000", "scale": {"zero": true}}}}

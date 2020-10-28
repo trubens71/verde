@@ -1,0 +1,65 @@
+2020-10-28 11:13:52 : INFO : validating ../laboratory/trial_03_ut/trial.yaml against ../schemas/verde_trial_schema.json
+2020-10-28 11:13:52 : INFO : successfully validated
+2020-10-28 11:13:52 : INFO : loading trial config from ../laboratory/trial_03_ut/trial.yaml
+2020-10-28 11:13:52 : INFO : creating experiment trial_03_ut.exp_01
+2020-10-28 11:13:52 : INFO : *** running experiment trial_03_ut.exp_01 ***
+2020-10-28 11:13:52 : INFO : deleting experiment output files trial_03_ut.exp_01* recursively from ../laboratory/trial_03_ut
+2020-10-28 11:13:52 : INFO : validating ../schemas/verde_asc_domain_schema.json against ../schemas/verde_meta_schema.json
+2020-10-28 11:13:52 : INFO : successfully validated
+2020-10-28 11:13:52 : INFO : validating ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json against ../schemas/verde_asc_domain_mapping_schema.json
+2020-10-28 11:13:52 : INFO : successfully validated
+2020-10-28 11:13:52 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_01/AFR_T41_region_tidy.csv to ../laboratory/trial_03_ut/data/trial_03_ut.exp_01_AFR_T41_region_tidy_colfix.csv
+2020-10-28 11:13:52 : INFO : fixing map file column names in ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json to ../laboratory/trial_03_ut/data/trial_03_ut.exp_01_AFR_T41_region_tidy_mapping_colfix.json
+2020-10-28 11:13:52 : INFO : fixing query field names
+2020-10-28 11:13:52 : INFO : creating baseline schema and query lp
+2020-10-28 11:13:53 : INFO : writing baseline schema and query lp to ../laboratory/trial_03_ut/trial_03_ut.exp_01_baseline_schema_query.lp
+2020-10-28 11:13:53 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema.json and ../laboratory/trial_03_ut/data/trial_03_ut.exp_01_AFR_T41_region_tidy_mapping_colfix.json
+2020-10-28 11:13:53 : WARNING : verde rule_01_causal_relationships is disabled in config
+2020-10-28 11:13:53 : WARNING : verde rule_02_data_precision is disabled in config
+2020-10-28 11:13:53 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-10-28 11:13:53 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema.json
+2020-10-28 11:13:53 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 4 explain edges
+2020-10-28 11:13:53 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
+2020-10-28 11:13:53 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
+2020-10-28 11:13:53 : INFO : Setting is mapped to ['service_provision.service.setting']
+2020-10-28 11:13:53 : INFO : Gross_Current_Expenditure_x1000 is mapped to ['funder.expenditure']
+2020-10-28 11:13:53 : INFO : Gross_Current_Expenditure_Proportion is mapped to ['funder.expenditure']
+2020-10-28 11:13:53 : INFO : getting unique values of fields in ../laboratory/trial_03_ut/data/trial_03_ut.exp_01_AFR_T41_region_tidy_colfix.csv
+2020-10-28 11:13:53 : INFO : using WordNet to sort ['Nursing', 'Residential', 'Supported Accommodation', 'Community: Direct Payments', 'Community: Home Care', 'Community: Supported Living', 'Community: Other Long Term Care'] based on ['community care', 'home care', 'residential home', 'nursing home']
+2020-10-28 11:13:54 : INFO : proposed sort order is ['Community: Supported Living', 'Community: Direct Payments', 'Community: Other Long Term Care', 'Community: Home Care', 'Supported Accommodation', 'Residential', 'Nursing']
+2020-10-28 11:13:54 : INFO : adding custom sort for field Setting due to node service_provision.service.setting with order ['Community: Supported Living', 'Community: Direct Payments', 'Community: Other Long Term Care', 'Community: Home Care', 'Supported Accommodation', 'Residential', 'Nursing']
+2020-10-28 11:13:54 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-10-28 11:13:54 : WARNING : verde rule_04_entity_colours is disabled in config
+2020-10-28 11:13:54 : INFO : writing verde full schema and query lp to ../laboratory/trial_03_ut/trial_03_ut.exp_01_verde_schema_query.lp
+2020-10-28 11:13:54 : INFO : getting baseline draco visualisations for trial_03_ut.exp_01
+2020-10-28 11:13:54 : INFO : writing baseline full lp to ../laboratory/trial_03_ut/trial_03_ut.exp_01_baseline_full.lp
+2020-10-28 11:13:54 : INFO : running draco for baseline
+2020-10-28 11:13:55 : INFO : processing results
+2020-10-28 11:14:01 : INFO : writing vega-lite specs
+2020-10-28 11:14:01 : INFO : writing baseline vega-lite specs to ../laboratory/trial_03_ut/vegalite
+2020-10-28 11:14:01 : INFO : writing baseline results to ../laboratory/trial_03_ut/trial_03_ut.exp_01_baseline_results.json
+2020-10-28 11:14:01 : INFO : getting verde draco visualisations for trial_03_ut.exp_01 with verde base lp override
+2020-10-28 11:14:01 : INFO : overrode 3 base lp files and added 0 lp files
+2020-10-28 11:14:01 : INFO : writing verde full lp to ../laboratory/trial_03_ut/trial_03_ut.exp_01_verde_full.lp
+2020-10-28 11:14:01 : INFO : running draco for verde
+2020-10-28 11:14:01 : INFO : processing results
+2020-10-28 11:14:08 : INFO : writing vega-lite specs
+2020-10-28 11:14:08 : INFO : writing verde vega-lite specs to ../laboratory/trial_03_ut/vegalite
+2020-10-28 11:14:08 : INFO : writing verde results to ../laboratory/trial_03_ut/trial_03_ut.exp_01_verde_results.json
+2020-10-28 11:14:08 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_03_ut/vegalite/trial_03_ut.exp_01_view_all_vl.json
+2020-10-28 11:14:08 : INFO : validating ../laboratory/trial_03_ut/vegalite/trial_03_ut.exp_01_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-10-28 11:14:08 : INFO : successfully validated
+2020-10-28 11:14:08 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_03_ut/vegalite/trial_03_ut.exp_01_view_all_vl.json
+2020-10-28 11:14:08 : INFO : 19 matching visualisations between baseline and verde 95.0%
+2020-10-28 11:14:08 : INFO : 1 baseline visualisations not in verde
+2020-10-28 11:14:08 : INFO : 1 verde visualisations not in verde
+2020-10-28 11:14:08 : INFO : writing comparison matches to ../laboratory/trial_03_ut/vegalite/trial_03_ut.exp_01_view_compare_match.csv
+2020-10-28 11:14:08 : INFO : writing comparison models to ../laboratory/trial_03_ut/vegalite/trial_03_ut.exp_01_view_compare_model.csv
+2020-10-28 11:14:08 : INFO : writing comparison violations to ../laboratory/trial_03_ut/vegalite/trial_03_ut.exp_01_view_compare_violations.csv
+2020-10-28 11:14:08 : INFO : writing comparison props to ../laboratory/trial_03_ut/vegalite/trial_03_ut.exp_01_view_compare_props.csv
+2020-10-28 11:14:08 : INFO : writing comparison visualisation to ../laboratory/trial_03_ut/vegalite/trial_03_ut.exp_01_view_compare.html
+2020-10-28 11:14:08 : INFO : Comparing outputs against regression baseline in ../laboratory/trial_03_ut
+2020-10-28 11:14:08 : INFO : comparing files in trial root directory
+2020-10-28 11:14:08 : INFO : comparing files in trial vegalite sub-directory
+2020-10-28 11:14:08 : INFO : comparing files in trial data sub-directory
+2020-10-28 11:14:08 : INFO : Completed experiments ['trial_03_ut.exp_01']
