@@ -1,0 +1,1088 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/trubens71/schemas/master/verde_trial_schema.json#",
+  "title": "Schema for verde trial yaml configuration files",
+  "description": "Not yet validated as part of the execution process, just used within PyCharm editor",
+  "$comment": "Version 1",
+  "default": {},
+  "type": "object",
+  "examples": [
+    {
+      "trial_id": "example",
+      "trial_desc": "an example trial configuration",
+      "global_config": {
+        "verde_meta_schema": "../schemas/verde_meta_schema.json",
+        "domain_schema": "../schemas/verde_asc_domain_schema.json",
+        "domain_mapping_schema": "../schemas/verde_asc_domain_mapping_schema.json",
+        "draco_base_lp_dir": "../asp/draco_base",
+        "verde_base_lp_override_dir": "../asp/verde_override",
+        "verde_rule_template_dir": "../asp/verde_rule_templates",
+        "vega_lite_schema": ",../schemas/vega_lite_v3_schema.json",
+        "num_models": 50,
+        "execute": {
+          "validate_domain_schema": {
+            "do": true
+          },
+          "validate_input_file_mapping": {
+            "do": true
+          },
+          "fix_input_file_column_names": {
+            "do": true
+          },
+          "create_baseline_schema_query_lp": {
+            "do": true,
+            "write_lp": true
+          },
+          "create_verde_rules_lp": {
+            "do": true,
+            "write_lp": true,
+            "rule_01_causal_relationships": {
+              "do": true,
+              "template": "rule01_causal.lpt",
+              "export_graphml": true
+            },
+            "rule_02_data_precision": {
+              "do": true,
+              "template": "rule02_precision.lpt"
+            },
+            "rule_03_ordinal_sort": {
+              "do": true,
+              "template": "rule_03_sort.lpt"
+            },
+            "rule_04_entity_colours": {
+              "do": true,
+              "template": "rule_04_colour.lpt"
+            }
+          },
+          "create_baseline_visualisations": {
+            "do": true,
+            "write_lp": true
+          },
+          "create_verde_visualisations": {
+            "do": true,
+            "write_lp": true
+          },
+          "create_vegalite_concat": {
+            "do": true
+          },
+          "compare_baseline_verde": {
+            "do": true
+          }
+        }
+      },
+      "experiments": [
+        {
+          "experiment_id": "exp_01",
+          "do": true,
+          "experiment_desc": "just an example",
+          "input_data_file": "../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv",
+          "input_mapping_file": "../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json",
+          "query": [
+            "field('Social care-related quality of life score (All)', scale='zero')",
+            "field('Gross Total Expenditure (x1000)', scale='log')",
+            "field('Support provided to carers during the year', scale='zero')"
+          ]
+        },
+        {
+          "experiment_id": "exp_02",
+          "do": true,
+          "experiment_desc": "just an example",
+          "input_data_file": "../asc_data/processed/set_01/AFR_T41_region_tidy.csv",
+          "input_mapping_file": "../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json",
+          "query": [
+            "field('Setting')",
+            "field('Gross Current Expenditure (x1000)')"
+          ]
+        }
+      ],
+      "regression_test": {
+        "do": true
+      }
+    }
+  ],
+  "required": [
+    "trial_id",
+    "trial_desc",
+    "global_config",
+    "experiments",
+    "regression_test"
+  ],
+  "properties": {
+    "trial_id": {
+      "$id": "#/properties/trial_id",
+      "type": "string",
+      "title": "The trial_id schema",
+      "description": "a trial is a common configuration plus a set of specific experiments to run",
+      "default": "",
+      "examples": []
+    },
+    "trial_desc": {
+      "$id": "#/properties/trial_desc",
+      "type": "string",
+      "title": "The trial_desc schema",
+      "description": "purpose of trial",
+      "default": "",
+      "examples": []
+    },
+    "global_config": {
+      "$id": "#/properties/global_config",
+      "type": "object",
+      "title": "The global_config schema",
+      "description": "will be overridden by any duplicate nodes in the experiment config",
+      "default": {},
+      "examples": [
+        {
+          "verde_meta_schema": "../schemas/verde_meta_schema.json",
+          "domain_schema": "../schemas/verde_asc_domain_schema.json",
+          "domain_mapping_schema": "../schemas/verde_asc_domain_mapping_schema.json",
+          "draco_base_lp_dir": "../asp/draco_base",
+          "verde_base_lp_override_dir": "../asp/verde_override",
+          "verde_rule_template_dir": "../asp/verde_rule_templates",
+          "vega_lite_schema": "../schemas/vega_lite_v3_schema.json",
+          "num_models": 50,
+          "execute": {
+            "validate_domain_schema": {
+              "do": true
+            },
+            "validate_input_file_mapping": {
+              "do": true
+            },
+            "fix_input_file_column_names": {
+              "do": true
+            },
+            "create_baseline_schema_query_lp": {
+              "do": true,
+              "write_lp": true
+            },
+            "create_verde_rules_lp": {
+              "do": true,
+              "write_lp": true,
+              "rule_01_causal_relationships": {
+                "do": true,
+                "template": "rule01_causal.lpt",
+                "export_graphml": true
+              },
+              "rule_02_data_precision": {
+                "do": true,
+                "template": "rule02_precision.lpt"
+              },
+              "rule_03_ordinal_sort": {
+                "do": true,
+                "template": "rule_03_sort.lpt"
+              },
+              "rule_04_entity_colours": {
+                "do": true,
+                "template": "rule_04_colour.lpt"
+              }
+            },
+            "create_baseline_visualisations": {
+              "do": true,
+              "write_lp": true
+            },
+            "create_verde_visualisations": {
+              "do": true,
+              "write_lp": true
+            },
+            "create_vegalite_concat": {
+              "do": true
+            },
+            "compare_baseline_verde": {
+              "do": true
+            }
+          }
+        }
+      ],
+      "required": [
+        "verde_meta_schema",
+        "domain_schema",
+        "domain_mapping_schema",
+        "draco_base_lp_dir",
+        "verde_base_lp_override_dir",
+        "verde_rule_template_dir",
+        "vega_lite_schema",
+        "num_models",
+        "execute"
+      ],
+      "properties": {
+        "verde_meta_schema": {
+          "$id": "#/properties/global_config/properties/verde_meta_schema",
+          "type": "string",
+          "title": "The verde_meta_schema schema",
+          "description": "domain model is validated against this",
+          "default": "../schemas/verde_meta_schema.json",
+          "examples": [
+            "../schemas/verde_meta_schema.json"
+          ]
+        },
+        "domain_schema": {
+          "$id": "#/properties/global_config/properties/domain_schema",
+          "type": "string",
+          "title": "The domain_schema schema",
+          "description": "describes our functional domain",
+          "default": "../schemas/verde_asc_domain_schema.json",
+          "examples": [
+            "../schemas/verde_asc_domain_schema.json"
+          ]
+        },
+        "domain_mapping_schema": {
+          "$id": "#/properties/global_config/properties/domain_mapping_schema",
+          "type": "string",
+          "title": "The domain_mapping_schema schema",
+          "description": "input data mapping is validated against this",
+          "default": "../schemas/verde_asc_domain_mapping_schema.json",
+          "examples": [
+            "../schemas/verde_asc_domain_mapping_schema.json"
+          ]
+        },
+        "draco_base_lp_dir": {
+          "$id": "#/properties/global_config/properties/draco_base_lp_dir",
+          "type": "string",
+          "title": "The draco_base_lp_dir schema",
+          "description": "location of logic programs provided by Draco",
+          "default": "../asp/draco_base",
+          "examples": [
+            "../asp/draco_base"
+          ]
+        },
+        "verde_base_lp_override_dir": {
+          "$id": "#/properties/global_config/properties/verde_base_lp_override_dir",
+          "type": "string",
+          "title": "The verde_base_lp_override_dir schema",
+          "description": "any files with names in common with draco_base_lp_dir override draco",
+          "default": "../asp/verde_override",
+          "examples": [
+            "../asp/verde_override"
+          ]
+        },
+        "verde_rule_template_dir": {
+          "$id": "#/properties/global_config/properties/verde_rule_template_dir",
+          "type": "string",
+          "title": "The verde_rule_template_dir schema",
+          "description": "location of verde logic program templates for the rules",
+          "default": "../asp/verde_rule_templates",
+          "examples": [
+            "../asp/verde_rule_templates"
+          ]
+        },
+        "vega_lite_schema": {
+          "$id": "#/properties/global_config/properties/vega_lite_schema",
+          "type": "string",
+          "title": "The vega_lite_schema schema",
+          "description": "location of verde logic program templates for the rules",
+          "default": "../asp/verde_rule_templates",
+          "examples": [
+            "../asp/verde_rule_templates"
+          ]
+        },
+        "num_models": {
+          "$id": "#/properties/global_config/properties/num_models",
+          "type": "integer",
+          "title": "The num_models schema",
+          "description": "how many ranked visualisation models to solve for (topk in Draco",
+          "default": 20,
+          "examples": [
+            20
+          ]
+        },
+        "execute": {
+          "$id": "#/properties/global_config/properties/execute",
+          "type": "object",
+          "title": "The execute schema",
+          "description": "steps to perform",
+          "default": {},
+          "examples": [
+            {
+              "validate_domain_schema": {
+                "do": true
+              },
+              "validate_input_file_mapping": {
+                "do": true
+              },
+              "fix_input_file_column_names": {
+                "do": true
+              },
+              "create_baseline_schema_query_lp": {
+                "do": true,
+                "write_lp": true
+              },
+              "create_verde_rules_lp": {
+                "do": true,
+                "write_lp": true,
+                "rule_01_causal_relationships": {
+                  "do": true,
+                  "template": "rule01_causal.lpt",
+                  "export_graphml": true
+                },
+                "rule_02_data_precision": {
+                  "do": true,
+                  "template": "rule02_precision.lpt"
+                },
+                "rule_03_ordinal_sort": {
+                  "do": true,
+                  "template": "rule_03_sort.lpt"
+                },
+                "rule_04_entity_colours": {
+                  "do": true,
+                  "template": "rule_04_colour.lpt"
+                }
+              },
+              "create_baseline_visualisations": {
+                "do": true,
+                "write_lp": true
+              },
+              "create_verde_visualisations": {
+                "do": true,
+                "write_lp": true
+              },
+              "create_vegalite_concat": {
+                "do": true
+              },
+              "compare_baseline_verde": {
+                "do": true
+              }
+            }
+          ],
+          "required": [
+            "validate_domain_schema",
+            "validate_input_file_mapping",
+            "fix_input_file_column_names",
+            "create_baseline_schema_query_lp",
+            "create_verde_rules_lp",
+            "create_baseline_visualisations",
+            "create_verde_visualisations",
+            "create_vegalite_concat",
+            "compare_baseline_verde"
+          ],
+          "properties": {
+            "validate_domain_schema": {
+              "$id": "#/properties/global_config/properties/execute/properties/validate_domain_schema",
+              "type": "object",
+              "title": "The validate_domain_schema schema",
+              "description": "validate the domain model against the verde_meta_schema",
+              "default": {},
+              "examples": [
+                {
+                  "do": true
+                }
+              ],
+              "required": [
+                "do"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/validate_domain_schema/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "execute or not",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "validate_input_file_mapping": {
+              "$id": "#/properties/global_config/properties/execute/properties/validate_input_file_mapping",
+              "type": "object",
+              "title": "The validate_input_file_mapping schema",
+              "description": "validate the input data mapping document against the domain_mapping_schema",
+              "default": {},
+              "examples": [
+                {
+                  "do": true
+                }
+              ],
+              "required": [
+                "do"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/validate_input_file_mapping/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "execute or not",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "fix_input_file_column_names": {
+              "$id": "#/properties/global_config/properties/execute/properties/fix_input_file_column_names",
+              "type": "object",
+              "title": "The fix_input_file_column_names schema",
+              "description": "replace special characters in the input csv file headers (clingo does not like them)",
+              "default": {},
+              "examples": [
+                {
+                  "do": true
+                }
+              ],
+              "required": [
+                "do"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/fix_input_file_column_names/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "execute or not",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "create_baseline_schema_query_lp": {
+              "$id": "#/properties/global_config/properties/execute/properties/create_baseline_schema_query_lp",
+              "type": "object",
+              "title": "The create_baseline_schema_query_lp schema",
+              "description": "use Dziban to get the data field facts, and query to encoding rules",
+              "default": {},
+              "examples": [
+                {
+                  "do": true,
+                  "write_lp": true
+                }
+              ],
+              "required": [
+                "do",
+                "write_lp"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_baseline_schema_query_lp/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "execute or not",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                },
+                "write_lp": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_baseline_schema_query_lp/properties/write_lp",
+                  "type": "boolean",
+                  "title": "The write_lp schema",
+                  "description": "write out this partial logic program for our baseline (non-verde) execution",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "create_verde_rules_lp": {
+              "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp",
+              "type": "object",
+              "title": "The create_verde_rules_lp schema",
+              "description": "create the verde rule logic programs",
+              "default": {},
+              "examples": [
+                {
+                  "do": true,
+                  "write_lp": true,
+                  "rule_01_causal_relationships": {
+                    "do": true,
+                    "template": "rule01_causal.lpt",
+                    "export_graphml": true
+                  },
+                  "rule_02_data_precision": {
+                    "do": true,
+                    "template": "rule02_precision.lpt"
+                  },
+                  "rule_03_ordinal_sort": {
+                    "do": true,
+                    "template": "rule_03_sort.lpt"
+                  },
+                  "rule_04_entity_colours": {
+                    "do": true,
+                    "template": "rule_04_colour.lpt"
+                  }
+                }
+              ],
+              "required": [
+                "do",
+                "write_lp",
+                "rule_01_causal_relationships",
+                "rule_02_data_precision",
+                "rule_03_ordinal_sort",
+                "rule_04_entity_colours"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "overall switch",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                },
+                "write_lp": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/write_lp",
+                  "type": "boolean",
+                  "title": "The write_lp schema",
+                  "description": "write out this partial logic program for our the verde execution",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                },
+                "rule_01_causal_relationships": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_01_causal_relationships",
+                  "type": "object",
+                  "title": "The rule_01_causal_relationships schema",
+                  "description": "configure the rule",
+                  "default": {},
+                  "examples": [
+                    {
+                      "do": true,
+                      "template": "rule01_causal.lpt",
+                      "export_graphml": true
+                    }
+                  ],
+                  "required": [
+                    "do",
+                    "template",
+                    "export_graphml"
+                  ],
+                  "properties": {
+                    "do": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_01_causal_relationships/properties/do",
+                      "type": "boolean",
+                      "title": "The do schema",
+                      "description": "execute or not",
+                      "default": true,
+                      "examples": [
+                        true
+                      ]
+                    },
+                    "template": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_01_causal_relationships/properties/template",
+                      "type": "string",
+                      "title": "The template schema",
+                      "description": "name of logic program template rendered with jinja",
+                      "default": "rule_01_causal.lpt",
+                      "examples": [
+                        "rule01_causal.lpt"
+                      ]
+                    },
+                    "property_edge_weight": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_01_causal_relationships/properties/property_edge_weight",
+                      "type": "number",
+                      "title": "The property_edge_weight schema",
+                      "description": "weight of edges to contribute to path distance between domain nodes, where one is a property of the other",
+                      "default": 1.0,
+                      "examples": [
+                        1.0
+                      ]
+                    },
+                    "compose_edge_weight": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_01_causal_relationships/properties/compose_edge_weight",
+                      "type": "number",
+                      "title": "The compose_edge_weight schema",
+                      "description": "weight of edges to contribute to path distance between domain nodes, where one composes the other",
+                      "default": 0.5,
+                      "examples": [
+                        0.5
+                      ]
+                    },
+                    "explain_edge_weight": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_01_causal_relationships/properties/compose_edge_weight",
+                      "type": "number",
+                      "title": "The compose_edge_weight schema",
+                      "description": "weight of edges to contribute to path distance between domain nodes, where one explains the other",
+                      "default": 0.1,
+                      "examples": [
+                        0.1
+                      ]
+                    },
+                    "draco_soft_weight": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_01_causal_relationships/properties/draco_soft_weight",
+                      "type": "integer",
+                      "title": "The draco_soft_weight schema",
+                      "description": "cost of violating the rule",
+                      "default": 0.1,
+                      "examples": [
+                        0.1
+                      ]
+                    },
+                    "export_graphml": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_01_causal_relationships/properties/export_graphml",
+                      "type": "boolean",
+                      "title": "The export_graphml schema",
+                      "description": "output the domain and query network for analysis in Gephi",
+                      "default": true,
+                      "examples": [
+                        true
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "rule_02_data_precision": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_02_data_precision",
+                  "type": "object",
+                  "title": "The rule_02_data_precision schema",
+                  "description": "configure the rule",
+                  "default": {},
+                  "examples": [
+                    {
+                      "do": true,
+                      "template": "rule_02_precision.lpt"
+                    }
+                  ],
+                  "required": [
+                    "do",
+                    "template"
+                  ],
+                  "properties": {
+                    "do": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_02_data_precision/properties/do",
+                      "type": "boolean",
+                      "title": "The do schema",
+                      "description": "execute or not",
+                      "default": true,
+                      "examples": [
+                        true
+                      ]
+                    },
+                    "template": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_02_data_precision/properties/template",
+                      "type": "string",
+                      "title": "The template schema",
+                      "description": "name of logic program template rendered with jinja",
+                      "default": "rule_02_precision.lpt",
+                      "examples": [
+                        "rule_02_precision.lpt"
+                      ]
+                    },
+                    "draco_soft_weight": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_02_data_precision/properties/draco_soft_weight",
+                      "type": "integer",
+                      "title": "The draco_soft_weight schema",
+                      "description": "cost of violating the rule",
+                      "default": 100,
+                      "examples": [
+                        100
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "rule_03_ordinal_sort": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_03_ordinal_sort",
+                  "type": "object",
+                  "title": "The rule_03_ordinal_sort schema",
+                  "description": "configure the rule",
+                  "default": {},
+                  "examples": [
+                    {
+                      "do": true,
+                      "template": "rule_03_sort.lpt"
+                    }
+                  ],
+                  "required": [
+                    "do",
+                    "template"
+                  ],
+                  "properties": {
+                    "do": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_03_ordinal_sort/properties/do",
+                      "type": "boolean",
+                      "title": "The do schema",
+                      "description": "execute or not",
+                      "default": true,
+                      "examples": [
+                        true
+                      ]
+                    },
+                    "template": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_03_ordinal_sort/properties/template",
+                      "type": "string",
+                      "title": "The template schema",
+                      "description": "name of logic program template rendered with jinja",
+                      "default": "rule_03_sort.lpt",
+                      "examples": [
+                        "rule_03_sort.lpt"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "rule_04_entity_colours": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_04_entity_colours",
+                  "type": "object",
+                  "title": "The rule_04_entity_colours schema",
+                  "description": "execute or not",
+                  "default": {},
+                  "examples": [
+                    {
+                      "do": true,
+                      "template": "rule_04_colour.lpt"
+                    }
+                  ],
+                  "required": [
+                    "do",
+                    "template"
+                  ],
+                  "properties": {
+                    "do": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_04_entity_colours/properties/do",
+                      "type": "boolean",
+                      "title": "The do schema",
+                      "description": "execute or not",
+                      "default": true,
+                      "examples": [
+                        true
+                      ]
+                    },
+                    "template": {
+                      "$id": "#/properties/global_config/properties/execute/properties/create_verde_rules_lp/properties/rule_04_entity_colours/properties/template",
+                      "type": "string",
+                      "title": "The template schema",
+                      "description": "name of logic program template rendered with jinja",
+                      "default": "rule_04_colour.lpt",
+                      "examples": [
+                        "rule_04_colour.lpt"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            },
+            "create_baseline_visualisations": {
+              "$id": "#/properties/global_config/properties/execute/properties/create_baseline_visualisations",
+              "type": "object",
+              "title": "The create_baseline_visualisations schema",
+              "description": "run draco to get visualisations without no verde rules applied",
+              "default": {},
+              "examples": [
+                {
+                  "do": true,
+                  "write_lp": true
+                }
+              ],
+              "required": [
+                "do",
+                "write_lp"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_baseline_visualisations/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "execute or not",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                },
+                "write_lp": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_baseline_visualisations/properties/write_lp",
+                  "type": "boolean",
+                  "title": "The write_lp schema",
+                  "description": "write the full logic program (without verde rules",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "create_verde_visualisations": {
+              "$id": "#/properties/global_config/properties/execute/properties/create_verde_visualisations",
+              "type": "object",
+              "title": "The create_verde_visualisations schema",
+              "description": "run draco to get visualisations with verde rules applied",
+              "default": {},
+              "examples": [
+                {
+                  "do": true,
+                  "write_lp": true
+                }
+              ],
+              "required": [
+                "do",
+                "write_lp"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_visualisations/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "execute or not",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                },
+                "write_lp": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_verde_visualisations/properties/write_lp",
+                  "type": "boolean",
+                  "title": "The write_lp schema",
+                  "description": "write the full logic program (with verde rules)",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "create_vegalite_concat": {
+              "$id": "#/properties/global_config/properties/execute/properties/create_vegalite_concat",
+              "type": "object",
+              "title": "The create_vegalite_concat schema",
+              "description": "produce a single vega-lite concatenation of all recommended visualisations",
+              "default": {},
+              "examples": [
+                {
+                  "do": true
+                }
+              ],
+              "required": [
+                "do"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/create_vegalite_concat/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "execute or not",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "compare_baseline_verde": {
+              "$id": "#/properties/global_config/properties/execute/properties/compare_baseline_verde",
+              "type": "object",
+              "title": "The compare_baseline_verde schema",
+              "description": "compare the verde visualisations to the baseline visualisations",
+              "default": {},
+              "examples": [
+                {
+                  "do": true
+                }
+              ],
+              "required": [
+                "do"
+              ],
+              "properties": {
+                "do": {
+                  "$id": "#/properties/global_config/properties/execute/properties/compare_baseline_verde/properties/do",
+                  "type": "boolean",
+                  "title": "The do schema",
+                  "description": "execute or not",
+                  "default": true,
+                  "examples": [
+                    true
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "experiments": {
+      "$id": "#/properties/experiments",
+      "type": "array",
+      "title": "The experiments schema",
+      "description": "a list of specific experiments to conduct",
+      "default": [],
+      "examples": [
+        [
+          {
+            "experiment_id": "exp_01",
+            "do": true,
+            "experiment_desc": "just an example",
+            "input_data_file": "../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv",
+            "input_mapping_file": "../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json",
+            "query": [
+              "field('Social care-related quality of life score (All)', scale='zero')",
+              "field('Gross Total Expenditure (x1000)', scale='log')",
+              "field('Support provided to carers during the year', scale='zero')"
+            ]
+          },
+          {
+            "experiment_id": "exp_02",
+            "do": true,
+            "experiment_desc": "just an example",
+            "input_data_file": "../asc_data/processed/set_01/AFR_T41_region_tidy.csv",
+            "input_mapping_file": "../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json",
+            "query": [
+              "field('Setting')",
+              "field('Gross Current Expenditure (x1000)')"
+            ]
+          }
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/experiments/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/experiments/items/anyOf/0",
+            "type": "object",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "experiment_id": "exp_01",
+                "do": true,
+                "experiment_desc": "just an example",
+                "input_data_file": "../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv",
+                "input_mapping_file": "../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json",
+                "query": [
+                  "field('Social care-related quality of life score (All)', scale='zero')",
+                  "field('Gross Total Expenditure (x1000)', scale='log')",
+                  "field('Support provided to carers during the year', scale='zero')"
+                ]
+              }
+            ],
+            "required": [
+              "experiment_id",
+              "do",
+              "experiment_desc",
+              "input_data_file",
+              "input_mapping_file",
+              "query"
+            ],
+            "properties": {
+              "experiment_id": {
+                "$id": "#/properties/experiments/items/anyOf/0/properties/experiment_id",
+                "type": "string",
+                "title": "The experiment_id schema",
+                "description": "a short unique identifier within the trial",
+                "default": "",
+                "examples": [
+                  "exp_01"
+                ]
+              },
+              "do": {
+                "$id": "#/properties/experiments/items/anyOf/0/properties/do",
+                "type": "boolean",
+                "title": "The do schema",
+                "description": "execute or not",
+                "default": true,
+                "examples": [
+                  true
+                ]
+              },
+              "experiment_desc": {
+                "$id": "#/properties/experiments/items/anyOf/0/properties/experiment_desc",
+                "type": "string",
+                "title": "The experiment_desc schema",
+                "description": "longer description of the experiment",
+                "default": "",
+                "examples": [
+                  "just an example"
+                ]
+              },
+              "input_data_file": {
+                "$id": "#/properties/experiments/items/anyOf/0/properties/input_data_file",
+                "type": "string",
+                "title": "The input_data_file schema",
+                "description": "the input csv file to be visualised",
+                "default": "",
+                "examples": [
+                  "../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv"
+                ]
+              },
+              "input_mapping_file": {
+                "$id": "#/properties/experiments/items/anyOf/0/properties/input_mapping_file",
+                "type": "string",
+                "title": "The input_mapping_file schema",
+                "description": "document containing mapping to the domain_schema",
+                "default": "",
+                "examples": [
+                  "../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json"
+                ]
+              },
+              "query": {
+                "$id": "#/properties/experiments/items/anyOf/0/properties/query",
+                "type": "array",
+                "title": "The query schema",
+                "description": "query in Dziban python query format",
+                "default": [],
+                "examples": [
+                  [
+                    "field('Social care-related quality of life score (All)', scale='zero')",
+                    "field('Gross Total Expenditure (x1000)', scale='log')"
+                  ]
+                ],
+                "additionalItems": true,
+                "items": {
+                  "$id": "#/properties/experiments/items/anyOf/0/properties/query/items",
+                  "anyOf": [
+                    {
+                      "$id": "#/properties/experiments/items/anyOf/0/properties/query/items/anyOf/0",
+                      "type": "string",
+                      "title": "The first anyOf schema",
+                      "description": "in Dziban python query format",
+                      "default": "",
+                      "examples": [
+                        "field('Social care-related quality of life score (All)', scale='zero')",
+                        "field('Gross Total Expenditure (x1000)', scale='log')"
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    },
+    "regression_test": {
+      "$id": "#/properties/regression_test",
+      "type": "object",
+      "title": "The regression_test schema",
+      "description": "compare the outputs against previous results that have been manually placed a regression subdir",
+      "default": {},
+      "examples": [
+        {
+          "do": true
+        }
+      ],
+      "required": [
+        "do"
+      ],
+      "properties": {
+        "do": {
+          "$id": "#/properties/regression_test/properties/do",
+          "type": "boolean",
+          "title": "The do schema",
+          "description": "execute or not",
+          "default": true,
+          "examples": [
+            true
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

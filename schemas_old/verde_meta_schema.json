@@ -1,0 +1,115 @@
+{
+  "$schema": "https://smcse.city.ac.uk/student/aczd178/verde/schema/verde_meta_schema.json#",
+  "$id": "https://smcse.city.ac.uk/student/aczd178/verde/schema/verde_meta_schema.json#",
+  "title": "Verde meta-schema to validate visualisation design rules in domain specific schemas",
+  "definitions": {
+    "schemaArray": {
+      "allOf": [
+        {
+          "$ref": "http://json-schema.org/draft-07/schema#/definitions/schemaArray"
+        },
+        {
+          "items": {
+            "$ref": "#"
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "http://json-schema.org/draft-07/schema#"
+    }
+  ],
+  "properties": {
+    "additionalItems": {
+      "$ref": "#"
+    },
+    "additionalProperties": {
+      "$ref": "#"
+    },
+    "dependencies": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "$ref": "#"
+          },
+          {
+            "type": "array"
+          }
+        ]
+      }
+    },
+    "items": {
+      "anyOf": [
+        {
+          "$ref": "#"
+        },
+        {
+          "$ref": "#/definitions/schemaArray"
+        }
+      ]
+    },
+    "definitions": {
+      "additionalProperties": {
+        "$ref": "#"
+      }
+    },
+    "patternProperties": {
+      "additionalProperties": {
+        "$ref": "#"
+      }
+    },
+    "properties": {
+      "additionalProperties": {
+        "$ref": "#"
+      }
+    },
+    "if": {
+      "$ref": "#"
+    },
+    "then": {
+      "$ref": "#"
+    },
+    "else": {
+      "$ref": "#"
+    },
+    "allOf": {
+      "$ref": "#/definitions/schemaArray"
+    },
+    "anyOf": {
+      "$ref": "#/definitions/schemaArray"
+    },
+    "oneOf": {
+      "$ref": "#/definitions/schemaArray"
+    },
+    "not": {
+      "$ref": "#"
+    },
+    "contains": {
+      "$ref": "#"
+    },
+    "propertyNames": {
+      "$ref": "#"
+    },
+    "verde_rule_directive": {
+      "type": "object",
+      "properties": {
+        "explains": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "ordinal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

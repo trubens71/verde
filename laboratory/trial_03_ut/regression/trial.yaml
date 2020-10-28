@@ -1,0 +1,59 @@
+---
+  trial_id: trial_03_ut
+  trial_desc: dev and unit testing of rule 03 (ordinal)
+  global_config:
+    verde_meta_schema: ../schemas/verde_meta_schema.json
+    domain_schema: ../schemas/verde_asc_domain_schema.json
+    domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json
+    draco_base_lp_dir: ../asp/draco_base
+    verde_base_lp_override_dir: ../asp/verde_override
+    verde_rule_template_dir: ../asp/verde_rule_templates
+    vega_lite_schema: ../schemas/vega_lite_v3_schema.json
+    num_models: 20
+    execute:
+      validate_domain_schema:
+        do: true
+      validate_input_file_mapping:
+        do: true
+      fix_input_file_column_names:
+        do: true
+      create_baseline_schema_query_lp:
+        do: true
+        write_lp: true
+      create_verde_rules_lp:
+        do: true
+        write_lp: true
+        rule_01_causal_relationships:
+          do: false
+          template: rule_01_causal.lpt
+          export_graphml: true
+        rule_02_data_precision:
+          do: false
+          template: rule_02_precision.lpt
+        rule_03_ordinal_sort:
+          do: true
+          template: rule_03_sort.lpt
+        rule_04_entity_colours:
+          do: false
+          template: rule_04_colour.lpt
+      create_baseline_visualisations:
+        do: true
+        write_lp: true
+      create_verde_visualisations:
+        do: true
+        write_lp: true
+      create_vegalite_concat:
+        do: true
+      compare_baseline_verde:
+        do: true
+  experiments:
+    - experiment_id: exp_01
+      do: true
+      experiment_desc: ordinal sort of order of long-term setting
+      input_data_file: ../asc_data/processed/set_01/AFR_T41_region_tidy.csv
+      input_mapping_file: ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json
+      query:
+        - field('Setting')
+        - field('Gross Current Expenditure (x1000)')
+  regression_test:
+    do: true

@@ -1,0 +1,78 @@
+---
+  trial_id: example  # a trial is a common configuration plus a set of specific experiments to run
+  trial_desc: an example trial configuration
+  global_config:  # global settings are overridden by experiments if any node herein is found there
+    verde_meta_schema: ../schemas/verde_meta_schema.json  # domain model is validated against this
+    domain_schema: ../schemas/verde_asc_domain_schema.json  # describes our functional domain
+    domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema.json  # input data mapping is validated against this
+    draco_base_lp_dir: ../asp/draco_base  # location of logic programs provided by Draco
+    verde_base_lp_override_dir: ../asp/verde_override  # any files with names in common with draco_base_lp_dir override draco
+    verde_rule_template_dir: ../asp/verde_rule_templates  # location of verde logic program templates for the rules
+    vega_lite_schema: ../schemas/vega_lite_v3_schema.json  # to validate the visualisations against
+    num_models: 5  # how many ranked visualisation models to solve for (topk in Draco)
+    execute:  # steps to perform
+      validate_domain_schema:  # validate the domain model against the verde_meta_schema
+        do: true
+      validate_input_file_mapping:  # validate the input data mapping document against the domain_mapping_schema
+        do: true
+      fix_input_file_column_names:  # replace special characters in the input csv file headers (clingo does not like them)
+        do: true
+      create_baseline_schema_query_lp:  # use Dziban to get the data field facts, and query to encoding rules
+        do: true
+        write_lp: true  # write out this partial logic program for our baseline (non-verde) execution
+      create_verde_rules_lp:  # create the verde rule logic programs
+        do: true  # overall switch
+        write_lp: true  # write out this partial logic program for our the verde execution
+        rule_01_causal_relationships:
+          do: false
+          template: rule_01_causal.lpt  # name of logic program template rendered with jinja
+          property_edge_weight: 1.0  # weight of edges to contribute to path distance between domain nodes, where one is a property of the other
+          compose_edge_weight: 0.5  # weight of edges to contribute to path distance between domain nodes, where one composes the other
+          explain_edge_weight: 0.1  # weight of edges to contribute to path distance between domain nodes, where one explains the other
+          draco_soft_weight: 100  # cost of violating the rule
+          export_graphml: true  # output the domain and query network for analysis in Gephi
+        rule_02_data_precision:
+          do: false
+          template: rule_02_precision.lpt  # name of logic program template rendered with jinja
+          draco_soft_weight: 100  # cost of violating the rule
+        rule_03_ordinal_sort:
+          do: false
+          template: rule_03_sort.lpt  # name of logic program template rendered with jinja
+        rule_04_entity_colours:
+          do: true
+          template: rule_04_colour.lpt  # name of logic program template rendered with jinja
+      get_baseline_visualisations:  # run draco to get visualisations without no verde rules applied
+        do: true
+        write_lp: true  # write the full logic program (without verde rules)
+      get_verde_visualisations:  # run draco to get visualisations with verde rules applied
+        do: true
+        write_lp: true  # write the full logic program (with verde rules)
+      make_vegalite_concat:  # produce a single vega-lite concatenation of all recommended visualisations
+        do: true
+      compare_baseline_verde:  # compare the verde visualisations to the baseline visualisations
+        do: true
+  experiments:  # a list of specific experiments to conduct.
+    - experiment_id: exp_01
+      do: true
+      execute:
+        create_verde_rules_lp:
+          rule_01_causal_relationships:
+            draco_soft_weight: 5  # cost of violating the rule
+      experiment_desc: just an example
+      input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv  # the input csv file to be visualised
+      input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json  # mapping to the domain_schema
+      query:  # in Dziban python query format
+        - field('Social care-related quality of life score (All)', scale='zero')
+        - field('Gross Total Expenditure (x1000)', scale='log')
+        - field('Support provided to carers during the year', scale='zero')
+    - experiment_id: exp_02
+      do: true
+      experiment_desc: just an example
+      input_data_file: ../asc_data/processed/set_01/AFR_T41_region_tidy.csv
+      input_mapping_file: ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json
+      query:  # in dziban python query format
+        - field('Setting')
+        - field('Gross Current Expenditure (x1000)')
+      num_models: 3
+  regression_test:  # compare the outputs against previous results that have been manually placed a regression subdir
+    do: true

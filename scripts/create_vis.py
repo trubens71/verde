@@ -1,5 +1,5 @@
-import verde.verde_utils as vu
-import verde.rule_gen as vr
+import verde_old.verde_utils as vu
+import src.domain_rules as vr
 import logging
 
 domain_schema_file = '../schemas/verde_asc_domain_schema.json'

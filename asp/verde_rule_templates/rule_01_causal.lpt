@@ -1,0 +1,21 @@
+
+% --- verde rule 01 (causal relationships) ----------------------------------------------------------------------------%
+
+% x/y/size/colour encoding preferences based on possible causal relationships in the data
+
+% for each pair of fields and pair of channels we have a preference of field to channel encoding,
+% with the explanatory variable assigned to the higher priority channel
+% the channel priority order is {{channels}}
+% breaking these soft constraints incurs a cost of {{soft_weight}}
+
+{% for rule_id, rule in rules.items() -%}
+% prefer {{rule.expl_channel}}={{rule.expl_var}} {{rule.resp_channel}}={{rule.resp_var}}
+soft({{rule_id}},V) :- channel(V,E1,{{rule.expl_channel}}), field(V,E1,"{{rule.resp_var}}"),
+                         channel(V,E2,{{rule.resp_channel}}), field(V,E2,"{{rule.expl_var}}"),
+                         is_c_c(V).
+#const {{rule_id}}_weight = 100.
+soft_weight({{rule_id}},{{rule_id}}_weight).
+% ----------------------------------------------------------------------------------------------------------------------%
+{% endfor %}
+
+% *** end of verde rule 01 lp *** --------------------------------------------------------------------------------------%
