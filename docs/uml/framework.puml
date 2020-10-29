@@ -50,6 +50,8 @@ domain_rules->utils: write_list_to_file(verde_schema_rules_query)
 deactivate domain_rules
 end
 
+newpage
+
 group get baseline draco visualisations
 experiment->results: get_vis_results(baseline_schema_query_lp)
 activate results
@@ -75,18 +77,20 @@ results->results: write_results_vegalite
 deactivate results
 end
 
+newpage
+
 group get verde enhanced visualisations (similar pattern to above)
 experiment->results: get_vis_results(verde_schema_rules_query_lp)
 activate results
 note right: now with verde rules
 results->results: get_overridden_lp_files
-note right
+note left
 verde overrides some
 draco baseline constraints
 end note
 results->results: write_full_lp
 results->utils: write_list_to_file(verde_full_lp)
-note right: now with verde rules
+note left: now with verde rules
 results->draco_proxy: run_draco
 activate draco_proxy
 activate draco
@@ -109,7 +113,7 @@ group analyse results
 experiment->results: make_vegalite_concat
 activate results
 results->utils: validate_json_doc(vegalite_concat)
-note right
+note left
 validate results against
 vega-lite schema
 end note
