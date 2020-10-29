@@ -1,5 +1,5 @@
 """
-Main script to execute a verde trial based on a config file trial.yaml in a specified directories
+Main script to execute a verde trial based on config files trial.yaml in specified directories.
 """
 
 import sys
@@ -8,20 +8,20 @@ from src.trial import Trial
 import logging
 import os
 
-TRIAL_YAML = 'trial.yaml'
-TRIAL_SCHEMA = '../schemas/verde_trial_schema.json'
+TRIAL_YAML = 'trial.yaml'  # required name of configuration file defining a trial and its experiments
+TRIAL_SCHEMA = '../schemas/verde_trial_schema.json'  # json schema to validate TRIAL_YAML against
 
 
 def run_trial(directory):
 
     """
     runs a single triel
-    :param directory:
-    :return:
+    :param directory: location of trial config file and all its experiment outputs
+    :return: None
     """
 
     experiments_ran = []
-    trial = Trial(directory, TRIAL_YAML)
+    trial = Trial(directory, TRIAL_YAML)  # instantiate the trial and its experiments
 
     for exp in trial.experiments:
         if exp.do:
@@ -34,10 +34,10 @@ def run_trial(directory):
     logging.info(f'Completed experiments {experiments_ran}')
 
 
-def trial_yaml_files_exist(dirs):
+def trial_config_files_exist(dirs):
 
     """
-    Make sure all dirs from command line exist and have a trial.yaml file.
+    Make sure all dirs from command line args exist and have a trial.yaml file.
     :param dirs: list of directories
     :return: config_ok boolean
     """
@@ -48,7 +48,7 @@ def trial_yaml_files_exist(dirs):
         logging.fatal(f'cannot find trial config schema {TRIAL_SCHEMA}')
 
     for d in dirs:
-        trial_yaml_config_file = f'{d}/{TRIAL_YAML}'
+        trial_yaml_config_file = os.path.join(d, TRIAL_YAML)
         if not os.path.isdir(d):
             logging.fatal(f'directory {d} not found')
             config_ok = False
@@ -69,14 +69,14 @@ if __name__ == "__main__":
     Each directory must have a trial.yaml file in it.
     """
 
-    logging = vutils.configure_logger('verde.log', logging.INFO, show_mod_func=False)
+    logging = vutils.configure_logger('verde.log', logging.INFO, show_mod_func=True)
+    trial_dirs = sys.argv[1:]  # get command line arguments
 
     # Check for trial directories and their content
-    trial_dirs = sys.argv[1:]
-    if not trial_dirs or not trial_yaml_files_exist(trial_dirs):
-        logging.fatal('usage: verde.py [trial_dirs] # NB: A trial.yaml file must exist in each dir.')
+    if not trial_dirs or not trial_config_files_exist(trial_dirs):
+        logging.fatal('usage: verde.py [trial_dirs] \t# a trial.yaml file must exist in each trial_dir.')
         exit(1)
 
-    # Run trials
+    # Run the trials
     for trial_dir in trial_dirs:
         run_trial(trial_dir)

@@ -1,0 +1,129 @@
+@startuml
+skinparam shadowing false
+
+skinparam ParticipantBorderColor gray
+
+participant verde [[https://github.com/trubens71/verde/blob/master/scripts/verde.py]] #Honeydew
+participant trial #Honeydew
+participant experiment #Honeydew
+participant domain_rules #Honeydew
+participant draco_proxy #Honeydew
+participant draco #GhostWhite
+participant dziban #GhostWhite
+participant results #Honeydew
+participant compare #Honeydew
+participant utils #Honeydew
+
+group set up
+activate verde
+verde->utils: configure_logger
+verde->verde: trial_config_files_exist
+verde->utils: validate_json_doc
+verde->verde: run_trial
+verde->trial: init
+activate trial
+trial->experiment: init
+activate experiment
+verde->experiment: run
+experiment->utils: delete_temp_files
+experiment->utils: validate_json_doc(domain_schema)
+experiment->utils: validate_json_doc(mapping_file)
+experiment->utils: fix_column_headings(input_csv_file)
+experiment->draco_proxy: get_baseline_schema_query_lp
+activate draco_proxy
+draco_proxy->dziban: Chart
+activate dziban
+draco_proxy->dziban: _get_full_query
+deactivate dziban
+deactivate draco_proxy
+experiment->utils: write_list_to_file(baseline_schema_query)
+end
+
+group generate verde domain specific rules
+experiment->domain_rules: create_verde_rules_lp
+activate domain_rules
+note right
+rule implementations are described
+in subsequent diagrams
+end note
+domain_rules->utils: write_list_to_file(verde_schema_rules_query)
+deactivate domain_rules
+end
+
+group get baseline draco visualisations
+experiment->results: get_vis_results(baseline_schema_query_lp)
+activate results
+results->results: get_lp_files
+note right: from Draco config files
+results->results: write_full_lp
+results->utils: write_list_to_file(baseline_full_lp)
+results->draco_proxy: run_draco
+activate draco_proxy
+draco_proxy->draco: run
+activate draco
+deactivate draco
+deactivate draco_proxy
+results->results: write_results_json
+results->draco_proxy: get_vega_lite_spec
+activate draco_proxy
+draco_proxy->draco: as_vl
+activate draco
+draco->draco: asp2vl
+deactivate draco
+deactivate draco_proxy
+results->results: write_results_vegalite
+deactivate results
+end
+
+group get verde enhanced visualisations (similar pattern to above)
+experiment->results: get_vis_results(verde_schema_rules_query_lp)
+activate results
+note right: now with verde rules
+results->results: get_overridden_lp_files
+note right
+verde overrides some
+draco baseline constraints
+end note
+results->results: write_full_lp
+results->utils: write_list_to_file(verde_full_lp)
+note right: now with verde rules
+results->draco_proxy: run_draco
+activate draco_proxy
+activate draco
+draco_proxy->draco: run
+deactivate draco
+deactivate draco_proxy
+results->results: write_results_json
+activate draco_proxy
+results->draco_proxy: get_vega_lite_spec
+activate draco
+draco_proxy->draco: as_vl
+draco->draco: asp2vl
+deactivate draco
+deactivate draco_proxy
+results->results: write_results_vegalite
+deactivate results
+end
+
+group analyse results
+experiment->results: make_vegalite_concat
+activate results
+results->utils: validate_json_doc(vegalite_concat)
+note right
+validate results against
+vega-lite schema
+end note
+results->compare: compare_baseline_to_verde
+activate compare
+compare->compare: compare_specs
+compare->compare: create_exploratory_visualisation
+deactivate compare
+deactivate results
+deactivate experiment
+verde->trial: exec_regression_test
+note right: compare all output files to previous good run
+deactivate verde
+end
+
+@enduml
+

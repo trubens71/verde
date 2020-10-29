@@ -206,6 +206,7 @@ def configure_logger(log_file, level=logging.INFO, show_mod_func=False):
                                       "%Y-%m-%d %H:%M:%S")
     else:
         formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', "%Y-%m-%d %H:%M:%S")
+
     fh.setFormatter(formatter)
     ch.setFormatter(formatter)
     logging.getLogger('').addHandler(fh)
