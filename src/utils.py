@@ -97,6 +97,9 @@ def validate_json_doc(doc_file_path, schema_file_path=None):
     logging.info('validating {} against {}'.format(doc_file_path, schema_file_path))
 
     if schema_file_path:
+        if not os.path.isfile(schema_file_path):
+            logging.fatal(f'cannot find schema file {schema_file_path}')
+            exit(1)
         with open(schema_file_path, 'r') as f:
             schema = json.load(f)
     else:

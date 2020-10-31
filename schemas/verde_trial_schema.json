@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/trubens71/verde/master/schemas/verde_trial_schema.json#",
   "title": "Schema for verde trial yaml configuration files",
-  "description": "Not yet validated as part of the execution process, just used within PyCharm editor",
+  "description": "Validated as part of the execution process, and used within PyCharm editor",
   "$comment": "Version 1",
   "default": {},
   "type": "object",

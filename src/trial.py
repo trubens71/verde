@@ -11,6 +11,9 @@ from src.experiment import Experiment
 import src.utils as vutils
 from addict import Dict
 
+TRIAL_YAML = 'trial.yaml'  # required name of configuration file defining a trial and its experiments
+TRIAL_SCHEMA = '../schemas/verde_trial_schema.json'  # json schema to validate TRIAL_YAML against
+
 
 class Trial:
 
@@ -18,7 +21,7 @@ class Trial:
     Data structure to hold the trial config and its experiment objects
     """
 
-    def __init__(self, directory, config_file):
+    def __init__(self, directory):
         """
         Construct the trial and its experiment objects
         :param directory: for the trial
@@ -26,10 +29,18 @@ class Trial:
         """
 
         self.directory = directory
-        self.config_file = directory + '/' + config_file
+        self.config_file = os.path.join(self.directory, TRIAL_YAML)
+
+        if not os.path.isdir(directory):
+            logging.fatal(f'trial directory {self.directory} not found')
+            exit(1)
 
         if not os.path.isfile(self.config_file):
             logging.fatal(f'config file {self.config_file} not found')
+            exit(1)
+
+        if not vutils.validate_json_doc(self.config_file, TRIAL_SCHEMA):
+            logging.fatal(f'{self.config_file} failed validation against {TRIAL_SCHEMA}')
 
         with open(self.config_file) as f:
             self._raw_config = Dict(yaml.load(f, Loader=yaml.FullLoader))

@@ -52,18 +52,8 @@ class Experiment:
         self.trial_desc = trial.trial_desc
         self.directory = trial.directory
 
-        # copy the experiment config into the class
-        # for k, v in exp.items():
-        #     setattr(self, k, v)
-
-        # override with any duplicated values from the trial
-        # for trial_k, trial_v in trial.global_config.items():
-        #     if hasattr(self, trial_k) and getattr(self, trial_k) is not None:
-        #         logging.warning(f"global config {trial_k}={trial_v} overriding {getattr(self, trial_k)} in {self.id}")
-        #     setattr(self, trial_k, trial_v)
-
+        # override global trial config with any local values in experiment config
         trial_global_config = trial.global_config.deepcopy()
-
         for config_k, config_v in always_merger.merge(trial_global_config, exp).items():
             setattr(self, config_k, config_v)
 

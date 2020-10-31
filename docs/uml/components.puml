@@ -1,0 +1,59 @@
+@startuml
+
+skinparam shadowing false
+skinparam ComponentBorderColor gray
+
+package "schemas" as schemas{
+    component [verde trial schema] as trial_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_trial_schema.json]] #honeydew
+    component [verde meta schema] as meta_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_meta_schema.json]] #honeydew
+    component [adult social care\ndomain schema] as asc_domain_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_asc_domain_schema.json]] #honeydew
+    component [adult social care domain\nmapping schema] as asc_mapping_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_asc_domain_mapping_schema.json]] #honeydew
+}
+
+package "inputs" as inputs {
+    component [an input data\n(csv) file] as input_data [[https://github.com/trubens71/verde/blob/master/asc_data/processed/set_01/AFR_T41_region_tidy.csv]] #Lavender
+    component [a mapping doc] as mapping_doc [[https://github.com/trubens71/verde/blob/master/asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json]] #honeydew
+}
+
+package "outputs" as outputs {
+    component [baseline vega-lite\nspecifications] as baseline_specs [[https://trubens71.github.io/verde/laboratory/trial_02_ut/regression/vegalite/trial_02_ut.exp_01_view_all_vl.html]] #honeydew
+    component [verde vega-lite\nspecifications] as verde_baseline_specs [[https://trubens71.github.io/verde/laboratory/trial_02_ut/regression/vegalite/trial_02_ut.exp_01_view_all_vl.html]] #honeydew
+    component [exploratory visualisation\nof visualisations] as exploratory_vis [[https://trubens71.github.io/verde/laboratory/trial_03_ut/regression/vegalite/trial_03_ut.exp_01_view_compare.html]] #honeydew
+}
+
+package "execution" as execution {
+    component [trial configuration] as trial_config [[https://github.com/trubens71/verde/blob/master/laboratory/example/trial.yaml]] #honeydew
+    component [verde visualisation\ngenerator] as verde [[https://github.com/trubens71/verde/tree/master/src]] #honeydew
+    component [verde domain\nspecific rules] as verde_rules [[https://github.com/trubens71/verde/tree/master/asp/verde_rule_templates]] #honeydew
+}
+
+package "3rd party" as third_party {
+    component [draco] as draco [[https://github.com/uwdata/draco]] #ghostwhite
+    component [clingo] as clingo [[https://github.com/potassco/clingo]] #ghostwhite
+    component [draco visualisation\nknowledge base] as draco_kb [[https://github.com/trubens71/verde/tree/master/asp/draco_base]] #GhostWhite
+    component [dziban] as dziban [[https://github.com/uwdata/dziban]] #ghostwhite
+}
+
+inputs .[hidden]d.> execution
+inputs .[hidden]r.> schemas
+execution .[hidden]r.> third_party
+execution .[hidden]d.> outputs
+
+asc_domain_schema .down.> meta_schema : validated by
+trial_config .down.> trial_schema : validated by
+mapping_doc .left.> asc_mapping_schema : validated by
+asc_mapping_schema .up.> asc_domain_schema : references
+mapping_doc ..> asc_domain_schema : maps to
+mapping_doc .up.> input_data : maps from
+
+verde ..> trial_config : configured by
+verde ..> verde_rules : incorporates
+verde ..> third_party : uses
+verde ..> input_data : processes
+verde ..> outputs : produces
+
+draco .r.> clingo : uses
+draco .d.> draco_kb : incorporates
+dziban .r.> draco : extends
+
+@enduml
