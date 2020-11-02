@@ -1,0 +1,24 @@
+@startuml
+
+skinparam ActivityBackgroundColor honeydew
+skinparam ActivityDiamondBackgroundColor honeydew
+skinparam ActivityBorderColor gray
+skinparam ActivityDiamondBorderColor gray
+skinparam ArrowColor gray
+
+start
+: validate domain schema;
+note right: against verde_meta_schema
+: validate input file mapping;
+note right: against asc_domain_schema_mapping
+: create baseline visualisations;
+note right: using vanilla Draco configuration
+: generate domain specific rules;
+: create visualisations enhanced with domain specific rules;
+: create exploratory visualisation of visualisations;
+note right: to compare baseline results with enhanced results
+: run regression test;
+note right: against last known good trial run.
+
+
+@enduml

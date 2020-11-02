@@ -1,10 +1,9 @@
 @startuml
-scale 0.5
+'scale 0.5
 skinparam shadowing false
 skinparam ComponentBorderColor gray
 allow_mixing
 
-title Component Model
 
 package "schemas" as schemas{
     artifact "verde trial schema" as trial_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_trial_schema.json]] #honeydew
