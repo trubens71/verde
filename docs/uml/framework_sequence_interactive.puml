@@ -1,6 +1,6 @@
 @startuml
+scale 0.5
 skinparam shadowing false
-
 skinparam ParticipantBorderColor gray
 
 title Verde trial sequence diagram (click green participant boxes to navigate to code)
