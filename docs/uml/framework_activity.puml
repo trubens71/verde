@@ -18,7 +18,7 @@ note right: using vanilla Draco configuration
 : create exploratory visualisation of visualisations;
 note right: to compare baseline results with enhanced results
 : run regression test;
-note right: against last known good trial run.
-
+note right: compare all output files against last known good trial run.
+stop
 
 @enduml

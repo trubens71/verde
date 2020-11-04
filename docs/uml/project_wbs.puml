@@ -3,26 +3,42 @@
 <style>
 wbsDiagram {
     Linecolor black
-    BackgroundColor #honeydew
+    .phase0Style * {
+     BackgroundColor #ffffff
+    }
+    .phaseSplitStyle * {
+     BackgroundColor #eeeeee
+    }
+    .phase1Style * {
+     BackgroundColor #edf8e9
+    }
+    .phase2Style * {
+     BackgroundColor #bae4b3
+    }
+    .phase3Style * {
+     BackgroundColor #74c476
+    }
 }
 </style>
-* Project Verde WBS
+* Project Verde WBS <<phase0Style>>
 
-** 1.Establish context
+** 1.Establish context <<phase1Style>>
 *** 1.1 Technical context
 *** 1.2 Domain context
 *** 1.3 Business context
 
-** 2. Build technical framework
+** 2. Build technical framework <<phase2Style>>
 *** 2.1 Data architecture
 *** 2.2 Trial configuration and execution
 *** 2.3 Results evaluation
 
-** 3. Develop domain specific rules
-*** 3.1 Identify rules
-*** 3.2 Implement rules
-*** 3.3 Unit test
-*** 3.4 Integration test
-*** 3.5 System test
+** 3. Develop domain specific rules <<phaseSplitStyle>>
+*** 3.1 Identify rules <<phase2Style>>
+*** 3.2 Implement rules <<phase2Style>>
+*** 3.3 Unit test <<phase2Style>>
+*** 3.4 Integration test <<phase3Style>>
+*** 3.5 System test <<phase3Style>>
 
 @endwbs
+
+["#edf8e9","#bae4b3","#74c476","#238b45"]
