@@ -9,7 +9,7 @@
     verde_base_lp_override_dir: ../asp/verde_override  # any files with names in common with draco_base_lp_dir override draco
     verde_rule_template_dir: ../asp/verde_rule_templates  # location of verde logic program templates for the rules
     vega_lite_schema: ../schemas/vega_lite_v3_schema.json  # to validate the visualisations against
-    num_models: 5  # how many ranked visualisation models to solve for (topk in Draco)
+    num_models: 10  # how many ranked visualisation models to solve for (topk in Draco)
     execute:  # steps to perform
       validate_domain_schema:  # validate the domain model against the verde_meta_schema
         do: true
@@ -41,13 +41,13 @@
         rule_04_entity_colours:
           do: true
           template: rule_04_colour.lpt  # name of logic program template rendered with jinja
-      get_baseline_visualisations:  # run draco to get visualisations without no verde rules applied
+      create_baseline_visualisations:  # run draco to get visualisations without no verde rules applied
         do: true
         write_lp: true  # write the full logic program (without verde rules)
-      get_verde_visualisations:  # run draco to get visualisations with verde rules applied
+      create_verde_visualisations:  # run draco to get visualisations with verde rules applied
         do: true
         write_lp: true  # write the full logic program (with verde rules)
-      make_vegalite_concat:  # produce a single vega-lite concatenation of all recommended visualisations
+      create_vegalite_concat:  # produce a single vega-lite concatenation of all recommended visualisations
         do: true
       compare_baseline_verde:  # compare the verde visualisations to the baseline visualisations
         do: true
@@ -57,7 +57,10 @@
       execute:
         create_verde_rules_lp:
           rule_01_causal_relationships:
-            draco_soft_weight: 5  # cost of violating the rule
+            do: true
+            draco_soft_weight: 99  # cost of violating the rule
+        rule_04_entity_colours:
+            do: true
       experiment_desc: just an example
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv  # the input csv file to be visualised
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json  # mapping to the domain_schema
@@ -66,13 +69,13 @@
         - field('Gross Total Expenditure (x1000)', scale='log')
         - field('Support provided to carers during the year', scale='zero')
     - experiment_id: exp_02
-      do: true
+      do: false
       experiment_desc: just an example
       input_data_file: ../asc_data/processed/set_01/AFR_T41_region_tidy.csv
       input_mapping_file: ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json
       query:  # in dziban python query format
         - field('Setting')
         - field('Gross Current Expenditure (x1000)')
-      num_models: 3
+      num_models: 10
   regression_test:  # compare the outputs against previous results that have been manually placed a regression subdir
     do: true

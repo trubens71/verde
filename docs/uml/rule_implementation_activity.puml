@@ -1,0 +1,31 @@
+@startuml
+
+skinparam ActivityBackgroundColor honeydew
+skinparam ActivityDiamondBackgroundColor honeydew
+skinparam ActivityBorderColor gray
+skinparam ActivityDiamondBorderColor gray
+skinparam ArrowColor gray
+
+start
+
+partition Pre-processing {
+    : process input data, mapping and domain schema;
+    note right: use various computing and data\nscience techniques as applicable
+    : generate additional logic program;
+    note right: using jinja templates, because\nfacts are dynamic, whereas\nrules maybe static and/or dynamic
+}
+
+: execute Draco/Clingo;
+note right: with additional logic program
+
+partition Post-processing {
+    : remove unsupported specification properties;
+    note right: if applicable
+    : execute Draco asp2vl;
+    note right: to convert specification properties\ninto a Vega-lite specification
+    : apply unsupported specification terms;
+    note right: directly into the Vega-lite spec.
+}
+stop
+
+@enduml
