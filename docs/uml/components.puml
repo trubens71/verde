@@ -7,10 +7,10 @@ allow_mixing
 title Component Model\n(click components for details)
 scale 0.6
 package "schemas" as schemas{
-    artifact "verde trial schema" as trial_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_trial_schema.json]] #honeydew
     artifact "verde meta schema" as meta_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_meta_schema.json]] #honeydew
     artifact "adult social care\ndomain schema" as asc_domain_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_asc_domain_schema.json]] #honeydew
     artifact "adult social care domain\nmapping schema" as asc_mapping_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_asc_domain_mapping_schema.json]] #honeydew
+    artifact "verde trial schema" as trial_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_trial_schema.json]] #honeydew
 }
 
 package "inputs" as inputs {
@@ -41,10 +41,11 @@ inputs .[hidden]d.> execution
 inputs .[hidden]r.> schemas
 execution .[hidden]r.> third_party
 execution .[hidden]d.> outputs
+'outputs .[hidden]d.> third_party
 
 asc_domain_schema .down.> meta_schema : validated by
 trial_config .down.> trial_schema : validated by
-mapping_doc .left.> asc_mapping_schema : validated by
+mapping_doc ..> asc_mapping_schema : validated by
 asc_mapping_schema .up.> asc_domain_schema : references
 mapping_doc ..> asc_domain_schema : maps to
 mapping_doc .up.> input_data : maps from
@@ -58,6 +59,8 @@ verde ..> outputs : produces
 draco .r.> clingo : uses
 draco .d.> draco_kb : incorporates
 dziban .r.> draco : extends
+
+verde_rules ..> draco_kb : extends
 
 exploratory_vis .u.> baseline_specs :  explores and compares
 exploratory_vis .u.> verde_specs :  explores and compares
