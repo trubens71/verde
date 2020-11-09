@@ -4,7 +4,6 @@ skinparam shadowing false
 skinparam ComponentBorderColor gray
 allow_mixing
 
-
 package "schemas" as schemas{
     artifact "verde trial schema" as trial_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_trial_schema.json]] #honeydew
     artifact "verde meta schema" as meta_schema [[https://github.com/trubens71/verde/blob/master/schemas/verde_meta_schema.json]] #honeydew
