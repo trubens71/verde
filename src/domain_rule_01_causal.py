@@ -24,7 +24,7 @@ def rule_01_causal_relationships(context, schema_file, mapping_json, query_field
 
     global CONTEXT
     CONTEXT = context
-    logging.info('applying verde rule 01v03 (causal relationships)')
+    logging.info('applying verde rule 01 (causal relationships)')
 
     # Walk the domain schema to get nodes and edges
     dom_schema_nodes_edges = get_schema_nodes_and_edges(schema_file)
@@ -231,77 +231,6 @@ def build_graph(nodes, property_edges, compose_edges, explain_edges, field_nodes
     return g
 
 
-def test_x_y_preferences(g, test_cases=None):
-    """
-    Just a throwaway test function to try out the rule 01 graph
-    :param g:
-    :param test_cases:
-    :return:
-    """
-    if test_cases is None:
-        test_cases = [
-            ("funder.expenditure", "user.quality_of_life.well-being"),
-            ("funder.expenditure", "user.demographics.age"),
-            ("funder.org_unit.local_authority_name", "user.quality_of_life.well-being"),
-            ("unpaid_carer", "user"),
-            ("funder.budget", "service_provision"),
-            ("funder", "user"),
-            ("funder", "user.quality_of_life.well-being"),
-            ("funder.expenditure", "user")
-        ]
-
-    for t, test_case in enumerate(test_cases):
-        logging.info(f'===== Test Case {t + 1} =====')
-        logging.info(f'Nodes are {test_case[0]} and {test_case[1]}')
-        determine_x_y_preference(g, test_case)
-
-
-def determine_x_y_preference(g, nodes):
-    # TODO deprecated, remove when rule_01v02_causal_relationships and determine_explanatory_response_preference
-    #      are proven
-    node_pairs = [nodes, (nodes[1], nodes[0])]
-    path_length = {}
-
-    for node_pair in node_pairs:
-        path = []
-
-        try:
-            path = nx.dijkstra_path(g, node_pair[0], node_pair[1])
-        except nx.NetworkXNoPath as np:
-            path = []
-        except nx.NodeNotFound as nnf:
-            logging.fatal(f'node {node_pair[0]} not found')
-            exit(1)
-
-        if len(path) > 0:
-            path_length[node_pair] = nx.dijkstra_path_length(g, node_pair[0], node_pair[1])
-        else:
-            path_length[node_pair] = float('inf')
-
-        logging.debug(f'path length {path_length[node_pair]} from {node_pair[0]} to {node_pair[1]} by {path}')
-
-    (x_var, y_var), min_len = min(path_length.items(), key=lambda x: x[1])
-
-    if path_length[(x_var, y_var)] == path_length[(y_var, x_var)] != float('inf'):
-        logging.info(f'found the same finite path length, so arbitrarily x={x_var}, y={y_var}')
-    elif path_length[(x_var, y_var)] == path_length[(y_var, x_var)] == float('inf'):
-        logging.info(f'found no paths in either direction, so arbitrarily x={x_var}, y={y_var}')
-    else:
-        logging.info(f'preference is x={x_var}, y={y_var} with path length {min_len}')
-
-    if '.' in x_var:
-        x_enc = x_var.split('.')[1]
-    else:
-        x_enc = None
-
-    if '.' in y_var:
-        y_enc = y_var.split('.')[1]
-    else:
-        y_enc = None
-
-    return x_var, y_var, x_enc, y_enc
-
-
 def determine_explanatory_response_preference(g, nodes):
 
     """
@@ -402,11 +331,3 @@ def get_field_nodes_and_edges_to_schema(field_nodes):
         all_edges = all_edges + edges
 
     return nodes, all_edges
-
-
-if __name__ == "__main__":
-    vutils.configure_logger('domain_rules.log', level=logging.DEBUG)
-    nodes_edges = get_schema_nodes_and_edges('../schemas/verde_asc_domain_schema.json')
-    graph = build_graph(*nodes_edges)
-    test_x_y_preferences(graph)
-    pass
