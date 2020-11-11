@@ -76,5 +76,14 @@
         - field('Social care-related quality of life score (All)', scale='zero')
         - field('Gross Total Expenditure (x1000)', scale='log')
         - field('Support provided to carers during the year', scale='zero')
+    - experiment_id: exp_01a
+      do: false
+      num_models: 30
+      experiment_desc: extension to justify the truncation assumption
+      input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
+      input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
+      query:
+        - field('Social care-related quality of life score (All)')
+        - field('Gross Total Expenditure (x1000)')
   regression_test:
     do: true
