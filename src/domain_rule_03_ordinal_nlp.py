@@ -84,7 +84,10 @@ def sentence_similarity(sentence1, sentence2):
 
 def symmetric_sentence_similarity(sentence1, sentence2):
     """ compute the symmetric sentence similarity using Wordnet """
-    return (sentence_similarity(sentence1, sentence2) + sentence_similarity(sentence2, sentence1)) / 2
+    logging.debug(f'getting symmeetric sentence similarity for {[sentence1, sentence2]}')
+    sim = (sentence_similarity(sentence1, sentence2) + sentence_similarity(sentence2, sentence1)) / 2
+    logging.debug(f'similarity is {sim}')
+    return sim
 
 
 """

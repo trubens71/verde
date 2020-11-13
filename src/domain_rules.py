@@ -60,7 +60,7 @@ def create_verde_rules_lp(schema_file, input_file, mapping_file,
         logging.warning('verde rule_02_data_precision is disabled in config')
 
     if rule_config.rule_03_ordinal_sort.do:
-        lp_str += vrule03.rule_03_ordinal(context, schema_file, input_file, mapping_json, query_fields)
+        lp_str += vrule03.rule_03_ordinal_sort(context, schema_file, input_file, mapping_json, query_fields)
     else:
         logging.warning('verde rule_03_ordinal_sort is disabled in config')
 

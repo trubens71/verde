@@ -1742,9 +1742,12 @@ fieldcustomsortorder("Setting","['Community: Supported Living', 'Community: Dire
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-% this rule determines that a custom order exists provided the resulting draco encoding is nominal or ordinal.
+% this rule determines that a custom order exists provided the
+% resulting draco encoding is nominal or ordinal.
 
-verde_ordinal_sort(V,E,C,F,O) :- fieldcustomsortorder(F,O), field(V,E,F), type(V,E,(nominal;ordinal)), channel(V,E,C).
+verde_ordinal_sort(V,E,C,F,O) :- fieldcustomsortorder(F,O),
+                                 field(V,E,F), type(V,E,(nominal;ordinal)),
+                                 channel(V,E,C).
 
 %----------------------------------------------------------------------------------------------------------------------%
 
