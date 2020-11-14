@@ -9,7 +9,7 @@
     verde_base_lp_override_dir: ../asp/verde_override  # must contain same file names as draco base in order to override
     verde_rule_template_dir: ../asp/verde_rule_templates
     vega_lite_schema: ../schemas/vega_lite_v3_schema.json
-    num_models: 50  # how many ranked visualisation models to solve for (topk in Draco)
+    num_models: 20  # how many ranked visualisation models to solve for (topk in Draco)
     execute:
       validate_domain_schema:
         do: true
