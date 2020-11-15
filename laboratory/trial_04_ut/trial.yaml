@@ -63,6 +63,6 @@
       input_mapping_file: ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json
       query:  # in dziban python query format, supports unfixed input file column names.
         - field('Setting')
-        - field('Gross Current Expenditure (x1000)')
+        - field('Gross Current Expenditure (x1000)', scale='zero')
   regression_test:
     do: true

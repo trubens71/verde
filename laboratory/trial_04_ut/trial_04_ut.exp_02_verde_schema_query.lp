@@ -16,6 +16,7 @@ encoding(v_v,e0).
 encoding(v_v,e1).
 :- not field(v_v,E,"Setting") : encoding(v_v,E).
 :- not field(v_v,E,"Gross_Current_Expenditure_x1000") : encoding(v_v,E).
+:- field(v_v,E,"Gross_Current_Expenditure_x1000"), not zero(v_v,E).
 
 % --- verde rule04 (colour schemes and mark colours) *** --------------------------------------------------------------%
 
