@@ -1,0 +1,13 @@
+match,match_type,crossed,b_cost,v_cost,set,rank
+0,exact,with_equal_cost,34,34,baseline,12
+1,exact,with_equal_cost,35,35,baseline,14
+2,exact,with_different_cost,35,34,baseline,15
+3,exact,not,36,36,baseline,16
+4,exact,not,36,36,baseline,17
+5,exact,not,36,36,baseline,19
+0,exact,with_equal_cost,34,34,verde,1
+1,exact,with_equal_cost,35,35,verde,4
+2,exact,with_different_cost,35,34,verde,0
+3,exact,not,36,36,verde,11
+4,exact,not,36,36,verde,12
+5,exact,not,36,36,verde,14
