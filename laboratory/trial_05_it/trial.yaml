@@ -58,7 +58,7 @@
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
       query:
         - field('Social care-related quality of life score (All)', scale='zero')
-        - field('Gross Total Expenditure (x1000)', scale='zero')
+        - field('Gross Total Expenditure (x1000)', scale='log')
         - field('Support provided to carers during the year', scale='zero')
       execute:
         create_verde_rules_lp:

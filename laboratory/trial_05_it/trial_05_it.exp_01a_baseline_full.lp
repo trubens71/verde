@@ -1759,6 +1759,6 @@ encoding(v_v,e2).
 :- not field(v_v,E,"Social_care_related_quality_of_life_score_All") : encoding(v_v,E).
 :- field(v_v,E,"Social_care_related_quality_of_life_score_All"), not zero(v_v,E).
 :- not field(v_v,E,"Gross_Total_Expenditure_x1000") : encoding(v_v,E).
-:- field(v_v,E,"Gross_Total_Expenditure_x1000"), not zero(v_v,E).
+:- field(v_v,E,"Gross_Total_Expenditure_x1000"), not log(v_v,E).
 :- not field(v_v,E,"Support_provided_to_carers_during_the_year") : encoding(v_v,E).
 :- field(v_v,E,"Support_provided_to_carers_during_the_year"), not zero(v_v,E).
