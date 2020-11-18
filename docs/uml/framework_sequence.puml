@@ -56,7 +56,7 @@ experiment->domain_rules: create_verde_rules_lp
 activate domain_rules
 note right
 rule implementations are described
-in later diagrams
+in the body of the report
 end note
 domain_rules->utils: write_list_to_file(verde_schema_rules_query)
 deactivate domain_rules
