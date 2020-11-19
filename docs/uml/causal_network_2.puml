@@ -1,0 +1,10 @@
+@startuml
+() "expenditure" as expenditure
+() "support to carers" as support
+() "quality of life" as qol
+
+expenditure -d-> support
+expenditure -r-> qol
+support --> qol
+
+@enduml
