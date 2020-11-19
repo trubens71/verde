@@ -80,7 +80,7 @@
     <node id="user.demographics.age">
       <data key="d0">age</data>
       <data key="d2">younger working age 18 to 64,older over 65</data>
-      <data key="d1">{'scheme': 'purples'}</data>
+      <data key="d1">{'scheme': 'set1'}</data>
     </node>
     <node id="user.demographics.gender">
       <data key="d0">gender</data>
@@ -111,7 +111,7 @@
     <node id="unpaid_carer.demographics.age">
       <data key="d0">age</data>
       <data key="d2">younger working age 18 to 64,older over 65</data>
-      <data key="d1">{'scheme': 'purples'}</data>
+      <data key="d1">{'scheme': 'set1'}</data>
     </node>
     <node id="unpaid_carer.demographics.gender">
       <data key="d0">gender</data>

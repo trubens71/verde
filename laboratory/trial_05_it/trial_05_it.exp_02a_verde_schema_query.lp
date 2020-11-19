@@ -198,7 +198,7 @@ soft_weight(verde_ordinal_sort, verde_ordinal_sort_weight).
 fieldmarkcolor("Region_code","{\"color\": \"slategray\"}",1).
 fieldmarkcolor("Region_name","{\"color\": \"black\"}",0).
 
-fieldcolorscheme("Age_Group", "{\"scheme\": \"purples\"}",0).
+fieldcolorscheme("Age_Group", "{\"scheme\": \"set1\"}",0).
 
 % rule definitions
 
