@@ -52,7 +52,7 @@
         do: true
   experiments:
     - experiment_id: exp_01a
-      do: true
+      do: false
       experiment_desc: expenditure versus quality of life with explains and precision rules
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
@@ -67,7 +67,7 @@
           rule_02_data_precision:
             do: true
     - experiment_id: exp_01b
-      do: true
+      do: false
       experiment_desc: contradict expenditure versus quality of life with explains and precision rules
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping_alt.json
@@ -80,6 +80,24 @@
           rule_01_causal_relationships:
             do: true
           rule_02_data_precision:
+            do: true
+    - experiment_id: exp_02a
+      do: true
+      experiment_desc: integration of explains, ordinal and colour rules
+      domain_schema: ../schemas/verde_asc_domain_schema_alt.json  # note alternate schema
+      input_data_file: ../asc_data/processed/set_02/AFR_T1_region_age_requests_tidy.csv  # note new data
+      input_mapping_file: ../asc_data/processed/set_02/AFR_T41_region_age_requests_tidy_mapping.json
+      query:
+        - field('New Client Requests', scale='zero')
+        - field('ST-Max Care', scale='zero')
+        - field('Age Group')
+      execute:
+        create_verde_rules_lp:
+          rule_01_causal_relationships:
+            do: true
+          rule_03_ordinal_sort:
+            do: true
+          rule_04_entity_colours:
             do: true
   regression_test:
     do: true

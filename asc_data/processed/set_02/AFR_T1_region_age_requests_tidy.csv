@@ -1,0 +1,19 @@
+﻿Region code,Region name,Age Group,New Client Requests,ST-Max Care,Long Term Care
+E12000001,North East,working (18 to 64),41915,2740,15910
+E12000002,North West,working (18 to 64),78640,6835,46315
+E12000003,Yorkshire and The Humber,working (18 to 64),100620,2890,31305
+E12000004,East Midlands,working (18 to 64),50745,3170,24640
+E12000005,West Midlands,working (18 to 64),45480,1420,26865
+E12000006,East of England,working (18 to 64),48685,5230,31600
+E12000007,London,working (18 to 64),63840,4230,46715
+E12000008,South East,working (18 to 64),74600,2550,42240
+E12000009,South West,working (18 to 64),45910,1720,27820
+E12000001,North East,65 and over,77110,16760,38210
+E12000002,North West,65 and over,167200,31895,86090
+E12000003,Yorkshire and The Humber,65 and over,226305,20010,56055
+E12000004,East Midlands,65 and over,140090,19075,47520
+E12000005,West Midlands,65 and over,124900,13025,59595
+E12000006,East of England,65 and over,137025,23785,59440
+E12000007,London,65 and over,129145,23375,74605
+E12000008,South East,65 and over,220640,28690,74425
+E12000009,South West,65 and over,141685,16205,52495

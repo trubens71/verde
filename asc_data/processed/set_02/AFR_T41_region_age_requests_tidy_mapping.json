@@ -1,0 +1,106 @@
+[
+  {
+    "column_name": "Region code",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      {
+        "funder": {
+          "org_unit": {
+            "region_code": true
+          }
+        }
+      }
+    ]
+  },
+  {
+    "column_name": "Region name",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      {
+        "funder": {
+          "org_unit": {
+            "region_name": true
+          }
+        }
+      }
+    ]
+  },
+  {
+    "column_name": "Age Group",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1"
+    },
+    "domain_map": [
+      {
+        "user": {
+          "demographics": {
+            "age": true
+          }
+        }
+      }
+    ]
+  },
+  {
+    "column_name": "New Client Requests",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1 (Number of requests for support received from new clients)"
+    },
+    "domain_map": [
+      {
+        "service_provision": {
+          "num_requests": true
+        }
+      }
+    ]
+  },
+  {
+    "column_name": "ST-Max Care",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1 (New clients with an episode of ST-Max care and a known sequel)"
+    },
+    "domain_map": [
+      {
+        "service_provision": {
+          "num_new_clients": true
+        }
+      },
+      {
+        "service_provision": {
+          "service": {
+            "service_type": true
+          }
+        }
+      }
+    ]
+  },
+  {
+    "column_name": "Long Term Care",
+    "verde_source_meta": {
+      "publisher": "NHS Digital",
+      "publication": "Activity and Finance Report, 2019, Table 1 (Long Term Support during the year)"
+    },
+    "domain_map": [
+      {
+        "service_provision": {
+          "num_provisions": true
+        }
+      },
+      {
+        "service_provision": {
+          "service": {
+            "service_type": true
+          }
+        }
+      }
+    ]
+  }
+]
