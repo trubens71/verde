@@ -1,0 +1,431 @@
+{
+  "$schema": "https://raw.githubusercontent.com/trubens71/verde/master/schemas/verde_meta_schema.json#",
+  "$id": "https://raw.githubusercontent.com/trubens71/verde/master/schemas/verde_asc_domain_schema_schema.json#",
+  "title": "Domain Model for Adult Social Care in England",
+  "description": "A standard model by which we can express data visualisation rules. Not intended for document validation",
+  "$comment": "Version 2: A complex version for system testing",
+  "definitions": {
+    "service_type": {
+      "type": "boolean",
+      "verde_rule_directive": {
+        "ordinal": [
+          "ST-Max",
+          "Long Term",
+          "Unpaid Carer Support"
+        ]
+      }
+    },
+    "setting": {
+      "type": "boolean",
+      "verde_rule_directive": {
+        "ordinal": [
+          "community care",
+          "home care",
+          "residential home",
+          "nursing home"
+        ]
+      }
+    },
+    "demographics": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "boolean",
+          "verde_rule_directive": {
+            "explains": [
+              {
+                "$ref": "#/properties/funder"
+              }
+            ],
+            "ordinal": [
+              "younger working age 18 to 64",
+              "older over 65"
+            ],
+            "colour": {
+              "scheme": "set1"
+            }
+          }
+        },
+        "gender": {
+          "type": "boolean",
+          "verde_rule_directive": {
+            "ordinal": [
+              "female",
+              "non-binary",
+              "male"
+            ]
+          }
+        },
+        "ethnicity": {
+          "type": "boolean"
+        },
+        "sexual_orientation": {
+          "type": "boolean"
+        },
+        "religion": {
+          "type": "boolean"
+        },
+        "nationality-birth-migration": {
+          "type": "boolean"
+        },
+        "socio-economics": {
+          "type": "boolean"
+        }
+      }
+    },
+    "quality_of_life": {
+      "type": "object",
+      "properties": {
+        "well-being": {
+          "type": "boolean"
+        },
+        "independence-mobility": {
+          "type": "boolean"
+        },
+        "employment-income": {
+          "type": "boolean"
+        }
+      },
+      "verde_rule_directive": {
+        "colour": {
+          "scheme": "greens"
+        }
+      }
+    },
+    "org_unit": {
+      "type": "object",
+      "properties": {
+        "local_authority": {
+          "type": "object",
+          "properties": {
+            "local_authority_name": {
+              "type": "boolean"
+            },
+            "local_authority_code": {
+              "type": "boolean"
+            },
+            "geography_code": {
+              "type": "boolean"
+            },
+            "region_name": {
+              "type": "boolean"
+            },
+            "region_code": {
+              "type": "boolean"
+            }
+          }
+        },
+        "NHS_ou": {
+          "type": "object",
+          "properties": {
+            "CCG": {
+              "type": "boolean"
+            },
+            "trust": {
+              "type": "boolean"
+            },
+            "STP": {
+              "type": "boolean"
+            },
+            "region": {
+              "type": "boolean"
+            }
+          }
+        },
+        "central_government_ou": {
+          "type": "boolean"
+        }
+      }
+    },
+    "perception": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "boolean"
+        },
+        "general_public": {
+          "type": "boolean"
+        }
+      }
+    },
+    "support_income": {
+      "type": "object",
+      "properties": {
+        "direct_payments": {
+          "type": "boolean"
+        },
+        "state_benefits": {
+          "type": "boolean"
+        },
+        "self-funding": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "funder": {
+      "type": "object",
+      "properties": {
+        "org_unit": {
+          "$ref": "#/definitions/org_unit"
+        },
+        "self_funding": {
+          "type": "boolean"
+        },
+        "financial": {
+          "type": "object",
+          "properties": {
+            "budget": {
+              "type": "boolean"
+            },
+            "expenditure": {
+              "type": "boolean"
+            },
+            "income": {
+              "type": "boolean"
+            }
+          }
+        },
+        "provider": {
+          "$ref": "#/properties/provider"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provider": {
+      "type": "object",
+      "properties": {
+        "sector": {
+          "type": "object",
+          "properties": {
+            "public": {
+              "type": "boolean"
+            },
+            "private": {
+              "type": "boolean"
+            }
+          }
+        },
+        "investors": {
+          "type": "boolean"
+        },
+        "capacity": {
+          "type": "boolean"
+        },
+        "workforce_management": {
+          "type": "object",
+          "properties": {
+            "filled_jobs": {
+              "type": "boolean"
+            },
+            "vacancies": {
+              "type": "boolean"
+            },
+            "retention-turnover": {
+              "type": "boolean"
+            },
+            "sickness": {
+              "type": "boolean"
+            }
+          }
+        },
+        "cost-pricing": {
+          "type": "boolean"
+        },
+        "productivity": {
+          "type": "boolean"
+        },
+        "service": {
+          "$ref": "#/properties/service"
+        },
+        "workforce": {
+          "$ref": "#/properties/workforce"
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "access": {
+          "type": "object",
+          "properties": {
+            "access_route": {
+              "type": "boolean"
+            },
+            "sequel_to_service": {
+              "type": "boolean"
+            },
+            "requests": {
+              "type": "boolean"
+            },
+            "eligibility": {
+              "type": "boolean"
+            },
+            "reviews": {
+              "type": "boolean"
+            },
+            "perception": {
+              "$ref": "#/definitions/perception"
+            }
+          }
+        },
+        "provision": {
+          "type": "object",
+          "properties": {
+            "service_type": {
+              "$ref": "#/definitions/service_type"
+            },
+            "setting": {
+              "$ref": "#/definitions/setting"
+            },
+            "care_models": {
+              "type": "object",
+              "properties": {
+                "packages": {
+                  "type": "boolean"
+                },
+                "self-directed": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "integration": {
+          "type": "object",
+          "properties": {
+            "NHS": {
+              "type": "object",
+              "properties": {
+                "primary_care": {
+                  "type": "object"
+                },
+                "secondary_care": {
+                  "type": "object"
+                }
+              }
+            },
+            "care_commissioning": {
+              "type": "boolean"
+            },
+            "digital_interoperability": {
+              "type": "boolean"
+            },
+            "funder_perception": {
+              "type": "boolean"
+            }
+          }
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "regulatory_rating": {
+              "type": "boolean"
+            },
+            "perception": {
+              "$ref": "#/definitions/perception"
+            },
+            "safety": {
+              "type": "boolean"
+            }
+          }
+        },
+        "unpaid_carer": {
+          "$ref": "#/properties/unpaid_carer"
+        },
+        "user": {
+          "$ref": "#/properties/user"
+        }
+      }
+    },
+    "workforce": {
+      "type": "object",
+      "properties": {
+        "demographics": {
+          "$ref": "#/definitions/demographics"
+        },
+        "employment_status": {
+          "type": "boolean"
+        },
+        "qualifications": {
+          "type": "boolean"
+        },
+        "experience": {
+          "type": "object",
+          "properties": {
+            "workload": {
+              "type": "boolean"
+            },
+            "engagement": {
+              "type": "boolean"
+            },
+            "quality_of_life": {
+              "type": "boolean"
+            }
+          }
+        },
+        "income": {
+          "type": "boolean"
+        }
+      }
+    },
+    "unpaid_carer": {
+      "type": "object",
+      "properties": {
+        "demographics": {
+          "$ref": "#/definitions/demographics"
+        },
+        "support_income": {
+          "$ref": "#/definitions/support_income"
+        },
+        "health": {
+          "type": "boolean"
+        },
+        "experience": {
+          "type": "object",
+          "properties": {
+            "workload": {
+              "type": "boolean"
+            },
+            "quality_of_life": {
+              "$ref": "#/definitions/quality_of_life"
+            }
+          }
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "object",
+          "properties": {
+            "family-household": {
+              "type": "boolean"
+            },
+            "accommodation": {
+              "type": "boolean"
+            }
+          }
+        },
+        "demographics": {
+          "$ref": "#/definitions/demographics"
+        },
+        "health": {
+          "type": "boolean"
+        },
+        "support_reason": {
+          "type": "boolean"
+        },
+        "support_income": {
+          "$ref": "#/definitions/support_income"
+        },
+        "quality_of_life": {
+          "$ref": "#/definitions/quality_of_life"
+        }
+      }
+    }
+  }
+}
