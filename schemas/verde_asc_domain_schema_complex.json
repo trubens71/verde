@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/trubens71/verde/master/schemas/verde_meta_schema.json#",
-  "$id": "https://raw.githubusercontent.com/trubens71/verde/master/schemas/verde_asc_domain_schema_schema.json#",
+  "$id": "https://raw.githubusercontent.com/trubens71/verde/master/schemas/verde_asc_domain_schema_complex.json#",
   "title": "Domain Model for Adult Social Care in England",
   "description": "A standard model by which we can express data visualisation rules. Not intended for document validation",
   "$comment": "Version 2: A complex version for system testing",
@@ -42,7 +42,7 @@
               "older over 65"
             ],
             "colour": {
-              "scheme": "set1"
+              "scheme": "paired"
             }
           }
         },
@@ -53,7 +53,10 @@
               "female",
               "non-binary",
               "male"
-            ]
+            ],
+            "colour": {
+              "scheme": "set2"
+            }
           }
         },
         "ethnicity": {
@@ -94,41 +97,113 @@
     },
     "org_unit": {
       "type": "object",
+      "verde_rule_directive": {
+        "colour": {
+          "mark_colour": "#d4d4d4"
+        }
+      },
       "properties": {
         "local_authority": {
           "type": "object",
+          "verde_rule_directive": {
+            "colour": {
+              "mark_colour": "#bbbbbb"
+            }
+          },
           "properties": {
             "local_authority_name": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#585858"
+                }
+              }
             },
             "local_authority_code": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#585858"
+                }
+              }
             },
             "geography_code": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#585858"
+                }
+              }
             },
             "region_name": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#888888"
+                },
+                "ordinal": [
+                  "England",
+                  "North West",
+                  "North East",
+                  "Yorkshire and the Humber",
+                  "West Midlands",
+                  "East Midlands",
+                  "Eastern",
+                  "South West",
+                  "South East",
+                  "London"
+                ]
+              }
             },
             "region_code": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#888888"
+                }
+              }
             }
           }
         },
         "NHS_ou": {
           "type": "object",
+          "verde_rule_directive": {
+            "colour": {
+              "mark_colour": "#c5bcb8"
+            }
+          },
           "properties": {
             "CCG": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#827a77"
+                }
+              }
             },
             "trust": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#6e6462"
+                }
+              }
             },
             "STP": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#98908c"
+                }
+              }
             },
             "region": {
-              "type": "boolean"
+              "type": "boolean",
+              "verde_rule_directive": {
+                "colour": {
+                  "mark_colour": "#aea5a2"
+                }
+              }
             }
           }
         },
@@ -167,6 +242,12 @@
   "properties": {
     "funder": {
       "type": "object",
+      "verde_rule_directive": {
+        "colour": {
+          "scheme": "blues",
+          "mark_colour": "#5ba3cf"
+        }
+      },
       "properties": {
         "org_unit": {
           "$ref": "#/definitions/org_unit"
@@ -176,6 +257,22 @@
         },
         "financial": {
           "type": "object",
+          "verde_rule_directive": {
+            "explains": [
+              {
+                "$ref": "/properties/unpaid_carer/properties/support_income"
+              },
+              {
+                "$ref": "/properties/unpaid_carer/properties/experience/properties/quality_of_life"
+              },
+              {
+                "$ref": "/properties/user/properties/support_income"
+              },
+              {
+                "$ref": "/properties/user/properties/quality_of_life"
+              }
+            ]
+          },
           "properties": {
             "budget": {
               "type": "boolean"
@@ -196,6 +293,12 @@
     },
     "provider": {
       "type": "object",
+      "verde_rule_directive": {
+        "colour": {
+          "scheme": "teals",
+          "mark_colour": "#4da5a4"
+        }
+      },
       "properties": {
         "sector": {
           "type": "object",
@@ -247,6 +350,20 @@
     },
     "service": {
       "type": "object",
+      "verde_rule_directive": {
+        "explains": [
+          {
+            "$ref": "#/properties/user/properties/quality_of_life"
+          },
+          {
+            "$ref": "#/properties/unpaid_carer/properties/experience/properties/quality_of_life"
+          }
+        ],
+        "colour": {
+          "scheme": "greens",
+          "mark_colour": "#60ba6c"
+        }
+      },
       "properties": {
         "access": {
           "type": "object",
@@ -342,6 +459,20 @@
     },
     "workforce": {
       "type": "object",
+      "verde_rule_directive": {
+        "explains": [
+          {
+            "$ref": "#/properties/user/properties/quality_of_life"
+          },
+          {
+            "$ref": "#/properties/unpaid_carer/properties/experience/properties/quality_of_life"
+          }
+        ],
+        "colour": {
+          "scheme": "browns",
+          "mark_colour": "#d18954"
+        }
+      },
       "properties": {
         "demographics": {
           "$ref": "#/definitions/demographics"
@@ -373,6 +504,12 @@
     },
     "unpaid_carer": {
       "type": "object",
+      "verde_rule_directive": {
+        "colour": {
+          "scheme": "reds",
+          "mark_colour": "#f6573f"
+        }
+      },
       "properties": {
         "demographics": {
           "$ref": "#/definitions/demographics"
@@ -398,6 +535,12 @@
     },
     "user": {
       "type": "object",
+      "verde_rule_directive": {
+        "colour": {
+          "scheme": "purples",
+          "mark_colour": "#928ec3"
+        }
+      },
       "properties": {
         "context": {
           "type": "object",
@@ -414,10 +557,30 @@
           "$ref": "#/definitions/demographics"
         },
         "health": {
-          "type": "boolean"
+          "type": "boolean",
+          "verde_rule_directive": {
+            "explains": [
+              {
+                "$ref": "#/properties/service/properties/access/properties/requests"
+              },
+              {
+                "$ref": "#/properties/funder/properties/financial"
+              }
+            ]
+          }
         },
         "support_reason": {
-          "type": "boolean"
+          "type": "boolean",
+          "verde_rule_directive": {
+            "explains": [
+              {
+                "$ref": "#/properties/service/properties/access/properties/requests"
+              },
+              {
+                "$ref": "#/properties/funder/properties/financial"
+              }
+            ]
+          }
         },
         "support_income": {
           "$ref": "#/definitions/support_income"

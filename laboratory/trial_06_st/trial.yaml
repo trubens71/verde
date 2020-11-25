@@ -1,0 +1,90 @@
+---
+  trial_id: trial_06_st
+  trial_desc: system test
+  global_config:
+    verde_meta_schema: ../schemas/verde_meta_schema.json
+    domain_schema: ../schemas/verde_asc_domain_schema_complex.json
+    domain_mapping_schema: ../schemas/verde_asc_domain_mapping_schema_complex.json
+    draco_base_lp_dir: ../asp/draco_base
+    verde_base_lp_override_dir: ../asp/verde_override
+    verde_rule_template_dir: ../asp/verde_rule_templates
+    vega_lite_schema: ../schemas/vega_lite_v3_schema.json
+    num_models: 20
+    execute:
+      validate_domain_schema:
+        do: true
+      validate_input_file_mapping:
+        do: true
+      fix_input_file_column_names:
+        do: true
+      create_baseline_schema_query_lp:
+        do: true
+        write_lp: true
+      create_verde_rules_lp:
+        do: true
+        write_lp: true
+        rule_01_causal_relationships:
+          do: true
+          template: rule_01_causal_alt.lpt
+          property_edge_weight: 1.0
+          compose_edge_weight: 0.5
+          explain_edge_weight: 0.1
+          export_graphml: true
+          draco_soft_weight: 100
+        rule_02_data_precision:
+          do: false
+          template: rule_02_precision.lpt
+        rule_03_ordinal_sort:
+          do: true
+          template: rule_03_sort.lpt
+        rule_04_entity_colours:
+          do: true
+          template: rule_04_colour.lpt
+      create_baseline_visualisations:
+        do: false
+        write_lp: true
+      create_verde_visualisations:
+        do: false
+        write_lp: true
+      create_vegalite_concat:
+        do: false
+      compare_baseline_verde:
+        do: false
+  experiments:
+    - experiment_id: exp_01a
+      do: true
+      experiment_desc: tbd
+      input_data_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv
+      input_mapping_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json
+      query:
+        - field('region')
+        - field('QoL_all', scale='zero')
+    - experiment_id: exp_02a
+      do: false
+      experiment_desc: tbd
+      input_data_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero.csv
+      input_mapping_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json
+      query:
+        - field('region')
+        - field('role')
+        - field('vacancies_pct', scale='zero')
+    - experiment_id: exp_03a
+      do: false
+      experiment_desc: tbd
+      input_data_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol.csv
+      input_mapping_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping.json
+      query:
+        - field('region')
+        - field('gender')
+        - field('QoL', scale='zero')
+    - experiment_id: exp_04a
+      do: false
+      experiment_desc: tbd
+      input_data_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol.csv
+      input_mapping_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping.json
+      query:
+        - field('region')
+        - field('age_band')
+        - field('QoL', scale='zero')
+  regression_test:
+    do: false

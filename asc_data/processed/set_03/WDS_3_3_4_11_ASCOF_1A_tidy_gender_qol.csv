@@ -1,0 +1,21 @@
+﻿region,region_code,gender,QoL
+England,E92000001,male,19.4
+England,E92000001,female,18.9
+East Midlands,E12000004,male,19.5
+East Midlands,E12000004,female,18.8
+Eastern,E12000006,male,19.8
+Eastern,E12000006,female,18.9
+London,E12000007,male,18.8
+London,E12000007,female,18.3
+North East,E12000001,male,19.5
+North East,E12000001,female,19.4
+North West,E12000002,male,19.3
+North West,E12000002,female,18.9
+South East,E12000008,male,19.6
+South East,E12000008,female,19.3
+South West,E12000009,male,19.4
+South West,E12000009,female,19.2
+West Midlands,E12000005,male,19.5
+West Midlands,E12000005,female,18.8
+Yorkshire and the Humber,E12000003,male,19.7
+Yorkshire and the Humber,E12000003,female,19.1
