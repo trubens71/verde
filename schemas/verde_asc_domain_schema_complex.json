@@ -260,16 +260,16 @@
           "verde_rule_directive": {
             "explains": [
               {
-                "$ref": "/properties/unpaid_carer/properties/support_income"
+                "$ref": "#/properties/unpaid_carer/properties/support_income"
               },
               {
-                "$ref": "/properties/unpaid_carer/properties/experience/properties/quality_of_life"
+                "$ref": "#/properties/unpaid_carer/properties/experience/properties/quality_of_life"
               },
               {
-                "$ref": "/properties/user/properties/support_income"
+                "$ref": "#/properties/user/properties/support_income"
               },
               {
-                "$ref": "/properties/user/properties/quality_of_life"
+                "$ref": "#/properties/user/properties/quality_of_life"
               }
             ]
           },
@@ -370,7 +370,7 @@
           "verde_rule_directive": {
             "explains": [
               {
-                "ref": "#/properties/service/properties/provision"
+                "$ref": "#/properties/service/properties/provision"
               }
             ]
           },

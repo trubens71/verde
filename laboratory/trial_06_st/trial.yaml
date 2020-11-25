@@ -67,7 +67,7 @@
       query:
         - field('region')
         - field('role')
-        - field('vacancies_pct', scale='zero')
+        - field('vacancies_pct', scale='no_zero')
     - experiment_id: exp_03a
       do: true
       experiment_desc: tbd
