@@ -150,8 +150,7 @@
       "original_column": "Social care-related quality of life score | Male | Outcome"
     },
     "domain_map": [
-      { "user": { "quality_of_life": { "well-being": true }}},
-      { "user": { "demographics": { "gender": true }}}
+      { "user": { "quality_of_life": { "well-being": true }}}
     ]
   },
   {
@@ -162,8 +161,7 @@
       "original_column": "Social care-related quality of life score | Female | Outcome"
     },
     "domain_map": [
-      { "user": { "quality_of_life": { "well-being": true }}},
-      { "user": { "demographics": { "gender": true }}}
+      { "user": { "quality_of_life": { "well-being": true }}}
     ]
   },
   {
@@ -174,8 +172,7 @@
       "original_column": "Social care-related quality of life score | 18-64 | Outcome"
     },
     "domain_map": [
-      { "user": { "quality_of_life": { "well-being": true }}},
-      { "user": { "demographics": { "age": true }}}
+      { "user": { "quality_of_life": { "well-being": true }}}
     ]
   },
   {
@@ -186,8 +183,7 @@
       "original_column": "Social care-related quality of life score | 18-64 | Outcome"
     },
     "domain_map": [
-      { "user": { "quality_of_life": { "well-being": true }}},
-      { "user": { "demographics": { "age": true }}}
+      { "user": { "quality_of_life": { "well-being": true }}}
     ]
   }
 ]

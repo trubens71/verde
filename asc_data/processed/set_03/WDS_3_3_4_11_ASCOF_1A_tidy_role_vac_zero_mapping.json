@@ -29,7 +29,7 @@
       "original_column": "Job Roles"
     },
     "domain_map": [
-      { "provider":{ "workforce_management": true }}
+      { "provider":{ "workforce_management": {} }}
     ]
   },
   {

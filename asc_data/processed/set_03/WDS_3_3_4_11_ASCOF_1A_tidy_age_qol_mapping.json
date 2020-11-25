@@ -40,8 +40,7 @@
       "original_column": "Social care-related quality of life score | <age group> | Outcome"
     },
     "domain_map": [
-      { "user": { "quality_of_life": { "well-being": true }}},
-      { "user": { "demographics": { "age": true }}}
+      { "user": { "quality_of_life": { "well-being": true }}}
     ]
   }
 ]

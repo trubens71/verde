@@ -367,6 +367,13 @@
       "properties": {
         "access": {
           "type": "object",
+          "verde_rule_directive": {
+            "explains": [
+              {
+                "ref": "#/properties/service/properties/provision"
+              }
+            ]
+          },
           "properties": {
             "access_route": {
               "type": "boolean"

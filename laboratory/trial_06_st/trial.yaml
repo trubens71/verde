@@ -60,7 +60,7 @@
         - field('region')
         - field('QoL_all', scale='zero')
     - experiment_id: exp_02a
-      do: false
+      do: true
       experiment_desc: tbd
       input_data_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero.csv
       input_mapping_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json
@@ -69,7 +69,7 @@
         - field('role')
         - field('vacancies_pct', scale='zero')
     - experiment_id: exp_03a
-      do: false
+      do: true
       experiment_desc: tbd
       input_data_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol.csv
       input_mapping_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping.json
@@ -78,7 +78,7 @@
         - field('gender')
         - field('QoL', scale='zero')
     - experiment_id: exp_04a
-      do: false
+      do: true
       experiment_desc: tbd
       input_data_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol.csv
       input_mapping_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping.json
