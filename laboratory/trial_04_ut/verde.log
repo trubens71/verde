@@ -1,129 +1,130 @@
-2020-10-28 11:15:52 : INFO : validating ../laboratory/trial_04_ut/trial.yaml against ../schemas/verde_trial_schema.json
-2020-10-28 11:15:52 : INFO : successfully validated
-2020-10-28 11:15:52 : INFO : loading trial config from ../laboratory/trial_04_ut/trial.yaml
-2020-10-28 11:15:52 : INFO : creating experiment trial_04_ut.exp_01
-2020-10-28 11:15:52 : INFO : creating experiment trial_04_ut.exp_02
-2020-10-28 11:15:52 : INFO : *** running experiment trial_04_ut.exp_01 ***
-2020-10-28 11:15:52 : INFO : deleting experiment output files trial_04_ut.exp_01* recursively from ../laboratory/trial_04_ut
-2020-10-28 11:15:52 : INFO : validating ../schemas/verde_asc_domain_schema.json against ../schemas/verde_meta_schema.json
-2020-10-28 11:15:52 : INFO : successfully validated
-2020-10-28 11:15:52 : INFO : validating ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json against ../schemas/verde_asc_domain_mapping_schema.json
-2020-10-28 11:15:52 : INFO : successfully validated
-2020-10-28 11:15:52 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv to ../laboratory/trial_04_ut/data/trial_04_ut.exp_01_AFR_T1_ASCOF_1A_colfix.csv
-2020-10-28 11:15:52 : INFO : fixing map file column names in ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json to ../laboratory/trial_04_ut/data/trial_04_ut.exp_01_AFR_T1_ASCOF_1A_mapping_colfix.json
-2020-10-28 11:15:52 : INFO : fixing query field names
-2020-10-28 11:15:52 : INFO : creating baseline schema and query lp
-2020-10-28 11:15:53 : INFO : writing baseline schema and query lp to ../laboratory/trial_04_ut/trial_04_ut.exp_01_baseline_schema_query.lp
-2020-10-28 11:15:53 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema.json and ../laboratory/trial_04_ut/data/trial_04_ut.exp_01_AFR_T1_ASCOF_1A_mapping_colfix.json
-2020-10-28 11:15:53 : WARNING : verde rule_01_causal_relationships is disabled in config
-2020-10-28 11:15:53 : WARNING : verde rule_02_data_precision is disabled in config
-2020-10-28 11:15:53 : WARNING : verde rule_03_ordinal_sort is disabled in config
-2020-10-28 11:15:53 : INFO : applying verde rule 04 (colour)
-2020-10-28 11:15:53 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema.json
-2020-10-28 11:15:53 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 4 explain edges
-2020-10-28 11:15:53 : INFO : Geography_code is mapped to ['funder.org_unit.geography_code']
-2020-10-28 11:15:53 : INFO : LA_code is mapped to ['funder.org_unit.local_authority_code']
-2020-10-28 11:15:53 : INFO : LA_name is mapped to ['funder.org_unit.local_authority_name']
-2020-10-28 11:15:53 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
-2020-10-28 11:15:53 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
-2020-10-28 11:15:53 : INFO : Net_Total_Expenditure_x1000 is mapped to ['funder.expenditure']
-2020-10-28 11:15:53 : INFO : Gross_Total_Expenditure_x1000 is mapped to ['funder.expenditure']
-2020-10-28 11:15:53 : INFO : Gross_Current_Expenditure_x1000 is mapped to ['funder.expenditure']
-2020-10-28 11:15:53 : INFO : Number_of_requests_for_support_received_from_new_clients_18_to_64 is mapped to ['service_provision.num_requests', 'service_provision.user.demographics.age']
-2020-10-28 11:15:53 : INFO : Number_of_requests_for_support_received_from_new_clients_65_and_over is mapped to ['service_provision.num_requests', 'service_provision.user.demographics.age']
-2020-10-28 11:15:53 : INFO : New_clients_with_an_episode_of_ST_Max_care_and_a_known_sequel_18_to_64 is mapped to ['service_provision.num_new_clients', 'service_provision.user.demographics.age', 'service_provision.service.service_type']
-2020-10-28 11:15:53 : INFO : New_clients_with_an_episode_of_ST_Max_care_and_a_known_sequel_65_and_over is mapped to ['service_provision.num_new_clients', 'service_provision.user.demographics.age', 'service_provision.service.service_type']
-2020-10-28 11:15:53 : INFO : Long_Term_Support_during_the_year_18_to_64 is mapped to ['service_provision.num_provisions', 'service_provision.user.demographics.age', 'service_provision.service.service_type']
-2020-10-28 11:15:53 : INFO : Long_Term_Support_during_the_year_65_and_over is mapped to ['service_provision.num_provisions', 'service_provision.user.demographics.age', 'service_provision.service.service_type']
-2020-10-28 11:15:53 : INFO : Support_provided_to_carers_during_the_year is mapped to ['service_provision.num_provisions', 'service_provision.unpaid_carer', 'service_provision.service.service_type']
-2020-10-28 11:15:53 : INFO : Social_care_related_quality_of_life_score_All is mapped to ['user.quality_of_life.well-being']
-2020-10-28 11:15:53 : INFO : Social_care_related_quality_of_life_score_Male is mapped to ['user.quality_of_life.well-being', 'user.demographics.gender']
-2020-10-28 11:15:53 : INFO : Social_care_related_quality_of_life_score_Female is mapped to ['user.quality_of_life.well-being', 'user.demographics.gender']
-2020-10-28 11:15:53 : INFO : Social_care_related_quality_of_life_score_18_to_64 is mapped to ['user.quality_of_life.well-being', 'user.demographics.age']
-2020-10-28 11:15:53 : INFO : Social_care_related_quality_of_life_score_65_and_over is mapped to ['user.quality_of_life.well-being', 'user.demographics.age']
-2020-10-28 11:15:53 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour.lpt
-2020-10-28 11:15:53 : INFO : writing verde full schema and query lp to ../laboratory/trial_04_ut/trial_04_ut.exp_01_verde_schema_query.lp
-2020-10-28 11:15:53 : INFO : getting baseline draco visualisations for trial_04_ut.exp_01
-2020-10-28 11:15:53 : INFO : writing baseline full lp to ../laboratory/trial_04_ut/trial_04_ut.exp_01_baseline_full.lp
-2020-10-28 11:15:53 : INFO : running draco for baseline
-2020-10-28 11:15:53 : INFO : processing results
-2020-10-28 11:16:09 : INFO : writing vega-lite specs
-2020-10-28 11:16:09 : INFO : writing baseline vega-lite specs to ../laboratory/trial_04_ut/vegalite
-2020-10-28 11:16:09 : INFO : writing baseline results to ../laboratory/trial_04_ut/trial_04_ut.exp_01_baseline_results.json
-2020-10-28 11:16:09 : INFO : getting verde draco visualisations for trial_04_ut.exp_01 with verde base lp override
-2020-10-28 11:16:09 : INFO : overrode 3 base lp files and added 0 lp files
-2020-10-28 11:16:09 : INFO : writing verde full lp to ../laboratory/trial_04_ut/trial_04_ut.exp_01_verde_full.lp
-2020-10-28 11:16:09 : INFO : running draco for verde
-2020-10-28 11:16:10 : INFO : processing results
-2020-10-28 11:16:26 : INFO : writing vega-lite specs
-2020-10-28 11:16:26 : INFO : writing verde vega-lite specs to ../laboratory/trial_04_ut/vegalite
-2020-10-28 11:16:26 : INFO : writing verde results to ../laboratory/trial_04_ut/trial_04_ut.exp_01_verde_results.json
-2020-10-28 11:16:26 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_all_vl.json
-2020-10-28 11:16:26 : INFO : validating ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-10-28 11:16:26 : INFO : successfully validated
-2020-10-28 11:16:26 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_all_vl.json
-2020-10-28 11:16:26 : INFO : 48 matching visualisations between baseline and verde 96.0%
-2020-10-28 11:16:26 : INFO : 2 baseline visualisations not in verde
-2020-10-28 11:16:26 : INFO : 2 verde visualisations not in verde
-2020-10-28 11:16:26 : INFO : writing comparison matches to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare_match.csv
-2020-10-28 11:16:26 : INFO : writing comparison models to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare_model.csv
-2020-10-28 11:16:26 : INFO : writing comparison violations to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare_violations.csv
-2020-10-28 11:16:26 : INFO : writing comparison props to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare_props.csv
-2020-10-28 11:16:26 : INFO : writing comparison visualisation to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare.html
-2020-10-28 11:16:27 : INFO : *** running experiment trial_04_ut.exp_02 ***
-2020-10-28 11:16:27 : INFO : deleting experiment output files trial_04_ut.exp_02* recursively from ../laboratory/trial_04_ut
-2020-10-28 11:16:27 : INFO : validating ../schemas/verde_asc_domain_schema.json against ../schemas/verde_meta_schema.json
-2020-10-28 11:16:27 : INFO : successfully validated
-2020-10-28 11:16:27 : INFO : validating ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json against ../schemas/verde_asc_domain_mapping_schema.json
-2020-10-28 11:16:27 : INFO : successfully validated
-2020-10-28 11:16:27 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_01/AFR_T41_region_tidy.csv to ../laboratory/trial_04_ut/data/trial_04_ut.exp_02_AFR_T41_region_tidy_colfix.csv
-2020-10-28 11:16:27 : INFO : fixing map file column names in ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json to ../laboratory/trial_04_ut/data/trial_04_ut.exp_02_AFR_T41_region_tidy_mapping_colfix.json
-2020-10-28 11:16:27 : INFO : fixing query field names
-2020-10-28 11:16:27 : INFO : creating baseline schema and query lp
-2020-10-28 11:16:27 : INFO : writing baseline schema and query lp to ../laboratory/trial_04_ut/trial_04_ut.exp_02_baseline_schema_query.lp
-2020-10-28 11:16:27 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema.json and ../laboratory/trial_04_ut/data/trial_04_ut.exp_02_AFR_T41_region_tidy_mapping_colfix.json
-2020-10-28 11:16:27 : WARNING : verde rule_01_causal_relationships is disabled in config
-2020-10-28 11:16:27 : WARNING : verde rule_02_data_precision is disabled in config
-2020-10-28 11:16:27 : WARNING : verde rule_03_ordinal_sort is disabled in config
-2020-10-28 11:16:27 : INFO : applying verde rule 04 (colour)
-2020-10-28 11:16:27 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema.json
-2020-10-28 11:16:27 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 4 explain edges
-2020-10-28 11:16:27 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
-2020-10-28 11:16:27 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
-2020-10-28 11:16:27 : INFO : Setting is mapped to ['service_provision.service.setting']
-2020-10-28 11:16:27 : INFO : Gross_Current_Expenditure_x1000 is mapped to ['funder.expenditure']
-2020-10-28 11:16:27 : INFO : Gross_Current_Expenditure_Proportion is mapped to ['funder.expenditure']
-2020-10-28 11:16:27 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour.lpt
-2020-10-28 11:16:27 : INFO : writing verde full schema and query lp to ../laboratory/trial_04_ut/trial_04_ut.exp_02_verde_schema_query.lp
-2020-10-28 11:16:27 : INFO : getting baseline draco visualisations for trial_04_ut.exp_02
-2020-10-28 11:16:27 : INFO : writing baseline full lp to ../laboratory/trial_04_ut/trial_04_ut.exp_02_baseline_full.lp
-2020-10-28 11:16:27 : INFO : running draco for baseline
-2020-10-28 11:16:27 : INFO : processing results
-2020-10-28 11:16:44 : INFO : writing vega-lite specs
-2020-10-28 11:16:44 : INFO : writing baseline vega-lite specs to ../laboratory/trial_04_ut/vegalite
-2020-10-28 11:16:44 : INFO : writing baseline results to ../laboratory/trial_04_ut/trial_04_ut.exp_02_baseline_results.json
-2020-10-28 11:16:44 : INFO : getting verde draco visualisations for trial_04_ut.exp_02 with verde base lp override
-2020-10-28 11:16:44 : INFO : overrode 3 base lp files and added 0 lp files
-2020-10-28 11:16:44 : INFO : writing verde full lp to ../laboratory/trial_04_ut/trial_04_ut.exp_02_verde_full.lp
-2020-10-28 11:16:44 : INFO : running draco for verde
-2020-10-28 11:16:44 : INFO : processing results
-2020-10-28 11:17:01 : INFO : writing vega-lite specs
-2020-10-28 11:17:01 : INFO : writing verde vega-lite specs to ../laboratory/trial_04_ut/vegalite
-2020-10-28 11:17:01 : INFO : writing verde results to ../laboratory/trial_04_ut/trial_04_ut.exp_02_verde_results.json
-2020-10-28 11:17:01 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_all_vl.json
-2020-10-28 11:17:01 : INFO : validating ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-10-28 11:17:01 : INFO : successfully validated
-2020-10-28 11:17:01 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_all_vl.json
-2020-10-28 11:17:01 : INFO : 53 matching visualisations between baseline and verde 106.0%
-2020-10-28 11:17:01 : INFO : 3 baseline visualisations not in verde
-2020-10-28 11:17:01 : INFO : 3 verde visualisations not in verde
-2020-10-28 11:17:01 : INFO : writing comparison matches to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare_match.csv
-2020-10-28 11:17:01 : INFO : writing comparison models to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare_model.csv
-2020-10-28 11:17:01 : INFO : writing comparison violations to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare_violations.csv
-2020-10-28 11:17:01 : INFO : writing comparison props to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare_props.csv
-2020-10-28 11:17:01 : INFO : writing comparison visualisation to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare.html
-2020-10-28 11:17:01 : INFO : Comparing outputs against regression baseline in ../laboratory/trial_04_ut
-2020-10-28 11:17:01 : INFO : comparing files in trial root directory
-2020-10-28 11:17:01 : INFO : comparing files in trial vegalite sub-directory
-2020-10-28 11:17:01 : INFO : comparing files in trial data sub-directory
-2020-10-28 11:17:01 : INFO : Completed experiments ['trial_04_ut.exp_01', 'trial_04_ut.exp_02']
+2020-11-25 15:54:59 : INFO : validating ../laboratory/trial_04_ut/trial.yaml against ../schemas/verde_trial_schema.json
+2020-11-25 15:54:59 : INFO : successfully validated
+2020-11-25 15:54:59 : INFO : loading trial config from ../laboratory/trial_04_ut/trial.yaml
+2020-11-25 15:54:59 : INFO : creating experiment trial_04_ut.exp_01
+2020-11-25 15:54:59 : INFO : creating experiment trial_04_ut.exp_02
+2020-11-25 15:54:59 : INFO : *** running trial trial_04_ut ***
+2020-11-25 15:54:59 : INFO : *** running experiment trial_04_ut.exp_01 ***
+2020-11-25 15:54:59 : INFO : deleting experiment output files trial_04_ut.exp_01* recursively from ../laboratory/trial_04_ut
+2020-11-25 15:54:59 : INFO : validating ../schemas/verde_asc_domain_schema.json against ../schemas/verde_meta_schema.json
+2020-11-25 15:54:59 : INFO : successfully validated
+2020-11-25 15:54:59 : INFO : validating ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json against ../schemas/verde_asc_domain_mapping_schema.json
+2020-11-25 15:54:59 : INFO : successfully validated
+2020-11-25 15:54:59 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv to ../laboratory/trial_04_ut/data/trial_04_ut.exp_01_AFR_T1_ASCOF_1A_colfix.csv
+2020-11-25 15:54:59 : INFO : fixing map file column names in ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json to ../laboratory/trial_04_ut/data/trial_04_ut.exp_01_AFR_T1_ASCOF_1A_mapping_colfix.json
+2020-11-25 15:54:59 : INFO : fixing query field names
+2020-11-25 15:54:59 : INFO : creating baseline schema and query lp
+2020-11-25 15:55:00 : INFO : writing baseline schema and query lp to ../laboratory/trial_04_ut/trial_04_ut.exp_01_baseline_schema_query.lp
+2020-11-25 15:55:00 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema.json and ../laboratory/trial_04_ut/data/trial_04_ut.exp_01_AFR_T1_ASCOF_1A_mapping_colfix.json
+2020-11-25 15:55:00 : WARNING : verde rule_01_causal_relationships is disabled in config
+2020-11-25 15:55:00 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-25 15:55:00 : WARNING : verde rule_03_ordinal_sort is disabled in config
+2020-11-25 15:55:00 : INFO : applying verde rule 04 (colour)
+2020-11-25 15:55:00 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema.json
+2020-11-25 15:55:00 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 4 explain edges
+2020-11-25 15:55:00 : INFO : Geography_code is mapped to ['funder.org_unit.geography_code']
+2020-11-25 15:55:00 : INFO : LA_code is mapped to ['funder.org_unit.local_authority_code']
+2020-11-25 15:55:00 : INFO : LA_name is mapped to ['funder.org_unit.local_authority_name']
+2020-11-25 15:55:00 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
+2020-11-25 15:55:00 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
+2020-11-25 15:55:00 : INFO : Net_Total_Expenditure_x1000 is mapped to ['funder.expenditure']
+2020-11-25 15:55:00 : INFO : Gross_Total_Expenditure_x1000 is mapped to ['funder.expenditure']
+2020-11-25 15:55:00 : INFO : Gross_Current_Expenditure_x1000 is mapped to ['funder.expenditure']
+2020-11-25 15:55:00 : INFO : Number_of_requests_for_support_received_from_new_clients_18_to_64 is mapped to ['service_provision.num_requests', 'service_provision.user.demographics.age']
+2020-11-25 15:55:00 : INFO : Number_of_requests_for_support_received_from_new_clients_65_and_over is mapped to ['service_provision.num_requests', 'service_provision.user.demographics.age']
+2020-11-25 15:55:00 : INFO : New_clients_with_an_episode_of_ST_Max_care_and_a_known_sequel_18_to_64 is mapped to ['service_provision.num_new_clients', 'service_provision.user.demographics.age', 'service_provision.service.service_type']
+2020-11-25 15:55:00 : INFO : New_clients_with_an_episode_of_ST_Max_care_and_a_known_sequel_65_and_over is mapped to ['service_provision.num_new_clients', 'service_provision.user.demographics.age', 'service_provision.service.service_type']
+2020-11-25 15:55:00 : INFO : Long_Term_Support_during_the_year_18_to_64 is mapped to ['service_provision.num_provisions', 'service_provision.user.demographics.age', 'service_provision.service.service_type']
+2020-11-25 15:55:00 : INFO : Long_Term_Support_during_the_year_65_and_over is mapped to ['service_provision.num_provisions', 'service_provision.user.demographics.age', 'service_provision.service.service_type']
+2020-11-25 15:55:00 : INFO : Support_provided_to_carers_during_the_year is mapped to ['service_provision.num_provisions', 'service_provision.unpaid_carer', 'service_provision.service.service_type']
+2020-11-25 15:55:00 : INFO : Social_care_related_quality_of_life_score_All is mapped to ['user.quality_of_life.well-being']
+2020-11-25 15:55:00 : INFO : Social_care_related_quality_of_life_score_Male is mapped to ['user.quality_of_life.well-being', 'user.demographics.gender']
+2020-11-25 15:55:00 : INFO : Social_care_related_quality_of_life_score_Female is mapped to ['user.quality_of_life.well-being', 'user.demographics.gender']
+2020-11-25 15:55:00 : INFO : Social_care_related_quality_of_life_score_18_to_64 is mapped to ['user.quality_of_life.well-being', 'user.demographics.age']
+2020-11-25 15:55:00 : INFO : Social_care_related_quality_of_life_score_65_and_over is mapped to ['user.quality_of_life.well-being', 'user.demographics.age']
+2020-11-25 15:55:00 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour.lpt
+2020-11-25 15:55:00 : INFO : writing verde full schema and query lp to ../laboratory/trial_04_ut/trial_04_ut.exp_01_verde_schema_query.lp
+2020-11-25 15:55:00 : INFO : getting baseline draco visualisations for trial_04_ut.exp_01
+2020-11-25 15:55:00 : INFO : writing baseline full lp to ../laboratory/trial_04_ut/trial_04_ut.exp_01_baseline_full.lp
+2020-11-25 15:55:00 : INFO : running draco for baseline
+2020-11-25 15:55:00 : INFO : processing results
+2020-11-25 15:55:06 : INFO : writing vega-lite specs
+2020-11-25 15:55:06 : INFO : writing baseline vega-lite specs to ../laboratory/trial_04_ut/vegalite
+2020-11-25 15:55:06 : INFO : writing baseline results to ../laboratory/trial_04_ut/trial_04_ut.exp_01_baseline_results.json
+2020-11-25 15:55:06 : INFO : getting verde draco visualisations for trial_04_ut.exp_01 with verde base lp override
+2020-11-25 15:55:06 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-25 15:55:06 : INFO : writing verde full lp to ../laboratory/trial_04_ut/trial_04_ut.exp_01_verde_full.lp
+2020-11-25 15:55:06 : INFO : running draco for verde
+2020-11-25 15:55:07 : INFO : processing results
+2020-11-25 15:55:13 : INFO : writing vega-lite specs
+2020-11-25 15:55:13 : INFO : writing verde vega-lite specs to ../laboratory/trial_04_ut/vegalite
+2020-11-25 15:55:13 : INFO : writing verde results to ../laboratory/trial_04_ut/trial_04_ut.exp_01_verde_results.json
+2020-11-25 15:55:13 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_all_vl.json
+2020-11-25 15:55:13 : INFO : validating ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-25 15:55:13 : INFO : successfully validated
+2020-11-25 15:55:13 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_all_vl.json
+2020-11-25 15:55:13 : INFO : 17 matching visualisations between baseline and verde 85.0%
+2020-11-25 15:55:13 : INFO : 3 baseline visualisations not in verde
+2020-11-25 15:55:13 : INFO : 3 verde visualisations not in verde
+2020-11-25 15:55:13 : INFO : writing comparison matches to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare_match.csv
+2020-11-25 15:55:13 : INFO : writing comparison models to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare_model.csv
+2020-11-25 15:55:13 : INFO : writing comparison violations to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare_violations.csv
+2020-11-25 15:55:13 : INFO : writing comparison props to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare_props.csv
+2020-11-25 15:55:13 : INFO : writing comparison visualisation to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_01_view_compare.html
+2020-11-25 15:55:13 : INFO : *** running experiment trial_04_ut.exp_02 ***
+2020-11-25 15:55:13 : INFO : deleting experiment output files trial_04_ut.exp_02* recursively from ../laboratory/trial_04_ut
+2020-11-25 15:55:13 : INFO : validating ../schemas/verde_asc_domain_schema.json against ../schemas/verde_meta_schema.json
+2020-11-25 15:55:13 : INFO : successfully validated
+2020-11-25 15:55:13 : INFO : validating ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json against ../schemas/verde_asc_domain_mapping_schema.json
+2020-11-25 15:55:14 : INFO : successfully validated
+2020-11-25 15:55:14 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_01/AFR_T41_region_tidy.csv to ../laboratory/trial_04_ut/data/trial_04_ut.exp_02_AFR_T41_region_tidy_colfix.csv
+2020-11-25 15:55:14 : INFO : fixing map file column names in ../asc_data/processed/set_01/AFR_T41_region_tidy_mapping.json to ../laboratory/trial_04_ut/data/trial_04_ut.exp_02_AFR_T41_region_tidy_mapping_colfix.json
+2020-11-25 15:55:14 : INFO : fixing query field names
+2020-11-25 15:55:14 : INFO : creating baseline schema and query lp
+2020-11-25 15:55:14 : INFO : writing baseline schema and query lp to ../laboratory/trial_04_ut/trial_04_ut.exp_02_baseline_schema_query.lp
+2020-11-25 15:55:14 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema.json and ../laboratory/trial_04_ut/data/trial_04_ut.exp_02_AFR_T41_region_tidy_mapping_colfix.json
+2020-11-25 15:55:14 : WARNING : verde rule_01_causal_relationships is disabled in config
+2020-11-25 15:55:14 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-25 15:55:14 : WARNING : verde rule_03_ordinal_sort is disabled in config
+2020-11-25 15:55:14 : INFO : applying verde rule 04 (colour)
+2020-11-25 15:55:14 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema.json
+2020-11-25 15:55:14 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 4 explain edges
+2020-11-25 15:55:14 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
+2020-11-25 15:55:14 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
+2020-11-25 15:55:14 : INFO : Setting is mapped to ['service_provision.service.setting']
+2020-11-25 15:55:14 : INFO : Gross_Current_Expenditure_x1000 is mapped to ['funder.expenditure']
+2020-11-25 15:55:14 : INFO : Gross_Current_Expenditure_Proportion is mapped to ['funder.expenditure']
+2020-11-25 15:55:14 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour.lpt
+2020-11-25 15:55:14 : INFO : writing verde full schema and query lp to ../laboratory/trial_04_ut/trial_04_ut.exp_02_verde_schema_query.lp
+2020-11-25 15:55:14 : INFO : getting baseline draco visualisations for trial_04_ut.exp_02
+2020-11-25 15:55:14 : INFO : writing baseline full lp to ../laboratory/trial_04_ut/trial_04_ut.exp_02_baseline_full.lp
+2020-11-25 15:55:14 : INFO : running draco for baseline
+2020-11-25 15:55:14 : INFO : processing results
+2020-11-25 15:55:21 : INFO : writing vega-lite specs
+2020-11-25 15:55:21 : INFO : writing baseline vega-lite specs to ../laboratory/trial_04_ut/vegalite
+2020-11-25 15:55:21 : INFO : writing baseline results to ../laboratory/trial_04_ut/trial_04_ut.exp_02_baseline_results.json
+2020-11-25 15:55:21 : INFO : getting verde draco visualisations for trial_04_ut.exp_02 with verde base lp override
+2020-11-25 15:55:21 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-25 15:55:21 : INFO : writing verde full lp to ../laboratory/trial_04_ut/trial_04_ut.exp_02_verde_full.lp
+2020-11-25 15:55:21 : INFO : running draco for verde
+2020-11-25 15:55:21 : INFO : processing results
+2020-11-25 15:55:28 : INFO : writing vega-lite specs
+2020-11-25 15:55:28 : INFO : writing verde vega-lite specs to ../laboratory/trial_04_ut/vegalite
+2020-11-25 15:55:28 : INFO : writing verde results to ../laboratory/trial_04_ut/trial_04_ut.exp_02_verde_results.json
+2020-11-25 15:55:28 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_all_vl.json
+2020-11-25 15:55:28 : INFO : validating ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-25 15:55:28 : INFO : successfully validated
+2020-11-25 15:55:28 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_all_vl.json
+2020-11-25 15:55:28 : INFO : 19 matching visualisations between baseline and verde 95.0%
+2020-11-25 15:55:28 : INFO : 1 baseline visualisations not in verde
+2020-11-25 15:55:28 : INFO : 1 verde visualisations not in verde
+2020-11-25 15:55:28 : INFO : writing comparison matches to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare_match.csv
+2020-11-25 15:55:28 : INFO : writing comparison models to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare_model.csv
+2020-11-25 15:55:28 : INFO : writing comparison violations to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare_violations.csv
+2020-11-25 15:55:28 : INFO : writing comparison props to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare_props.csv
+2020-11-25 15:55:28 : INFO : writing comparison visualisation to ../laboratory/trial_04_ut/vegalite/trial_04_ut.exp_02_view_compare.html
+2020-11-25 15:55:28 : INFO : Comparing outputs against regression baseline in ../laboratory/trial_04_ut
+2020-11-25 15:55:28 : INFO : comparing files in trial root directory
+2020-11-25 15:55:28 : INFO : comparing files in trial vegalite sub-directory
+2020-11-25 15:55:28 : INFO : comparing files in trial data sub-directory
+2020-11-25 15:55:28 : INFO : Completed experiments ['trial_04_ut.exp_01', 'trial_04_ut.exp_02']

@@ -52,7 +52,7 @@
         do: true
   experiments:
     - experiment_id: exp_01a
-      do: false
+      do: true
       experiment_desc: expenditure versus quality of life with explains and precision rules
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping.json
@@ -67,7 +67,7 @@
           rule_02_data_precision:
             do: true
     - experiment_id: exp_01b
-      do: false
+      do: true
       experiment_desc: contradict expenditure versus quality of life with explains and precision rules
       input_data_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A.csv
       input_mapping_file: ../asc_data/processed/set_00/AFR_T1_ASCOF_1A_mapping_alt.json

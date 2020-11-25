@@ -23,7 +23,7 @@
       "domain_map": {
         "type": "array",
         "items": {
-          "$ref": "https://raw.githubusercontent.com/trubens71/schemas/master/verde_asc_domain_schema.json#"
+          "$ref": "https://raw.githubusercontent.com/trubens71/verde/master/schemas/verde_asc_domain_schema.json"
         }
       },
       "value_map": {

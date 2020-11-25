@@ -1,0 +1,183 @@
+2020-11-25 15:57:24 : INFO : validating ../laboratory/trial_05_it/trial.yaml against ../schemas/verde_trial_schema.json
+2020-11-25 15:57:24 : INFO : successfully validated
+2020-11-25 15:57:24 : INFO : loading trial config from ../laboratory/trial_05_it/trial.yaml
+2020-11-25 15:57:24 : INFO : creating experiment trial_05_it.exp_01a
+2020-11-25 15:57:24 : INFO : creating experiment trial_05_it.exp_01b
+2020-11-25 15:57:24 : INFO : creating experiment trial_05_it.exp_02a
+2020-11-25 15:57:24 : INFO : creating experiment trial_05_it.exp_02b
+2020-11-25 15:57:24 : INFO : *** running trial trial_05_it ***
+2020-11-25 15:57:24 : WARNING : exp_01a is disabled in config
+2020-11-25 15:57:24 : WARNING : exp_01b is disabled in config
+2020-11-25 15:57:24 : INFO : *** running experiment trial_05_it.exp_02a ***
+2020-11-25 15:57:24 : INFO : deleting experiment output files trial_05_it.exp_02a* recursively from ../laboratory/trial_05_it
+2020-11-25 15:57:24 : INFO : validating ../schemas/verde_asc_domain_schema_alt.json against ../schemas/verde_meta_schema.json
+2020-11-25 15:57:24 : INFO : successfully validated
+2020-11-25 15:57:24 : INFO : validating ../asc_data/processed/set_02/AFR_T41_region_age_requests_tidy_mapping.json against ../schemas/verde_asc_domain_mapping_schema.json
+2020-11-25 15:57:24 : INFO : successfully validated
+2020-11-25 15:57:24 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_02/AFR_T1_region_age_requests_tidy.csv to ../laboratory/trial_05_it/data/trial_05_it.exp_02a_AFR_T1_region_age_requests_tidy_colfix.csv
+2020-11-25 15:57:24 : INFO : fixing map file column names in ../asc_data/processed/set_02/AFR_T41_region_age_requests_tidy_mapping.json to ../laboratory/trial_05_it/data/trial_05_it.exp_02a_AFR_T41_region_age_requests_tidy_mapping_colfix.json
+2020-11-25 15:57:24 : INFO : fixing query field names
+2020-11-25 15:57:24 : INFO : creating baseline schema and query lp
+2020-11-25 15:57:25 : INFO : writing baseline schema and query lp to ../laboratory/trial_05_it/trial_05_it.exp_02a_baseline_schema_query.lp
+2020-11-25 15:57:25 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_alt.json and ../laboratory/trial_05_it/data/trial_05_it.exp_02a_AFR_T41_region_age_requests_tidy_mapping_colfix.json
+2020-11-25 15:57:25 : INFO : applying verde rule 01 (causal relationships)
+2020-11-25 15:57:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_alt.json
+2020-11-25 15:57:25 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 6 explain edges
+2020-11-25 15:57:25 : INFO : New_Client_Requests is mapped to ['service_provision.num_requests']
+2020-11-25 15:57:25 : INFO : ST_Max_Care is mapped to ['service_provision.num_new_clients', 'service_provision.service.service_type']
+2020-11-25 15:57:25 : INFO : Age_Group is mapped to ['user.demographics.age']
+2020-11-25 15:57:25 : INFO : writing graph to ../laboratory/trial_05_it/trial_05_it.exp_02a.graphml
+2020-11-25 15:57:25 : INFO : preference is explanatory=field.New_Client_Requests, response=field.ST_Max_Care with path length 2.1
+2020-11-25 15:57:25 : INFO : preference is explanatory=field.Age_Group, response=field.New_Client_Requests with path length 3.6
+2020-11-25 15:57:25 : INFO : preference is explanatory=field.Age_Group, response=field.ST_Max_Care with path length 3.6
+2020-11-25 15:57:25 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal.lpt
+2020-11-25 15:57:25 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-25 15:57:25 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-25 15:57:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_alt.json
+2020-11-25 15:57:25 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 6 explain edges
+2020-11-25 15:57:25 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
+2020-11-25 15:57:25 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
+2020-11-25 15:57:25 : INFO : Age_Group is mapped to ['user.demographics.age']
+2020-11-25 15:57:25 : INFO : New_Client_Requests is mapped to ['service_provision.num_requests']
+2020-11-25 15:57:25 : INFO : ST_Max_Care is mapped to ['service_provision.num_new_clients', 'service_provision.service.service_type']
+2020-11-25 15:57:25 : INFO : Long_Term_Care is mapped to ['service_provision.num_provisions', 'service_provision.service.service_type']
+2020-11-25 15:57:25 : INFO : getting unique values of fields in ../laboratory/trial_05_it/data/trial_05_it.exp_02a_AFR_T1_region_age_requests_tidy_colfix.csv
+2020-11-25 15:57:25 : INFO : using WordNet to sort ['working (18 to 64)', '65 and over'] based on ['younger working age 18 to 64', 'older over 65']
+2020-11-25 15:57:26 : INFO : proposed sort order is ['working (18 to 64)', '65 and over']
+2020-11-25 15:57:26 : INFO : adding custom sort for field Age_Group due to node user.demographics.age with order ['working (18 to 64)', '65 and over']
+2020-11-25 15:57:26 : INFO : using WordNet to sort {} based on ['ST-Max', 'Long Term', 'Unpaid Carer Support']
+2020-11-25 15:57:26 : INFO : proposed sort order is []
+2020-11-25 15:57:26 : WARNING : found multiple possible sort orders for field ST_Max_Care, overriding with this one...
+2020-11-25 15:57:26 : INFO : adding custom sort for field ST_Max_Care due to node service_provision.service.service_type with order []
+2020-11-25 15:57:26 : INFO : using WordNet to sort {} based on ['ST-Max', 'Long Term', 'Unpaid Carer Support']
+2020-11-25 15:57:26 : INFO : proposed sort order is []
+2020-11-25 15:57:26 : WARNING : found multiple possible sort orders for field Long_Term_Care, overriding with this one...
+2020-11-25 15:57:26 : INFO : adding custom sort for field Long_Term_Care due to node service_provision.service.service_type with order []
+2020-11-25 15:57:26 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-25 15:57:26 : INFO : applying verde rule 04 (colour)
+2020-11-25 15:57:26 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_alt.json
+2020-11-25 15:57:26 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 6 explain edges
+2020-11-25 15:57:26 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
+2020-11-25 15:57:26 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
+2020-11-25 15:57:26 : INFO : Age_Group is mapped to ['user.demographics.age']
+2020-11-25 15:57:26 : INFO : New_Client_Requests is mapped to ['service_provision.num_requests']
+2020-11-25 15:57:26 : INFO : ST_Max_Care is mapped to ['service_provision.num_new_clients', 'service_provision.service.service_type']
+2020-11-25 15:57:26 : INFO : Long_Term_Care is mapped to ['service_provision.num_provisions', 'service_provision.service.service_type']
+2020-11-25 15:57:26 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour.lpt
+2020-11-25 15:57:26 : INFO : writing verde full schema and query lp to ../laboratory/trial_05_it/trial_05_it.exp_02a_verde_schema_query.lp
+2020-11-25 15:57:26 : INFO : getting baseline draco visualisations for trial_05_it.exp_02a
+2020-11-25 15:57:26 : INFO : writing baseline full lp to ../laboratory/trial_05_it/trial_05_it.exp_02a_baseline_full.lp
+2020-11-25 15:57:26 : INFO : running draco for baseline
+2020-11-25 15:57:26 : INFO : processing results
+2020-11-25 15:57:33 : INFO : writing vega-lite specs
+2020-11-25 15:57:33 : INFO : writing baseline vega-lite specs to ../laboratory/trial_05_it/vegalite
+2020-11-25 15:57:33 : INFO : writing baseline results to ../laboratory/trial_05_it/trial_05_it.exp_02a_baseline_results.json
+2020-11-25 15:57:33 : INFO : getting verde draco visualisations for trial_05_it.exp_02a with verde base lp override
+2020-11-25 15:57:33 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-25 15:57:33 : INFO : writing verde full lp to ../laboratory/trial_05_it/trial_05_it.exp_02a_verde_full.lp
+2020-11-25 15:57:33 : INFO : running draco for verde
+2020-11-25 15:57:33 : INFO : processing results
+2020-11-25 15:57:40 : INFO : writing vega-lite specs
+2020-11-25 15:57:40 : INFO : writing verde vega-lite specs to ../laboratory/trial_05_it/vegalite
+2020-11-25 15:57:40 : INFO : writing verde results to ../laboratory/trial_05_it/trial_05_it.exp_02a_verde_results.json
+2020-11-25 15:57:40 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02a_view_all_vl.json
+2020-11-25 15:57:40 : INFO : validating ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02a_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-25 15:57:40 : INFO : successfully validated
+2020-11-25 15:57:40 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02a_view_all_vl.json
+2020-11-25 15:57:40 : INFO : 16 matching visualisations between baseline and verde 80.0%
+2020-11-25 15:57:40 : INFO : 6 baseline visualisations not in verde
+2020-11-25 15:57:40 : INFO : 6 verde visualisations not in verde
+2020-11-25 15:57:40 : INFO : writing comparison matches to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02a_view_compare_match.csv
+2020-11-25 15:57:40 : INFO : writing comparison models to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02a_view_compare_model.csv
+2020-11-25 15:57:40 : INFO : writing comparison violations to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02a_view_compare_violations.csv
+2020-11-25 15:57:40 : INFO : writing comparison props to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02a_view_compare_props.csv
+2020-11-25 15:57:41 : INFO : writing comparison visualisation to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02a_view_compare.html
+2020-11-25 15:57:41 : INFO : *** running experiment trial_05_it.exp_02b ***
+2020-11-25 15:57:41 : INFO : deleting experiment output files trial_05_it.exp_02b* recursively from ../laboratory/trial_05_it
+2020-11-25 15:57:41 : INFO : validating ../schemas/verde_asc_domain_schema_alt.json against ../schemas/verde_meta_schema.json
+2020-11-25 15:57:41 : INFO : successfully validated
+2020-11-25 15:57:41 : INFO : validating ../asc_data/processed/set_02/AFR_T41_region_age_requests_tidy_mapping.json against ../schemas/verde_asc_domain_mapping_schema.json
+2020-11-25 15:57:41 : INFO : successfully validated
+2020-11-25 15:57:41 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_02/AFR_T1_region_age_requests_tidy.csv to ../laboratory/trial_05_it/data/trial_05_it.exp_02b_AFR_T1_region_age_requests_tidy_colfix.csv
+2020-11-25 15:57:41 : INFO : fixing map file column names in ../asc_data/processed/set_02/AFR_T41_region_age_requests_tidy_mapping.json to ../laboratory/trial_05_it/data/trial_05_it.exp_02b_AFR_T41_region_age_requests_tidy_mapping_colfix.json
+2020-11-25 15:57:41 : INFO : fixing query field names
+2020-11-25 15:57:41 : INFO : creating baseline schema and query lp
+2020-11-25 15:57:41 : INFO : writing baseline schema and query lp to ../laboratory/trial_05_it/trial_05_it.exp_02b_baseline_schema_query.lp
+2020-11-25 15:57:41 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_alt.json and ../laboratory/trial_05_it/data/trial_05_it.exp_02b_AFR_T41_region_age_requests_tidy_mapping_colfix.json
+2020-11-25 15:57:41 : INFO : applying verde rule 01 (causal relationships)
+2020-11-25 15:57:41 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_alt.json
+2020-11-25 15:57:41 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 6 explain edges
+2020-11-25 15:57:41 : INFO : New_Client_Requests is mapped to ['service_provision.num_requests']
+2020-11-25 15:57:41 : INFO : ST_Max_Care is mapped to ['service_provision.num_new_clients', 'service_provision.service.service_type']
+2020-11-25 15:57:41 : INFO : Age_Group is mapped to ['user.demographics.age']
+2020-11-25 15:57:41 : INFO : writing graph to ../laboratory/trial_05_it/trial_05_it.exp_02b.graphml
+2020-11-25 15:57:41 : INFO : preference is explanatory=field.New_Client_Requests, response=field.ST_Max_Care with path length 2.1
+2020-11-25 15:57:41 : INFO : preference is explanatory=field.Age_Group, response=field.New_Client_Requests with path length 3.6
+2020-11-25 15:57:41 : INFO : preference is explanatory=field.Age_Group, response=field.ST_Max_Care with path length 3.6
+2020-11-25 15:57:41 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-25 15:57:41 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-25 15:57:41 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-25 15:57:41 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_alt.json
+2020-11-25 15:57:41 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 6 explain edges
+2020-11-25 15:57:41 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
+2020-11-25 15:57:41 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
+2020-11-25 15:57:41 : INFO : Age_Group is mapped to ['user.demographics.age']
+2020-11-25 15:57:41 : INFO : New_Client_Requests is mapped to ['service_provision.num_requests']
+2020-11-25 15:57:41 : INFO : ST_Max_Care is mapped to ['service_provision.num_new_clients', 'service_provision.service.service_type']
+2020-11-25 15:57:41 : INFO : Long_Term_Care is mapped to ['service_provision.num_provisions', 'service_provision.service.service_type']
+2020-11-25 15:57:41 : INFO : getting unique values of fields in ../laboratory/trial_05_it/data/trial_05_it.exp_02b_AFR_T1_region_age_requests_tidy_colfix.csv
+2020-11-25 15:57:41 : INFO : using WordNet to sort ['working (18 to 64)', '65 and over'] based on ['younger working age 18 to 64', 'older over 65']
+2020-11-25 15:57:42 : INFO : proposed sort order is ['working (18 to 64)', '65 and over']
+2020-11-25 15:57:42 : INFO : adding custom sort for field Age_Group due to node user.demographics.age with order ['working (18 to 64)', '65 and over']
+2020-11-25 15:57:42 : INFO : using WordNet to sort {} based on ['ST-Max', 'Long Term', 'Unpaid Carer Support']
+2020-11-25 15:57:42 : INFO : proposed sort order is []
+2020-11-25 15:57:42 : WARNING : found multiple possible sort orders for field ST_Max_Care, overriding with this one...
+2020-11-25 15:57:42 : INFO : adding custom sort for field ST_Max_Care due to node service_provision.service.service_type with order []
+2020-11-25 15:57:42 : INFO : using WordNet to sort {} based on ['ST-Max', 'Long Term', 'Unpaid Carer Support']
+2020-11-25 15:57:42 : INFO : proposed sort order is []
+2020-11-25 15:57:42 : WARNING : found multiple possible sort orders for field Long_Term_Care, overriding with this one...
+2020-11-25 15:57:42 : INFO : adding custom sort for field Long_Term_Care due to node service_provision.service.service_type with order []
+2020-11-25 15:57:42 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-25 15:57:42 : INFO : applying verde rule 04 (colour)
+2020-11-25 15:57:42 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_alt.json
+2020-11-25 15:57:42 : INFO : found 37 nodes, 33 property edges, 3 composition edges and 6 explain edges
+2020-11-25 15:57:42 : INFO : Region_code is mapped to ['funder.org_unit.region_code']
+2020-11-25 15:57:42 : INFO : Region_name is mapped to ['funder.org_unit.region_name']
+2020-11-25 15:57:42 : INFO : Age_Group is mapped to ['user.demographics.age']
+2020-11-25 15:57:42 : INFO : New_Client_Requests is mapped to ['service_provision.num_requests']
+2020-11-25 15:57:42 : INFO : ST_Max_Care is mapped to ['service_provision.num_new_clients', 'service_provision.service.service_type']
+2020-11-25 15:57:42 : INFO : Long_Term_Care is mapped to ['service_provision.num_provisions', 'service_provision.service.service_type']
+2020-11-25 15:57:42 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour.lpt
+2020-11-25 15:57:42 : INFO : writing verde full schema and query lp to ../laboratory/trial_05_it/trial_05_it.exp_02b_verde_schema_query.lp
+2020-11-25 15:57:42 : INFO : getting baseline draco visualisations for trial_05_it.exp_02b
+2020-11-25 15:57:42 : INFO : writing baseline full lp to ../laboratory/trial_05_it/trial_05_it.exp_02b_baseline_full.lp
+2020-11-25 15:57:42 : INFO : running draco for baseline
+2020-11-25 15:57:42 : INFO : processing results
+2020-11-25 15:57:48 : INFO : writing vega-lite specs
+2020-11-25 15:57:48 : INFO : writing baseline vega-lite specs to ../laboratory/trial_05_it/vegalite
+2020-11-25 15:57:48 : INFO : writing baseline results to ../laboratory/trial_05_it/trial_05_it.exp_02b_baseline_results.json
+2020-11-25 15:57:48 : INFO : getting verde draco visualisations for trial_05_it.exp_02b with verde base lp override
+2020-11-25 15:57:48 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-25 15:57:48 : INFO : writing verde full lp to ../laboratory/trial_05_it/trial_05_it.exp_02b_verde_full.lp
+2020-11-25 15:57:48 : INFO : running draco for verde
+2020-11-25 15:57:48 : INFO : processing results
+2020-11-25 15:57:55 : INFO : writing vega-lite specs
+2020-11-25 15:57:55 : INFO : writing verde vega-lite specs to ../laboratory/trial_05_it/vegalite
+2020-11-25 15:57:55 : INFO : writing verde results to ../laboratory/trial_05_it/trial_05_it.exp_02b_verde_results.json
+2020-11-25 15:57:55 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02b_view_all_vl.json
+2020-11-25 15:57:55 : INFO : validating ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02b_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-25 15:57:55 : INFO : successfully validated
+2020-11-25 15:57:55 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02b_view_all_vl.json
+2020-11-25 15:57:55 : INFO : 16 matching visualisations between baseline and verde 80.0%
+2020-11-25 15:57:55 : INFO : 4 baseline visualisations not in verde
+2020-11-25 15:57:55 : INFO : 5 verde visualisations not in verde
+2020-11-25 15:57:55 : INFO : writing comparison matches to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02b_view_compare_match.csv
+2020-11-25 15:57:55 : INFO : writing comparison models to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02b_view_compare_model.csv
+2020-11-25 15:57:55 : INFO : writing comparison violations to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02b_view_compare_violations.csv
+2020-11-25 15:57:55 : INFO : writing comparison props to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02b_view_compare_props.csv
+2020-11-25 15:57:56 : INFO : writing comparison visualisation to ../laboratory/trial_05_it/vegalite/trial_05_it.exp_02b_view_compare.html
+2020-11-25 15:57:56 : INFO : Comparing outputs against regression baseline in ../laboratory/trial_05_it
+2020-11-25 15:57:56 : INFO : comparing files in trial root directory
+2020-11-25 15:57:56 : INFO : comparing files in trial vegalite sub-directory
+2020-11-25 15:57:56 : INFO : comparing files in trial data sub-directory
+2020-11-25 15:57:56 : INFO : Completed experiments ['trial_05_it.exp_02a', 'trial_05_it.exp_02b']
