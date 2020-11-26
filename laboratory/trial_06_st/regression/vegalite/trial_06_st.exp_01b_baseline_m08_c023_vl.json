@@ -1,0 +1,1 @@
+{"$schema": "https://vega.github.io/schema/vega-lite/v3.json", "data": {"url": "../data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv"}, "mark": "bar", "encoding": {"y": {"type": "nominal", "field": "region"}, "x": {"type": "quantitative", "aggregate": "min", "field": "vacancies_all_pct", "scale": {"zero": true}}}, "title": "trial_06_st.exp_01b_baseline_m08_c023_vl"}

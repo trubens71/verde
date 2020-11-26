@@ -1,0 +1,11 @@
+region,region_code,zero_hr_contract_all_pct,zero_hr_contract_managerial_pct,zero_hr_contract_reg_prof_pct,zero_hr_contract_direct_care_pct,zero_hr_contract_other_pct,vacancies_all_pct,vacancies_managerial_pct,vacancies_reg_prof_pct,vacancies_direct_care_pct,vacancies_other_pct,QoL_all,QoL_male,QoL_female,QoL_18_64,QoL_65_over
+England,E92000001,24.3,4.3,10.8,29.6,8.6,7.3,5.5,10.5,7.8,4.3,19.1,19.4,18.9,19.6,18.9
+East Midlands,E12000004,22.6,3.0,9.5,27.8,8.1,6.3,6.0,10.8,6.6,3.6,19.1,19.5,18.8,19.4,18.8
+Eastern,E12000006,25.9,5.3,12.2,32.2,9.3,7.9,5.8,12.8,8.6,4.8,19.3,19.8,18.9,19.7,19.0
+London,E12000007,42.3,7.8,12.7,51.8,12.5,9.5,6.2,12.1,10.3,5.0,18.5,18.8,18.3,18.9,18.2
+North East,E12000001,21.3,3.7,9.3,26.5,6.9,5.5,4.2,9.5,5.8,3.2,19.4,19.5,19.4,19.7,19.3
+North West,E12000002,18.8,2.6,9.2,23.4,7.3,6.6,5.4,9.4,6.9,4.4,19.1,19.3,18.9,19.3,18.9
+South East,E12000008,23.6,3.7,12.7,29.8,8.6,8.6,5.1,12.3,9.6,4.7,19.4,19.6,19.3,19.9,19.0
+South West,E12000009,17.3,2.8,10.4,21.6,7.9,6.7,5.1,10.6,7.2,4.3,19.3,19.4,19.2,19.7,19.0
+West Midlands,E12000005,24.0,4.5,9.9,30.1,7.0,6.2,5.4,8.5,6.7,3.6,19.1,19.5,18.8,19.7,18.8
+Yorkshire and the Humber,E12000003,19.9,4.0,9.3,24.4,8.8,5.5,5.2,6.9,5.8,3.7,19.3,19.7,19.1,19.9,19.0

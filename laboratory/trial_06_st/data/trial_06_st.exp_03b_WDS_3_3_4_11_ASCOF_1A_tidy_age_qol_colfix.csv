@@ -1,0 +1,21 @@
+region,region_code,age_band,QoL
+England,E92000001,working (18 to 64),19.6
+England,E92000001,65 and over,18.9
+East Midlands,E12000004,working (18 to 64),19.4
+East Midlands,E12000004,65 and over,18.8
+Eastern,E12000006,working (18 to 64),19.7
+Eastern,E12000006,65 and over,19.0
+London,E12000007,working (18 to 64),18.9
+London,E12000007,65 and over,18.2
+North East,E12000001,working (18 to 64),19.7
+North East,E12000001,65 and over,19.3
+North West,E12000002,working (18 to 64),19.3
+North West,E12000002,65 and over,18.9
+South East,E12000008,working (18 to 64),19.9
+South East,E12000008,65 and over,19.0
+South West,E12000009,working (18 to 64),19.7
+South West,E12000009,65 and over,19.0
+West Midlands,E12000005,working (18 to 64),19.7
+West Midlands,E12000005,65 and over,18.8
+Yorkshire and the Humber,E12000003,working (18 to 64),19.9
+Yorkshire and the Humber,E12000003,65 and over,19.0

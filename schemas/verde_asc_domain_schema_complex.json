@@ -42,18 +42,13 @@
               "older over 65"
             ],
             "colour": {
-              "scheme": "paired"
+              "scheme": "set1"
             }
           }
         },
         "gender": {
           "type": "boolean",
           "verde_rule_directive": {
-            "ordinal": [
-              "female",
-              "non-binary",
-              "male"
-            ],
             "colour": {
               "scheme": "set2"
             }
@@ -87,11 +82,6 @@
         },
         "employment-income": {
           "type": "boolean"
-        }
-      },
-      "verde_rule_directive": {
-        "colour": {
-          "scheme": "greens"
         }
       }
     },
@@ -263,13 +253,7 @@
                 "$ref": "#/properties/unpaid_carer/properties/support_income"
               },
               {
-                "$ref": "#/properties/unpaid_carer/properties/experience/properties/quality_of_life"
-              },
-              {
                 "$ref": "#/properties/user/properties/support_income"
-              },
-              {
-                "$ref": "#/properties/user/properties/quality_of_life"
               }
             ]
           },
@@ -288,8 +272,7 @@
         "provider": {
           "$ref": "#/properties/provider"
         }
-      },
-      "additionalProperties": false
+      }
     },
     "provider": {
       "type": "object",

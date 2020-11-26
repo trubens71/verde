@@ -1,0 +1,1158 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key attr.name="weight" attr.type="double" for="edge" id="d3" />
+  <key attr.name="ordinal" attr.type="string" for="node" id="d2" />
+  <key attr.name="colour" attr.type="string" for="node" id="d1" />
+  <key attr.name="short" attr.type="string" for="node" id="d0" />
+  <graph edgedefault="directed">
+    <node id="funder">
+      <data key="d0">funder</data>
+      <data key="d1">{'scheme': 'blues', 'mark_colour': '#5ba3cf'}</data>
+    </node>
+    <node id="funder.org_unit">
+      <data key="d0">org_unit</data>
+      <data key="d1">{'mark_colour': '#d4d4d4'}</data>
+    </node>
+    <node id="funder.org_unit.local_authority">
+      <data key="d0">local_authority</data>
+      <data key="d1">{'mark_colour': '#bbbbbb'}</data>
+    </node>
+    <node id="funder.org_unit.local_authority.local_authority_name">
+      <data key="d0">local_authority_name</data>
+      <data key="d1">{'mark_colour': '#585858'}</data>
+    </node>
+    <node id="funder.org_unit.local_authority.local_authority_code">
+      <data key="d0">local_authority_code</data>
+      <data key="d1">{'mark_colour': '#585858'}</data>
+    </node>
+    <node id="funder.org_unit.local_authority.geography_code">
+      <data key="d0">geography_code</data>
+      <data key="d1">{'mark_colour': '#585858'}</data>
+    </node>
+    <node id="funder.org_unit.local_authority.region_name">
+      <data key="d0">region_name</data>
+      <data key="d1">{'mark_colour': '#888888'}</data>
+      <data key="d2">England,North West,North East,Yorkshire and the Humber,West Midlands,East Midlands,Eastern,South West,South East,London</data>
+    </node>
+    <node id="funder.org_unit.local_authority.region_code">
+      <data key="d0">region_code</data>
+      <data key="d1">{'mark_colour': '#888888'}</data>
+    </node>
+    <node id="funder.org_unit.NHS_ou">
+      <data key="d0">NHS_ou</data>
+      <data key="d1">{'mark_colour': '#c5bcb8'}</data>
+    </node>
+    <node id="funder.org_unit.NHS_ou.CCG">
+      <data key="d0">CCG</data>
+      <data key="d1">{'mark_colour': '#827a77'}</data>
+    </node>
+    <node id="funder.org_unit.NHS_ou.trust">
+      <data key="d0">trust</data>
+      <data key="d1">{'mark_colour': '#6e6462'}</data>
+    </node>
+    <node id="funder.org_unit.NHS_ou.STP">
+      <data key="d0">STP</data>
+      <data key="d1">{'mark_colour': '#98908c'}</data>
+    </node>
+    <node id="funder.org_unit.NHS_ou.region">
+      <data key="d0">region</data>
+      <data key="d1">{'mark_colour': '#aea5a2'}</data>
+    </node>
+    <node id="funder.org_unit.central_government_ou">
+      <data key="d0">central_government_ou</data>
+    </node>
+    <node id="funder.self_funding">
+      <data key="d0">self_funding</data>
+    </node>
+    <node id="funder.financial">
+      <data key="d0">financial</data>
+    </node>
+    <node id="funder.financial.budget">
+      <data key="d0">budget</data>
+    </node>
+    <node id="funder.financial.expenditure">
+      <data key="d0">expenditure</data>
+    </node>
+    <node id="funder.financial.income">
+      <data key="d0">income</data>
+    </node>
+    <node id="provider">
+      <data key="d0">provider</data>
+      <data key="d1">{'scheme': 'teals', 'mark_colour': '#4da5a4'}</data>
+    </node>
+    <node id="provider.sector">
+      <data key="d0">sector</data>
+    </node>
+    <node id="provider.sector.public">
+      <data key="d0">public</data>
+    </node>
+    <node id="provider.sector.private">
+      <data key="d0">private</data>
+    </node>
+    <node id="provider.investors">
+      <data key="d0">investors</data>
+    </node>
+    <node id="provider.capacity">
+      <data key="d0">capacity</data>
+    </node>
+    <node id="provider.workforce_management">
+      <data key="d0">workforce_management</data>
+    </node>
+    <node id="provider.workforce_management.filled_jobs">
+      <data key="d0">filled_jobs</data>
+    </node>
+    <node id="provider.workforce_management.vacancies">
+      <data key="d0">vacancies</data>
+    </node>
+    <node id="provider.workforce_management.retention-turnover">
+      <data key="d0">retention-turnover</data>
+    </node>
+    <node id="provider.workforce_management.sickness">
+      <data key="d0">sickness</data>
+    </node>
+    <node id="provider.cost-pricing">
+      <data key="d0">cost-pricing</data>
+    </node>
+    <node id="provider.productivity">
+      <data key="d0">productivity</data>
+    </node>
+    <node id="service">
+      <data key="d0">service</data>
+      <data key="d1">{'scheme': 'greens', 'mark_colour': '#60ba6c'}</data>
+    </node>
+    <node id="service.access">
+      <data key="d0">access</data>
+    </node>
+    <node id="service.access.access_route">
+      <data key="d0">access_route</data>
+    </node>
+    <node id="service.access.sequel_to_service">
+      <data key="d0">sequel_to_service</data>
+    </node>
+    <node id="service.access.requests">
+      <data key="d0">requests</data>
+    </node>
+    <node id="service.access.eligibility">
+      <data key="d0">eligibility</data>
+    </node>
+    <node id="service.access.reviews">
+      <data key="d0">reviews</data>
+    </node>
+    <node id="service.access.perception">
+      <data key="d0">perception</data>
+    </node>
+    <node id="service.access.perception.user">
+      <data key="d0">user</data>
+    </node>
+    <node id="service.access.perception.general_public">
+      <data key="d0">general_public</data>
+    </node>
+    <node id="service.provision">
+      <data key="d0">provision</data>
+    </node>
+    <node id="service.provision.service_type">
+      <data key="d0">service_type</data>
+      <data key="d2">ST-Max,Long Term,Unpaid Carer Support</data>
+    </node>
+    <node id="service.provision.setting">
+      <data key="d0">setting</data>
+      <data key="d2">community care,home care,residential home,nursing home</data>
+    </node>
+    <node id="service.provision.care_models">
+      <data key="d0">care_models</data>
+    </node>
+    <node id="service.provision.care_models.packages">
+      <data key="d0">packages</data>
+    </node>
+    <node id="service.provision.care_models.self-directed">
+      <data key="d0">self-directed</data>
+    </node>
+    <node id="service.integration">
+      <data key="d0">integration</data>
+    </node>
+    <node id="service.integration.NHS">
+      <data key="d0">NHS</data>
+    </node>
+    <node id="service.integration.NHS.primary_care">
+      <data key="d0">primary_care</data>
+    </node>
+    <node id="service.integration.NHS.secondary_care">
+      <data key="d0">secondary_care</data>
+    </node>
+    <node id="service.integration.care_commissioning">
+      <data key="d0">care_commissioning</data>
+    </node>
+    <node id="service.integration.digital_interoperability">
+      <data key="d0">digital_interoperability</data>
+    </node>
+    <node id="service.integration.funder_perception">
+      <data key="d0">funder_perception</data>
+    </node>
+    <node id="service.quality">
+      <data key="d0">quality</data>
+    </node>
+    <node id="service.quality.regulatory_rating">
+      <data key="d0">regulatory_rating</data>
+    </node>
+    <node id="service.quality.perception">
+      <data key="d0">perception</data>
+    </node>
+    <node id="service.quality.perception.user">
+      <data key="d0">user</data>
+    </node>
+    <node id="service.quality.perception.general_public">
+      <data key="d0">general_public</data>
+    </node>
+    <node id="service.quality.safety">
+      <data key="d0">safety</data>
+    </node>
+    <node id="workforce">
+      <data key="d0">workforce</data>
+      <data key="d1">{'scheme': 'browns', 'mark_colour': '#d18954'}</data>
+    </node>
+    <node id="workforce.demographics">
+      <data key="d0">demographics</data>
+    </node>
+    <node id="workforce.demographics.age">
+      <data key="d0">age</data>
+      <data key="d2">younger working age 18 to 64,older over 65</data>
+      <data key="d1">{'scheme': 'set1'}</data>
+    </node>
+    <node id="workforce.demographics.gender">
+      <data key="d0">gender</data>
+      <data key="d1">{'scheme': 'set2'}</data>
+    </node>
+    <node id="workforce.demographics.ethnicity">
+      <data key="d0">ethnicity</data>
+    </node>
+    <node id="workforce.demographics.sexual_orientation">
+      <data key="d0">sexual_orientation</data>
+    </node>
+    <node id="workforce.demographics.religion">
+      <data key="d0">religion</data>
+    </node>
+    <node id="workforce.demographics.nationality-birth-migration">
+      <data key="d0">nationality-birth-migration</data>
+    </node>
+    <node id="workforce.demographics.socio-economics">
+      <data key="d0">socio-economics</data>
+    </node>
+    <node id="workforce.employment_status">
+      <data key="d0">employment_status</data>
+    </node>
+    <node id="workforce.qualifications">
+      <data key="d0">qualifications</data>
+    </node>
+    <node id="workforce.experience">
+      <data key="d0">experience</data>
+    </node>
+    <node id="workforce.experience.workload">
+      <data key="d0">workload</data>
+    </node>
+    <node id="workforce.experience.engagement">
+      <data key="d0">engagement</data>
+    </node>
+    <node id="workforce.experience.quality_of_life">
+      <data key="d0">quality_of_life</data>
+    </node>
+    <node id="workforce.income">
+      <data key="d0">income</data>
+    </node>
+    <node id="unpaid_carer">
+      <data key="d0">unpaid_carer</data>
+      <data key="d1">{'scheme': 'reds', 'mark_colour': '#f6573f'}</data>
+    </node>
+    <node id="unpaid_carer.demographics">
+      <data key="d0">demographics</data>
+    </node>
+    <node id="unpaid_carer.demographics.age">
+      <data key="d0">age</data>
+      <data key="d2">younger working age 18 to 64,older over 65</data>
+      <data key="d1">{'scheme': 'set1'}</data>
+    </node>
+    <node id="unpaid_carer.demographics.gender">
+      <data key="d0">gender</data>
+      <data key="d1">{'scheme': 'set2'}</data>
+    </node>
+    <node id="unpaid_carer.demographics.ethnicity">
+      <data key="d0">ethnicity</data>
+    </node>
+    <node id="unpaid_carer.demographics.sexual_orientation">
+      <data key="d0">sexual_orientation</data>
+    </node>
+    <node id="unpaid_carer.demographics.religion">
+      <data key="d0">religion</data>
+    </node>
+    <node id="unpaid_carer.demographics.nationality-birth-migration">
+      <data key="d0">nationality-birth-migration</data>
+    </node>
+    <node id="unpaid_carer.demographics.socio-economics">
+      <data key="d0">socio-economics</data>
+    </node>
+    <node id="unpaid_carer.support_income">
+      <data key="d0">support_income</data>
+    </node>
+    <node id="unpaid_carer.support_income.direct_payments">
+      <data key="d0">direct_payments</data>
+    </node>
+    <node id="unpaid_carer.support_income.state_benefits">
+      <data key="d0">state_benefits</data>
+    </node>
+    <node id="unpaid_carer.support_income.self-funding">
+      <data key="d0">self-funding</data>
+    </node>
+    <node id="unpaid_carer.health">
+      <data key="d0">health</data>
+    </node>
+    <node id="unpaid_carer.experience">
+      <data key="d0">experience</data>
+    </node>
+    <node id="unpaid_carer.experience.workload">
+      <data key="d0">workload</data>
+    </node>
+    <node id="unpaid_carer.experience.quality_of_life">
+      <data key="d0">quality_of_life</data>
+    </node>
+    <node id="unpaid_carer.experience.quality_of_life.well-being">
+      <data key="d0">well-being</data>
+    </node>
+    <node id="unpaid_carer.experience.quality_of_life.independence-mobility">
+      <data key="d0">independence-mobility</data>
+    </node>
+    <node id="unpaid_carer.experience.quality_of_life.employment-income">
+      <data key="d0">employment-income</data>
+    </node>
+    <node id="user">
+      <data key="d0">user</data>
+      <data key="d1">{'scheme': 'purples', 'mark_colour': '#928ec3'}</data>
+    </node>
+    <node id="user.context">
+      <data key="d0">context</data>
+    </node>
+    <node id="user.context.family-household">
+      <data key="d0">family-household</data>
+    </node>
+    <node id="user.context.accommodation">
+      <data key="d0">accommodation</data>
+    </node>
+    <node id="user.demographics">
+      <data key="d0">demographics</data>
+    </node>
+    <node id="user.demographics.age">
+      <data key="d0">age</data>
+      <data key="d2">younger working age 18 to 64,older over 65</data>
+      <data key="d1">{'scheme': 'set1'}</data>
+    </node>
+    <node id="user.demographics.gender">
+      <data key="d0">gender</data>
+      <data key="d1">{'scheme': 'set2'}</data>
+    </node>
+    <node id="user.demographics.ethnicity">
+      <data key="d0">ethnicity</data>
+    </node>
+    <node id="user.demographics.sexual_orientation">
+      <data key="d0">sexual_orientation</data>
+    </node>
+    <node id="user.demographics.religion">
+      <data key="d0">religion</data>
+    </node>
+    <node id="user.demographics.nationality-birth-migration">
+      <data key="d0">nationality-birth-migration</data>
+    </node>
+    <node id="user.demographics.socio-economics">
+      <data key="d0">socio-economics</data>
+    </node>
+    <node id="user.health">
+      <data key="d0">health</data>
+    </node>
+    <node id="user.support_reason">
+      <data key="d0">support_reason</data>
+    </node>
+    <node id="user.support_income">
+      <data key="d0">support_income</data>
+    </node>
+    <node id="user.support_income.direct_payments">
+      <data key="d0">direct_payments</data>
+    </node>
+    <node id="user.support_income.state_benefits">
+      <data key="d0">state_benefits</data>
+    </node>
+    <node id="user.support_income.self-funding">
+      <data key="d0">self-funding</data>
+    </node>
+    <node id="user.quality_of_life">
+      <data key="d0">quality_of_life</data>
+    </node>
+    <node id="user.quality_of_life.well-being">
+      <data key="d0">well-being</data>
+    </node>
+    <node id="user.quality_of_life.independence-mobility">
+      <data key="d0">independence-mobility</data>
+    </node>
+    <node id="user.quality_of_life.employment-income">
+      <data key="d0">employment-income</data>
+    </node>
+    <node id="field.region">
+      <data key="d0">field.region</data>
+    </node>
+    <node id="field.role">
+      <data key="d0">field.role</data>
+    </node>
+    <node id="field.vacancies_pct">
+      <data key="d0">field.vacancies_pct</data>
+    </node>
+    <edge source="funder" target="funder.org_unit">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder" target="funder.self_funding">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder" target="funder.financial">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder" target="provider">
+      <data key="d3">0.5</data>
+    </edge>
+    <edge source="funder.org_unit" target="funder.org_unit.local_authority">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit" target="funder.org_unit.NHS_ou">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit" target="funder.org_unit.central_government_ou">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit" target="funder">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority" target="funder.org_unit.local_authority.local_authority_name">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority" target="funder.org_unit.local_authority.local_authority_code">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority" target="funder.org_unit.local_authority.geography_code">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority" target="funder.org_unit.local_authority.region_name">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority" target="funder.org_unit.local_authority.region_code">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority" target="funder.org_unit">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority.local_authority_name" target="funder.org_unit.local_authority">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority.local_authority_code" target="funder.org_unit.local_authority">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority.geography_code" target="funder.org_unit.local_authority">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority.region_name" target="funder.org_unit.local_authority">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority.region_name" target="field.region">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.local_authority.region_code" target="funder.org_unit.local_authority">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou" target="funder.org_unit.NHS_ou.CCG">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou" target="funder.org_unit.NHS_ou.trust">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou" target="funder.org_unit.NHS_ou.STP">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou" target="funder.org_unit.NHS_ou.region">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou" target="funder.org_unit">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou.CCG" target="funder.org_unit.NHS_ou">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou.trust" target="funder.org_unit.NHS_ou">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou.STP" target="funder.org_unit.NHS_ou">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.NHS_ou.region" target="funder.org_unit.NHS_ou">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.org_unit.central_government_ou" target="funder.org_unit">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.self_funding" target="funder">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.financial" target="funder.financial.budget">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.financial" target="funder.financial.expenditure">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.financial" target="funder.financial.income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.financial" target="funder">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.financial" target="unpaid_carer.support_income">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="funder.financial" target="user.support_income">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="funder.financial.budget" target="funder.financial">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.financial.expenditure" target="funder.financial">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="funder.financial.income" target="funder.financial">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider" target="provider.sector">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider" target="provider.investors">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider" target="provider.capacity">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider" target="provider.workforce_management">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider" target="provider.cost-pricing">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider" target="provider.productivity">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider" target="service">
+      <data key="d3">0.5</data>
+    </edge>
+    <edge source="provider" target="workforce">
+      <data key="d3">0.5</data>
+    </edge>
+    <edge source="provider.sector" target="provider.sector.public">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.sector" target="provider.sector.private">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.sector" target="provider">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.sector.public" target="provider.sector">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.sector.private" target="provider.sector">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.investors" target="provider">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.capacity" target="provider">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management" target="provider.workforce_management.filled_jobs">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management" target="provider.workforce_management.vacancies">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management" target="provider.workforce_management.retention-turnover">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management" target="provider.workforce_management.sickness">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management" target="provider">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management" target="field.role">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management.filled_jobs" target="provider.workforce_management">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management.vacancies" target="provider.workforce_management">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management.vacancies" target="field.vacancies_pct">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management.retention-turnover" target="provider.workforce_management">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.workforce_management.sickness" target="provider.workforce_management">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.cost-pricing" target="provider">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="provider.productivity" target="provider">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service" target="service.access">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service" target="service.provision">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service" target="service.integration">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service" target="service.quality">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service" target="unpaid_carer">
+      <data key="d3">0.5</data>
+    </edge>
+    <edge source="service" target="user">
+      <data key="d3">0.5</data>
+    </edge>
+    <edge source="service" target="user.quality_of_life">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="service" target="unpaid_carer.experience.quality_of_life">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="service.access" target="service.access.access_route">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access" target="service.access.sequel_to_service">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access" target="service.access.requests">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access" target="service.access.eligibility">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access" target="service.access.reviews">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access" target="service.access.perception">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access" target="service">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access" target="service.provision">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="service.access.access_route" target="service.access">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.sequel_to_service" target="service.access">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.requests" target="service.access">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.eligibility" target="service.access">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.reviews" target="service.access">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.perception" target="service.access.perception.user">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.perception" target="service.access.perception.general_public">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.perception" target="service.access">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.perception.user" target="service.access.perception">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.access.perception.general_public" target="service.access.perception">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision" target="service.provision.service_type">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision" target="service.provision.setting">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision" target="service.provision.care_models">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision" target="service">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision.service_type" target="service.provision">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision.setting" target="service.provision">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision.care_models" target="service.provision.care_models.packages">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision.care_models" target="service.provision.care_models.self-directed">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision.care_models" target="service.provision">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision.care_models.packages" target="service.provision.care_models">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.provision.care_models.self-directed" target="service.provision.care_models">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration" target="service.integration.NHS">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration" target="service.integration.care_commissioning">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration" target="service.integration.digital_interoperability">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration" target="service.integration.funder_perception">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration" target="service">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration.NHS" target="service.integration.NHS.primary_care">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration.NHS" target="service.integration.NHS.secondary_care">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration.NHS" target="service.integration">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration.NHS.primary_care" target="service.integration.NHS">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration.NHS.secondary_care" target="service.integration.NHS">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration.care_commissioning" target="service.integration">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration.digital_interoperability" target="service.integration">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.integration.funder_perception" target="service.integration">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality" target="service.quality.regulatory_rating">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality" target="service.quality.perception">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality" target="service.quality.safety">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality" target="service">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality.regulatory_rating" target="service.quality">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality.perception" target="service.quality.perception.user">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality.perception" target="service.quality.perception.general_public">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality.perception" target="service.quality">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality.perception.user" target="service.quality.perception">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality.perception.general_public" target="service.quality.perception">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="service.quality.safety" target="service.quality">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce" target="workforce.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce" target="workforce.employment_status">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce" target="workforce.qualifications">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce" target="workforce.experience">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce" target="workforce.income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce" target="user.quality_of_life">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="workforce" target="unpaid_carer.experience.quality_of_life">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="workforce.demographics" target="workforce.demographics.age">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics" target="workforce.demographics.gender">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics" target="workforce.demographics.ethnicity">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics" target="workforce.demographics.sexual_orientation">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics" target="workforce.demographics.religion">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics" target="workforce.demographics.nationality-birth-migration">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics" target="workforce.demographics.socio-economics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics" target="workforce">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics.age" target="workforce.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics.age" target="funder">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="workforce.demographics.gender" target="workforce.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics.ethnicity" target="workforce.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics.sexual_orientation" target="workforce.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics.religion" target="workforce.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics.nationality-birth-migration" target="workforce.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.demographics.socio-economics" target="workforce.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.employment_status" target="workforce">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.qualifications" target="workforce">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.experience" target="workforce.experience.workload">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.experience" target="workforce.experience.engagement">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.experience" target="workforce.experience.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.experience" target="workforce">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.experience.workload" target="workforce.experience">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.experience.engagement" target="workforce.experience">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.experience.quality_of_life" target="workforce.experience">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="workforce.income" target="workforce">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer" target="unpaid_carer.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer" target="unpaid_carer.support_income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer" target="unpaid_carer.health">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer" target="unpaid_carer.experience">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics" target="unpaid_carer.demographics.age">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics" target="unpaid_carer.demographics.gender">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics" target="unpaid_carer.demographics.ethnicity">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics" target="unpaid_carer.demographics.sexual_orientation">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics" target="unpaid_carer.demographics.religion">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics" target="unpaid_carer.demographics.nationality-birth-migration">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics" target="unpaid_carer.demographics.socio-economics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics" target="unpaid_carer">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics.age" target="unpaid_carer.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics.age" target="funder">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="unpaid_carer.demographics.gender" target="unpaid_carer.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics.ethnicity" target="unpaid_carer.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics.sexual_orientation" target="unpaid_carer.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics.religion" target="unpaid_carer.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics.nationality-birth-migration" target="unpaid_carer.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.demographics.socio-economics" target="unpaid_carer.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.support_income" target="unpaid_carer.support_income.direct_payments">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.support_income" target="unpaid_carer.support_income.state_benefits">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.support_income" target="unpaid_carer.support_income.self-funding">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.support_income" target="unpaid_carer">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.support_income.direct_payments" target="unpaid_carer.support_income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.support_income.state_benefits" target="unpaid_carer.support_income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.support_income.self-funding" target="unpaid_carer.support_income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.health" target="unpaid_carer">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience" target="unpaid_carer.experience.workload">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience" target="unpaid_carer.experience.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience" target="unpaid_carer">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience.workload" target="unpaid_carer.experience">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience.quality_of_life" target="unpaid_carer.experience.quality_of_life.well-being">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience.quality_of_life" target="unpaid_carer.experience.quality_of_life.independence-mobility">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience.quality_of_life" target="unpaid_carer.experience.quality_of_life.employment-income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience.quality_of_life" target="unpaid_carer.experience">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience.quality_of_life.well-being" target="unpaid_carer.experience.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience.quality_of_life.independence-mobility" target="unpaid_carer.experience.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="unpaid_carer.experience.quality_of_life.employment-income" target="unpaid_carer.experience.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user" target="user.context">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user" target="user.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user" target="user.health">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user" target="user.support_reason">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user" target="user.support_income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user" target="user.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.context" target="user.context.family-household">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.context" target="user.context.accommodation">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.context" target="user">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.context.family-household" target="user.context">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.context.accommodation" target="user.context">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics" target="user.demographics.age">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics" target="user.demographics.gender">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics" target="user.demographics.ethnicity">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics" target="user.demographics.sexual_orientation">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics" target="user.demographics.religion">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics" target="user.demographics.nationality-birth-migration">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics" target="user.demographics.socio-economics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics" target="user">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics.age" target="user.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics.age" target="funder">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="user.demographics.gender" target="user.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics.ethnicity" target="user.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics.sexual_orientation" target="user.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics.religion" target="user.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics.nationality-birth-migration" target="user.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.demographics.socio-economics" target="user.demographics">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.health" target="user">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.health" target="service.access.requests">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="user.health" target="funder.financial">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="user.support_reason" target="user">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.support_reason" target="service.access.requests">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="user.support_reason" target="funder.financial">
+      <data key="d3">0.1</data>
+    </edge>
+    <edge source="user.support_income" target="user.support_income.direct_payments">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.support_income" target="user.support_income.state_benefits">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.support_income" target="user.support_income.self-funding">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.support_income" target="user">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.support_income.direct_payments" target="user.support_income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.support_income.state_benefits" target="user.support_income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.support_income.self-funding" target="user.support_income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.quality_of_life" target="user.quality_of_life.well-being">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.quality_of_life" target="user.quality_of_life.independence-mobility">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.quality_of_life" target="user.quality_of_life.employment-income">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.quality_of_life" target="user">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.quality_of_life.well-being" target="user.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.quality_of_life.independence-mobility" target="user.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="user.quality_of_life.employment-income" target="user.quality_of_life">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="field.region" target="funder.org_unit.local_authority.region_name">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="field.role" target="provider.workforce_management">
+      <data key="d3">1.0</data>
+    </edge>
+    <edge source="field.vacancies_pct" target="provider.workforce_management.vacancies">
+      <data key="d3">1.0</data>
+    </edge>
+  </graph>
+</graphml>
