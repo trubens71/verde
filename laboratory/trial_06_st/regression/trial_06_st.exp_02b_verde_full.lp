@@ -1853,55 +1853,55 @@ soft(rule_01_01_05,V) :- channel(V,E1,size), field(V,E1,"zero_hr_contract_pct"),
 #const rule_01_01_05_weight = 100.
 soft_weight(rule_01_01_05,rule_01_01_05_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer x=role y=zero_hr_contract_pct
-soft(rule_01_02_00,V) :- channel(V,E1,x), field(V,E1,"zero_hr_contract_pct"),
+% prefer x=zero_hr_contract_pct y=role
+soft(rule_01_02_00,V) :- channel(V,E1,x), field(V,E1,"role"),
                          type(V,E1,quantitative),
-                         channel(V,E2,y), field(V,E2,"role"),
+                         channel(V,E2,y), field(V,E2,"zero_hr_contract_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_02_00_weight = 100.
 soft_weight(rule_01_02_00,rule_01_02_00_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer x=role size=zero_hr_contract_pct
-soft(rule_01_02_01,V) :- channel(V,E1,x), field(V,E1,"zero_hr_contract_pct"),
+% prefer x=zero_hr_contract_pct size=role
+soft(rule_01_02_01,V) :- channel(V,E1,x), field(V,E1,"role"),
                          type(V,E1,quantitative),
-                         channel(V,E2,size), field(V,E2,"role"),
+                         channel(V,E2,size), field(V,E2,"zero_hr_contract_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_02_01_weight = 100.
 soft_weight(rule_01_02_01,rule_01_02_01_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer x=role color=zero_hr_contract_pct
-soft(rule_01_02_02,V) :- channel(V,E1,x), field(V,E1,"zero_hr_contract_pct"),
+% prefer x=zero_hr_contract_pct color=role
+soft(rule_01_02_02,V) :- channel(V,E1,x), field(V,E1,"role"),
                          type(V,E1,quantitative),
-                         channel(V,E2,color), field(V,E2,"role"),
+                         channel(V,E2,color), field(V,E2,"zero_hr_contract_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_02_02_weight = 100.
 soft_weight(rule_01_02_02,rule_01_02_02_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer y=role size=zero_hr_contract_pct
-soft(rule_01_02_03,V) :- channel(V,E1,y), field(V,E1,"zero_hr_contract_pct"),
+% prefer y=zero_hr_contract_pct size=role
+soft(rule_01_02_03,V) :- channel(V,E1,y), field(V,E1,"role"),
                          type(V,E1,quantitative),
-                         channel(V,E2,size), field(V,E2,"role"),
+                         channel(V,E2,size), field(V,E2,"zero_hr_contract_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_02_03_weight = 100.
 soft_weight(rule_01_02_03,rule_01_02_03_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer y=role color=zero_hr_contract_pct
-soft(rule_01_02_04,V) :- channel(V,E1,y), field(V,E1,"zero_hr_contract_pct"),
+% prefer y=zero_hr_contract_pct color=role
+soft(rule_01_02_04,V) :- channel(V,E1,y), field(V,E1,"role"),
                          type(V,E1,quantitative),
-                         channel(V,E2,color), field(V,E2,"role"),
+                         channel(V,E2,color), field(V,E2,"zero_hr_contract_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_02_04_weight = 100.
 soft_weight(rule_01_02_04,rule_01_02_04_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer size=role color=zero_hr_contract_pct
-soft(rule_01_02_05,V) :- channel(V,E1,size), field(V,E1,"zero_hr_contract_pct"),
+% prefer size=zero_hr_contract_pct color=role
+soft(rule_01_02_05,V) :- channel(V,E1,size), field(V,E1,"role"),
                          type(V,E1,quantitative),
-                         channel(V,E2,color), field(V,E2,"role"),
+                         channel(V,E2,color), field(V,E2,"zero_hr_contract_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_02_05_weight = 100.

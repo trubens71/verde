@@ -857,6 +857,9 @@
     <edge source="workforce.employment_status" target="field.zero_hr_contract_direct_care_pct">
       <data key="d3">1.0</data>
     </edge>
+    <edge source="workforce.employment_status" target="provider.workforce_management">
+      <data key="d3">0.1</data>
+    </edge>
     <edge source="workforce.qualifications" target="workforce">
       <data key="d3">1.0</data>
     </edge>

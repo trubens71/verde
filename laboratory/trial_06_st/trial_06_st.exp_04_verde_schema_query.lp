@@ -55,55 +55,55 @@ encoding(v_v,e2).
 % the channel priority order is ['x', 'y', 'size', 'color']
 % breaking these soft constraints incurs a cost of 100
 
-% prefer x=vacancies_direct_care_pct y=zero_hr_contract_direct_care_pct
-soft(rule_01_00_00,V) :- channel(V,E1,x), field(V,E1,"zero_hr_contract_direct_care_pct"),
+% prefer x=zero_hr_contract_direct_care_pct y=vacancies_direct_care_pct
+soft(rule_01_00_00,V) :- channel(V,E1,x), field(V,E1,"vacancies_direct_care_pct"),
                          type(V,E1,quantitative),
-                         channel(V,E2,y), field(V,E2,"vacancies_direct_care_pct"),
+                         channel(V,E2,y), field(V,E2,"zero_hr_contract_direct_care_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_00_00_weight = 100.
 soft_weight(rule_01_00_00,rule_01_00_00_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer x=vacancies_direct_care_pct size=zero_hr_contract_direct_care_pct
-soft(rule_01_00_01,V) :- channel(V,E1,x), field(V,E1,"zero_hr_contract_direct_care_pct"),
+% prefer x=zero_hr_contract_direct_care_pct size=vacancies_direct_care_pct
+soft(rule_01_00_01,V) :- channel(V,E1,x), field(V,E1,"vacancies_direct_care_pct"),
                          type(V,E1,quantitative),
-                         channel(V,E2,size), field(V,E2,"vacancies_direct_care_pct"),
+                         channel(V,E2,size), field(V,E2,"zero_hr_contract_direct_care_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_00_01_weight = 100.
 soft_weight(rule_01_00_01,rule_01_00_01_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer x=vacancies_direct_care_pct color=zero_hr_contract_direct_care_pct
-soft(rule_01_00_02,V) :- channel(V,E1,x), field(V,E1,"zero_hr_contract_direct_care_pct"),
+% prefer x=zero_hr_contract_direct_care_pct color=vacancies_direct_care_pct
+soft(rule_01_00_02,V) :- channel(V,E1,x), field(V,E1,"vacancies_direct_care_pct"),
                          type(V,E1,quantitative),
-                         channel(V,E2,color), field(V,E2,"vacancies_direct_care_pct"),
+                         channel(V,E2,color), field(V,E2,"zero_hr_contract_direct_care_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_00_02_weight = 100.
 soft_weight(rule_01_00_02,rule_01_00_02_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer y=vacancies_direct_care_pct size=zero_hr_contract_direct_care_pct
-soft(rule_01_00_03,V) :- channel(V,E1,y), field(V,E1,"zero_hr_contract_direct_care_pct"),
+% prefer y=zero_hr_contract_direct_care_pct size=vacancies_direct_care_pct
+soft(rule_01_00_03,V) :- channel(V,E1,y), field(V,E1,"vacancies_direct_care_pct"),
                          type(V,E1,quantitative),
-                         channel(V,E2,size), field(V,E2,"vacancies_direct_care_pct"),
+                         channel(V,E2,size), field(V,E2,"zero_hr_contract_direct_care_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_00_03_weight = 100.
 soft_weight(rule_01_00_03,rule_01_00_03_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer y=vacancies_direct_care_pct color=zero_hr_contract_direct_care_pct
-soft(rule_01_00_04,V) :- channel(V,E1,y), field(V,E1,"zero_hr_contract_direct_care_pct"),
+% prefer y=zero_hr_contract_direct_care_pct color=vacancies_direct_care_pct
+soft(rule_01_00_04,V) :- channel(V,E1,y), field(V,E1,"vacancies_direct_care_pct"),
                          type(V,E1,quantitative),
-                         channel(V,E2,color), field(V,E2,"vacancies_direct_care_pct"),
+                         channel(V,E2,color), field(V,E2,"zero_hr_contract_direct_care_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_00_04_weight = 100.
 soft_weight(rule_01_00_04,rule_01_00_04_weight).
 % ----------------------------------------------------------------------------------------------------------------------%
-% prefer size=vacancies_direct_care_pct color=zero_hr_contract_direct_care_pct
-soft(rule_01_00_05,V) :- channel(V,E1,size), field(V,E1,"zero_hr_contract_direct_care_pct"),
+% prefer size=zero_hr_contract_direct_care_pct color=vacancies_direct_care_pct
+soft(rule_01_00_05,V) :- channel(V,E1,size), field(V,E1,"vacancies_direct_care_pct"),
                          type(V,E1,quantitative),
-                         channel(V,E2,color), field(V,E2,"vacancies_direct_care_pct"),
+                         channel(V,E2,color), field(V,E2,"zero_hr_contract_direct_care_pct"),
                          type(V,E2,quantitative),
                          is_c_c(V).
 #const rule_01_00_05_weight = 100.

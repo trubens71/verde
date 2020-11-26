@@ -1,884 +1,887 @@
-2020-11-26 16:44:47 : INFO : validating ../laboratory/trial_06_st/trial.yaml against ../schemas/verde_trial_schema.json
-2020-11-26 16:44:47 : INFO : successfully validated
-2020-11-26 16:44:47 : INFO : loading trial config from ../laboratory/trial_06_st/trial.yaml
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_01a1
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_01a2
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_01b
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_01c1
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_01c2
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_02a
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_02b
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_03a
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_03b
-2020-11-26 16:44:47 : INFO : creating experiment trial_06_st.exp_04
-2020-11-26 16:44:47 : INFO : *** running trial trial_06_st ***
-2020-11-26 16:44:47 : INFO : *** running experiment trial_06_st.exp_01a1 ***
-2020-11-26 16:44:47 : INFO : deleting experiment output files trial_06_st.exp_01a1* recursively from ../laboratory/trial_06_st
-2020-11-26 16:44:48 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:44:48 : INFO : successfully validated
-2020-11-26 16:44:48 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:44:48 : INFO : successfully validated
-2020-11-26 16:44:48 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01a1_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:44:48 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01a1_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:44:48 : INFO : fixing query field names
-2020-11-26 16:44:48 : INFO : creating baseline schema and query lp
-2020-11-26 16:44:49 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01a1_baseline_schema_query.lp
-2020-11-26 16:44:49 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01a1_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:44:49 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:44:49 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:44:49 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:44:49 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:44:49 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:49 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01a1.graphml
-2020-11-26 16:44:49 : INFO : preference is explanatory=field.region, response=field.zero_hr_contract_all_pct with path length 7.0
-2020-11-26 16:44:49 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:44:49 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:44:49 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:44:49 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:44:49 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:44:49 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:44:49 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:44:49 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:49 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:49 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:49 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:49 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:49 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:49 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:49 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:49 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:49 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:49 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:49 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:49 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:49 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:49 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:49 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01a1_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:44:49 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:44:50 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:44:50 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:44:50 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:44:50 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:44:50 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:44:50 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:44:50 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:44:50 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:44:50 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:50 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:50 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:50 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:50 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:44:50 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:50 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:50 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:50 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:50 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:44:50 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:50 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:50 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:50 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:50 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:44:50 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour.lpt
-2020-11-26 16:44:50 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01a1_verde_schema_query.lp
-2020-11-26 16:44:50 : INFO : getting baseline draco visualisations for trial_06_st.exp_01a1
-2020-11-26 16:44:50 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01a1_baseline_full.lp
-2020-11-26 16:44:50 : INFO : running draco for baseline
-2020-11-26 16:44:50 : INFO : processing results
-2020-11-26 16:44:57 : INFO : writing vega-lite specs
-2020-11-26 16:44:57 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:44:57 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01a1_baseline_results.json
-2020-11-26 16:44:57 : INFO : getting verde draco visualisations for trial_06_st.exp_01a1 with verde base lp override
-2020-11-26 16:44:57 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:44:57 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01a1_verde_full.lp
-2020-11-26 16:44:57 : INFO : running draco for verde
-2020-11-26 16:44:57 : INFO : processing results
-2020-11-26 16:45:03 : INFO : writing vega-lite specs
-2020-11-26 16:45:03 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:45:04 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01a1_verde_results.json
-2020-11-26 16:45:04 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_all_vl.json
-2020-11-26 16:45:04 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:45:04 : INFO : successfully validated
-2020-11-26 16:45:04 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_all_vl.json
-2020-11-26 16:45:04 : INFO : 20 matching visualisations between baseline and verde 100.0%
-2020-11-26 16:45:04 : INFO : 0 baseline visualisations not in verde
-2020-11-26 16:45:04 : INFO : 0 verde visualisations not in verde
-2020-11-26 16:45:04 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare_match.csv
-2020-11-26 16:45:04 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare_model.csv
-2020-11-26 16:45:04 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare_violations.csv
-2020-11-26 16:45:04 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare_props.csv
-2020-11-26 16:45:04 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare.html
-2020-11-26 16:45:04 : INFO : *** running experiment trial_06_st.exp_01a2 ***
-2020-11-26 16:45:04 : INFO : deleting experiment output files trial_06_st.exp_01a2* recursively from ../laboratory/trial_06_st
-2020-11-26 16:45:04 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:45:04 : INFO : successfully validated
-2020-11-26 16:45:04 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:45:04 : INFO : successfully validated
-2020-11-26 16:45:04 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01a2_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:45:04 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01a2_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:45:04 : INFO : fixing query field names
-2020-11-26 16:45:04 : INFO : creating baseline schema and query lp
-2020-11-26 16:45:05 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01a2_baseline_schema_query.lp
-2020-11-26 16:45:05 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01a2_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:45:05 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:45:05 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:05 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:05 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01a2.graphml
-2020-11-26 16:45:05 : INFO : preference is explanatory=field.region, response=field.zero_hr_contract_all_pct with path length 7.0
-2020-11-26 16:45:05 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:45:05 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:45:05 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:45:05 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:05 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:05 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:05 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01a2_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:45:05 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:45:05 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:45:05 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:45:05 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:45:05 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:45:05 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:05 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:05 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:05 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:05 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:05 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:05 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:45:05 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01a2_verde_schema_query.lp
-2020-11-26 16:45:05 : INFO : getting baseline draco visualisations for trial_06_st.exp_01a2
-2020-11-26 16:45:05 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01a2_baseline_full.lp
-2020-11-26 16:45:05 : INFO : running draco for baseline
-2020-11-26 16:45:05 : INFO : processing results
-2020-11-26 16:45:11 : INFO : writing vega-lite specs
-2020-11-26 16:45:11 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:45:11 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01a2_baseline_results.json
-2020-11-26 16:45:11 : INFO : getting verde draco visualisations for trial_06_st.exp_01a2 with verde base lp override
-2020-11-26 16:45:11 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:45:11 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01a2_verde_full.lp
-2020-11-26 16:45:11 : INFO : running draco for verde
-2020-11-26 16:45:11 : INFO : processing results
-2020-11-26 16:45:18 : INFO : writing vega-lite specs
-2020-11-26 16:45:18 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:45:18 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01a2_verde_results.json
-2020-11-26 16:45:18 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_all_vl.json
-2020-11-26 16:45:18 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:45:18 : INFO : successfully validated
-2020-11-26 16:45:18 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_all_vl.json
-2020-11-26 16:45:18 : INFO : 24 matching visualisations between baseline and verde 120.0%
-2020-11-26 16:45:18 : INFO : 1 baseline visualisations not in verde
-2020-11-26 16:45:18 : INFO : 0 verde visualisations not in verde
-2020-11-26 16:45:18 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare_match.csv
-2020-11-26 16:45:18 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare_model.csv
-2020-11-26 16:45:18 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare_violations.csv
-2020-11-26 16:45:18 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare_props.csv
-2020-11-26 16:45:18 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare.html
-2020-11-26 16:45:18 : INFO : *** running experiment trial_06_st.exp_01b ***
-2020-11-26 16:45:18 : INFO : deleting experiment output files trial_06_st.exp_01b* recursively from ../laboratory/trial_06_st
-2020-11-26 16:45:18 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:45:18 : INFO : successfully validated
-2020-11-26 16:45:18 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:45:18 : INFO : successfully validated
-2020-11-26 16:45:18 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:45:18 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:45:18 : INFO : fixing query field names
-2020-11-26 16:45:18 : INFO : creating baseline schema and query lp
-2020-11-26 16:45:19 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01b_baseline_schema_query.lp
-2020-11-26 16:45:19 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:45:19 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:45:19 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:19 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:19 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:19 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01b.graphml
-2020-11-26 16:45:19 : INFO : preference is explanatory=field.region, response=field.vacancies_all_pct with path length 7.5
-2020-11-26 16:45:19 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:45:19 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:45:19 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:45:19 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:19 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:19 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:19 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:45:19 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:45:19 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:45:19 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:45:19 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:45:19 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:45:19 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:19 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:19 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:19 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:19 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:19 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:19 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:45:19 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01b_verde_schema_query.lp
-2020-11-26 16:45:19 : INFO : getting baseline draco visualisations for trial_06_st.exp_01b
-2020-11-26 16:45:19 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01b_baseline_full.lp
-2020-11-26 16:45:19 : INFO : running draco for baseline
-2020-11-26 16:45:19 : INFO : processing results
-2020-11-26 16:45:26 : INFO : writing vega-lite specs
-2020-11-26 16:45:26 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:45:26 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01b_baseline_results.json
-2020-11-26 16:45:26 : INFO : getting verde draco visualisations for trial_06_st.exp_01b with verde base lp override
-2020-11-26 16:45:26 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:45:26 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01b_verde_full.lp
-2020-11-26 16:45:26 : INFO : running draco for verde
-2020-11-26 16:45:26 : INFO : processing results
-2020-11-26 16:45:33 : INFO : writing vega-lite specs
-2020-11-26 16:45:33 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:45:33 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01b_verde_results.json
-2020-11-26 16:45:33 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_all_vl.json
-2020-11-26 16:45:33 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:45:33 : INFO : successfully validated
-2020-11-26 16:45:33 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_all_vl.json
-2020-11-26 16:45:33 : INFO : 23 matching visualisations between baseline and verde 115.0%
-2020-11-26 16:45:33 : INFO : 1 baseline visualisations not in verde
-2020-11-26 16:45:33 : INFO : 1 verde visualisations not in verde
-2020-11-26 16:45:33 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare_match.csv
-2020-11-26 16:45:33 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare_model.csv
-2020-11-26 16:45:33 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare_violations.csv
-2020-11-26 16:45:33 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare_props.csv
-2020-11-26 16:45:33 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare.html
-2020-11-26 16:45:33 : INFO : *** running experiment trial_06_st.exp_01c1 ***
-2020-11-26 16:45:33 : INFO : deleting experiment output files trial_06_st.exp_01c1* recursively from ../laboratory/trial_06_st
-2020-11-26 16:45:33 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:45:33 : INFO : successfully validated
-2020-11-26 16:45:33 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:45:33 : INFO : successfully validated
-2020-11-26 16:45:33 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01c1_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:45:33 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01c1_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:45:33 : INFO : fixing query field names
-2020-11-26 16:45:33 : INFO : creating baseline schema and query lp
-2020-11-26 16:45:34 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01c1_baseline_schema_query.lp
-2020-11-26 16:45:34 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01c1_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:45:34 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:45:34 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:34 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:34 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:34 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01c1.graphml
-2020-11-26 16:45:34 : INFO : preference is explanatory=field.region, response=field.QoL_all with path length 7.1
-2020-11-26 16:45:34 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:45:34 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:45:34 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:45:34 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:34 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:34 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:34 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01c1_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:45:34 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:45:34 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:45:34 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:45:34 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:45:34 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:45:34 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:34 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:34 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:34 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:34 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:34 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:34 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:45:34 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01c1_verde_schema_query.lp
-2020-11-26 16:45:34 : INFO : getting baseline draco visualisations for trial_06_st.exp_01c1
-2020-11-26 16:45:34 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01c1_baseline_full.lp
-2020-11-26 16:45:34 : INFO : running draco for baseline
-2020-11-26 16:45:34 : INFO : processing results
-2020-11-26 16:45:40 : INFO : writing vega-lite specs
-2020-11-26 16:45:40 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:45:40 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01c1_baseline_results.json
-2020-11-26 16:45:40 : INFO : getting verde draco visualisations for trial_06_st.exp_01c1 with verde base lp override
-2020-11-26 16:45:40 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:45:40 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01c1_verde_full.lp
-2020-11-26 16:45:40 : INFO : running draco for verde
-2020-11-26 16:45:41 : INFO : processing results
-2020-11-26 16:45:47 : INFO : writing vega-lite specs
-2020-11-26 16:45:47 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:45:47 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01c1_verde_results.json
-2020-11-26 16:45:47 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_all_vl.json
-2020-11-26 16:45:47 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:45:47 : INFO : successfully validated
-2020-11-26 16:45:47 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_all_vl.json
-2020-11-26 16:45:47 : INFO : 24 matching visualisations between baseline and verde 120.0%
-2020-11-26 16:45:47 : INFO : 0 baseline visualisations not in verde
-2020-11-26 16:45:47 : INFO : 0 verde visualisations not in verde
-2020-11-26 16:45:47 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare_match.csv
-2020-11-26 16:45:47 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare_model.csv
-2020-11-26 16:45:47 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare_violations.csv
-2020-11-26 16:45:47 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare_props.csv
-2020-11-26 16:45:47 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare.html
-2020-11-26 16:45:47 : INFO : *** running experiment trial_06_st.exp_01c2 ***
-2020-11-26 16:45:47 : INFO : deleting experiment output files trial_06_st.exp_01c2* recursively from ../laboratory/trial_06_st
-2020-11-26 16:45:47 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:45:48 : INFO : successfully validated
-2020-11-26 16:45:48 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:45:48 : INFO : successfully validated
-2020-11-26 16:45:48 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01c2_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:45:48 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01c2_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:45:48 : INFO : fixing query field names
-2020-11-26 16:45:48 : INFO : creating baseline schema and query lp
-2020-11-26 16:45:48 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01c2_baseline_schema_query.lp
-2020-11-26 16:45:48 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01c2_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:45:48 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:45:48 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:48 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:48 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:48 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01c2.graphml
-2020-11-26 16:45:48 : INFO : preference is explanatory=field.region, response=field.QoL_all with path length 7.1
-2020-11-26 16:45:48 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:45:48 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:45:48 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:45:48 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:48 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:48 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:48 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01c2_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:45:48 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:45:48 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:45:48 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:45:48 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:45:48 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:45:48 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:45:48 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:45:48 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:45:48 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:45:48 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:45:48 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:45:48 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:45:48 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01c2_verde_schema_query.lp
-2020-11-26 16:45:48 : INFO : getting baseline draco visualisations for trial_06_st.exp_01c2
-2020-11-26 16:45:48 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01c2_baseline_full.lp
-2020-11-26 16:45:48 : INFO : running draco for baseline
-2020-11-26 16:45:49 : INFO : processing results
-2020-11-26 16:45:55 : INFO : writing vega-lite specs
-2020-11-26 16:45:55 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:45:55 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01c2_baseline_results.json
-2020-11-26 16:45:55 : INFO : getting verde draco visualisations for trial_06_st.exp_01c2 with verde base lp override
-2020-11-26 16:45:55 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:45:55 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01c2_verde_full.lp
-2020-11-26 16:45:55 : INFO : running draco for verde
-2020-11-26 16:45:55 : INFO : processing results
-2020-11-26 16:46:02 : INFO : writing vega-lite specs
-2020-11-26 16:46:02 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:46:02 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01c2_verde_results.json
-2020-11-26 16:46:02 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_all_vl.json
-2020-11-26 16:46:02 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:46:02 : INFO : successfully validated
-2020-11-26 16:46:02 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_all_vl.json
-2020-11-26 16:46:02 : INFO : 22 matching visualisations between baseline and verde 110.0%
-2020-11-26 16:46:02 : INFO : 2 baseline visualisations not in verde
-2020-11-26 16:46:02 : INFO : 2 verde visualisations not in verde
-2020-11-26 16:46:02 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare_match.csv
-2020-11-26 16:46:02 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare_model.csv
-2020-11-26 16:46:02 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare_violations.csv
-2020-11-26 16:46:02 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare_props.csv
-2020-11-26 16:46:02 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare.html
-2020-11-26 16:46:02 : INFO : *** running experiment trial_06_st.exp_02a ***
-2020-11-26 16:46:02 : INFO : deleting experiment output files trial_06_st.exp_02a* recursively from ../laboratory/trial_06_st
-2020-11-26 16:46:02 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:46:02 : INFO : successfully validated
-2020-11-26 16:46:02 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:46:02 : INFO : successfully validated
-2020-11-26 16:46:02 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_02a_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_colfix.csv
-2020-11-26 16:46:02 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_02a_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping_colfix.json
-2020-11-26 16:46:02 : INFO : fixing query field names
-2020-11-26 16:46:02 : INFO : creating baseline schema and query lp
-2020-11-26 16:46:03 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_02a_baseline_schema_query.lp
-2020-11-26 16:46:03 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_02a_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping_colfix.json
-2020-11-26 16:46:03 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:46:03 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:03 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:03 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:03 : INFO : role is mapped to ['provider.workforce_management']
-2020-11-26 16:46:03 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:46:03 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_02a.graphml
-2020-11-26 16:46:03 : INFO : preference is explanatory=field.region, response=field.role with path length 6.5
-2020-11-26 16:46:03 : INFO : preference is explanatory=field.region, response=field.vacancies_pct with path length 7.5
-2020-11-26 16:46:03 : INFO : found the same finite path length, so arbitrarily explanatory=field.role, response=field.vacancies_pct
-2020-11-26 16:46:03 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:46:03 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:46:03 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:46:03 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:03 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:03 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:03 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:46:03 : INFO : role is mapped to ['provider.workforce_management']
-2020-11-26 16:46:03 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:46:03 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:46:03 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_02a_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_colfix.csv
-2020-11-26 16:46:03 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:46:03 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:46:03 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:46:03 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:46:03 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:46:03 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:03 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:03 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:03 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:46:03 : INFO : role is mapped to ['provider.workforce_management']
-2020-11-26 16:46:03 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:46:03 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:46:03 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:46:03 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_02a_verde_schema_query.lp
-2020-11-26 16:46:03 : INFO : getting baseline draco visualisations for trial_06_st.exp_02a
-2020-11-26 16:46:03 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_02a_baseline_full.lp
-2020-11-26 16:46:03 : INFO : running draco for baseline
-2020-11-26 16:46:03 : INFO : processing results
-2020-11-26 16:46:09 : INFO : writing vega-lite specs
-2020-11-26 16:46:09 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:46:09 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_02a_baseline_results.json
-2020-11-26 16:46:09 : INFO : getting verde draco visualisations for trial_06_st.exp_02a with verde base lp override
-2020-11-26 16:46:09 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:46:09 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_02a_verde_full.lp
-2020-11-26 16:46:09 : INFO : running draco for verde
-2020-11-26 16:46:10 : INFO : processing results
-2020-11-26 16:46:16 : INFO : writing vega-lite specs
-2020-11-26 16:46:16 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:46:16 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_02a_verde_results.json
-2020-11-26 16:46:16 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_all_vl.json
-2020-11-26 16:46:16 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:46:16 : INFO : successfully validated
-2020-11-26 16:46:16 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_all_vl.json
-2020-11-26 16:46:16 : INFO : 27 matching visualisations between baseline and verde 135.0%
-2020-11-26 16:46:16 : INFO : 1 baseline visualisations not in verde
-2020-11-26 16:46:16 : INFO : 1 verde visualisations not in verde
-2020-11-26 16:46:16 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare_match.csv
-2020-11-26 16:46:16 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare_model.csv
-2020-11-26 16:46:16 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare_violations.csv
-2020-11-26 16:46:16 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare_props.csv
-2020-11-26 16:46:16 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare.html
-2020-11-26 16:46:16 : INFO : *** running experiment trial_06_st.exp_02b ***
-2020-11-26 16:46:16 : INFO : deleting experiment output files trial_06_st.exp_02b* recursively from ../laboratory/trial_06_st
-2020-11-26 16:46:16 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:46:16 : INFO : successfully validated
-2020-11-26 16:46:16 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:46:16 : INFO : successfully validated
-2020-11-26 16:46:16 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_02b_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_colfix.csv
-2020-11-26 16:46:16 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_02b_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping_colfix.json
-2020-11-26 16:46:16 : INFO : fixing query field names
-2020-11-26 16:46:16 : INFO : creating baseline schema and query lp
-2020-11-26 16:46:17 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_02b_baseline_schema_query.lp
-2020-11-26 16:46:17 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_02b_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping_colfix.json
-2020-11-26 16:46:17 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:46:17 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:17 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:17 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:17 : INFO : role is mapped to ['provider.workforce_management']
-2020-11-26 16:46:17 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:46:17 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_02b.graphml
-2020-11-26 16:46:17 : INFO : preference is explanatory=field.region, response=field.role with path length 6.5
-2020-11-26 16:46:17 : INFO : preference is explanatory=field.region, response=field.zero_hr_contract_pct with path length 7.0
-2020-11-26 16:46:17 : INFO : preference is explanatory=field.role, response=field.zero_hr_contract_pct with path length 4.5
-2020-11-26 16:46:17 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:46:17 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:46:17 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:46:17 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:17 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:17 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:17 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:46:17 : INFO : role is mapped to ['provider.workforce_management']
-2020-11-26 16:46:17 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:46:17 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:46:17 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_02b_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_colfix.csv
-2020-11-26 16:46:17 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:46:17 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:46:17 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:46:17 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:46:17 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:46:17 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:17 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:17 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:17 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:46:17 : INFO : role is mapped to ['provider.workforce_management']
-2020-11-26 16:46:17 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:46:17 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:46:17 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:46:17 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_02b_verde_schema_query.lp
-2020-11-26 16:46:17 : INFO : getting baseline draco visualisations for trial_06_st.exp_02b
-2020-11-26 16:46:17 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_02b_baseline_full.lp
-2020-11-26 16:46:17 : INFO : running draco for baseline
-2020-11-26 16:46:17 : INFO : processing results
-2020-11-26 16:46:24 : INFO : writing vega-lite specs
-2020-11-26 16:46:24 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:46:24 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_02b_baseline_results.json
-2020-11-26 16:46:24 : INFO : getting verde draco visualisations for trial_06_st.exp_02b with verde base lp override
-2020-11-26 16:46:24 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:46:24 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_02b_verde_full.lp
-2020-11-26 16:46:24 : INFO : running draco for verde
-2020-11-26 16:46:24 : INFO : processing results
-2020-11-26 16:46:30 : INFO : writing vega-lite specs
-2020-11-26 16:46:30 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:46:30 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_02b_verde_results.json
-2020-11-26 16:46:30 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_all_vl.json
-2020-11-26 16:46:30 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:46:30 : INFO : successfully validated
-2020-11-26 16:46:30 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_all_vl.json
-2020-11-26 16:46:30 : INFO : 27 matching visualisations between baseline and verde 135.0%
-2020-11-26 16:46:30 : INFO : 1 baseline visualisations not in verde
-2020-11-26 16:46:30 : INFO : 1 verde visualisations not in verde
-2020-11-26 16:46:30 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare_match.csv
-2020-11-26 16:46:30 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare_model.csv
-2020-11-26 16:46:30 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare_violations.csv
-2020-11-26 16:46:30 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare_props.csv
-2020-11-26 16:46:31 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare.html
-2020-11-26 16:46:31 : INFO : *** running experiment trial_06_st.exp_03a ***
-2020-11-26 16:46:31 : INFO : deleting experiment output files trial_06_st.exp_03a* recursively from ../laboratory/trial_06_st
-2020-11-26 16:46:31 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:46:31 : INFO : successfully validated
-2020-11-26 16:46:31 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:46:31 : INFO : successfully validated
-2020-11-26 16:46:31 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_03a_WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_colfix.csv
-2020-11-26 16:46:31 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_03a_WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping_colfix.json
-2020-11-26 16:46:31 : INFO : fixing query field names
-2020-11-26 16:46:31 : INFO : creating baseline schema and query lp
-2020-11-26 16:46:31 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_03a_baseline_schema_query.lp
-2020-11-26 16:46:31 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_03a_WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping_colfix.json
-2020-11-26 16:46:31 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:46:31 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:31 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:31 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:31 : INFO : gender is mapped to ['user.demographics.gender']
-2020-11-26 16:46:31 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:46:31 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_03a.graphml
-2020-11-26 16:46:31 : INFO : preference is explanatory=field.gender, response=field.region with path length 7.1
-2020-11-26 16:46:31 : INFO : preference is explanatory=field.region, response=field.QoL with path length 7.1
-2020-11-26 16:46:31 : INFO : found the same finite path length, so arbitrarily explanatory=field.gender, response=field.QoL
-2020-11-26 16:46:31 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:46:31 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:46:31 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:46:31 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:31 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:31 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:31 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:46:31 : INFO : gender is mapped to ['user.demographics.gender']
-2020-11-26 16:46:31 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:46:31 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_03a_WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_colfix.csv
-2020-11-26 16:46:31 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:46:32 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:46:32 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:46:32 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:46:32 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:46:32 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:32 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:32 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:32 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:46:32 : INFO : gender is mapped to ['user.demographics.gender']
-2020-11-26 16:46:32 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:46:32 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:46:32 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_03a_verde_schema_query.lp
-2020-11-26 16:46:32 : INFO : getting baseline draco visualisations for trial_06_st.exp_03a
-2020-11-26 16:46:32 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_03a_baseline_full.lp
-2020-11-26 16:46:32 : INFO : running draco for baseline
-2020-11-26 16:46:32 : INFO : processing results
-2020-11-26 16:46:38 : INFO : writing vega-lite specs
-2020-11-26 16:46:38 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:46:38 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_03a_baseline_results.json
-2020-11-26 16:46:39 : INFO : getting verde draco visualisations for trial_06_st.exp_03a with verde base lp override
-2020-11-26 16:46:39 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:46:39 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_03a_verde_full.lp
-2020-11-26 16:46:39 : INFO : running draco for verde
-2020-11-26 16:46:39 : INFO : processing results
-2020-11-26 16:46:45 : INFO : writing vega-lite specs
-2020-11-26 16:46:45 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:46:45 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_03a_verde_results.json
-2020-11-26 16:46:45 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_all_vl.json
-2020-11-26 16:46:45 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:46:45 : INFO : successfully validated
-2020-11-26 16:46:45 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_all_vl.json
-2020-11-26 16:46:45 : INFO : 19 matching visualisations between baseline and verde 95.0%
-2020-11-26 16:46:45 : INFO : 1 baseline visualisations not in verde
-2020-11-26 16:46:45 : INFO : 1 verde visualisations not in verde
-2020-11-26 16:46:45 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare_match.csv
-2020-11-26 16:46:45 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare_model.csv
-2020-11-26 16:46:45 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare_violations.csv
-2020-11-26 16:46:45 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare_props.csv
-2020-11-26 16:46:45 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare.html
-2020-11-26 16:46:45 : INFO : *** running experiment trial_06_st.exp_03b ***
-2020-11-26 16:46:45 : INFO : deleting experiment output files trial_06_st.exp_03b* recursively from ../laboratory/trial_06_st
-2020-11-26 16:46:45 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:46:45 : INFO : successfully validated
-2020-11-26 16:46:45 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:46:45 : INFO : successfully validated
-2020-11-26 16:46:45 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_03b_WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_colfix.csv
-2020-11-26 16:46:45 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_03b_WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping_colfix.json
-2020-11-26 16:46:45 : INFO : fixing query field names
-2020-11-26 16:46:45 : INFO : creating baseline schema and query lp
-2020-11-26 16:46:46 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_03b_baseline_schema_query.lp
-2020-11-26 16:46:46 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_03b_WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping_colfix.json
-2020-11-26 16:46:46 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:46:46 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:46 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:46 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:46 : INFO : age_band is mapped to ['user.demographics.age']
-2020-11-26 16:46:46 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:46:46 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_03b.graphml
-2020-11-26 16:46:46 : INFO : preference is explanatory=field.age_band, response=field.region with path length 5.1
-2020-11-26 16:46:46 : INFO : preference is explanatory=field.region, response=field.QoL with path length 7.1
-2020-11-26 16:46:46 : INFO : preference is explanatory=field.age_band, response=field.QoL with path length 4.2
-2020-11-26 16:46:46 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:46:46 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:46:46 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:46:46 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:46 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:46 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:46 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:46:46 : INFO : age_band is mapped to ['user.demographics.age']
-2020-11-26 16:46:46 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:46:46 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_03b_WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_colfix.csv
-2020-11-26 16:46:46 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:46:46 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:46:46 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:46:46 : INFO : using WordNet to sort ['working (18 to 64)', '65 and over'] based on ['younger working age 18 to 64', 'older over 65']
-2020-11-26 16:46:46 : INFO : proposed sort order is ['working (18 to 64)', '65 and over']
-2020-11-26 16:46:46 : INFO : adding custom sort for field age_band due to node user.demographics.age with order ['working (18 to 64)', '65 and over']
-2020-11-26 16:46:46 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:46:46 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:46:46 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:46:46 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:46:46 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:46:46 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:46:46 : INFO : age_band is mapped to ['user.demographics.age']
-2020-11-26 16:46:46 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:46:46 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:46:46 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_03b_verde_schema_query.lp
-2020-11-26 16:46:46 : INFO : getting baseline draco visualisations for trial_06_st.exp_03b
-2020-11-26 16:46:46 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_03b_baseline_full.lp
-2020-11-26 16:46:46 : INFO : running draco for baseline
-2020-11-26 16:46:47 : INFO : processing results
-2020-11-26 16:46:53 : INFO : writing vega-lite specs
-2020-11-26 16:46:53 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:46:53 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_03b_baseline_results.json
-2020-11-26 16:46:53 : INFO : getting verde draco visualisations for trial_06_st.exp_03b with verde base lp override
-2020-11-26 16:46:53 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:46:53 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_03b_verde_full.lp
-2020-11-26 16:46:53 : INFO : running draco for verde
-2020-11-26 16:46:53 : INFO : processing results
-2020-11-26 16:47:00 : INFO : writing vega-lite specs
-2020-11-26 16:47:00 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:47:00 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_03b_verde_results.json
-2020-11-26 16:47:00 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_all_vl.json
-2020-11-26 16:47:00 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:47:00 : INFO : successfully validated
-2020-11-26 16:47:00 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_all_vl.json
-2020-11-26 16:47:00 : INFO : 19 matching visualisations between baseline and verde 95.0%
-2020-11-26 16:47:00 : INFO : 1 baseline visualisations not in verde
-2020-11-26 16:47:00 : INFO : 1 verde visualisations not in verde
-2020-11-26 16:47:00 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare_match.csv
-2020-11-26 16:47:00 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare_model.csv
-2020-11-26 16:47:00 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare_violations.csv
-2020-11-26 16:47:00 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare_props.csv
-2020-11-26 16:47:00 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare.html
-2020-11-26 16:47:00 : INFO : *** running experiment trial_06_st.exp_04 ***
-2020-11-26 16:47:00 : INFO : deleting experiment output files trial_06_st.exp_04* recursively from ../laboratory/trial_06_st
-2020-11-26 16:47:00 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
-2020-11-26 16:47:00 : INFO : successfully validated
-2020-11-26 16:47:00 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
-2020-11-26 16:47:00 : INFO : successfully validated
-2020-11-26 16:47:00 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:47:00 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:47:00 : INFO : fixing query field names
-2020-11-26 16:47:00 : INFO : creating baseline schema and query lp
-2020-11-26 16:47:01 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_04_baseline_schema_query.lp
-2020-11-26 16:47:01 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
-2020-11-26 16:47:01 : INFO : applying verde rule 01 (causal relationships)
-2020-11-26 16:47:01 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:47:01 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:47:01 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_04.graphml
-2020-11-26 16:47:01 : INFO : preference is explanatory=field.vacancies_direct_care_pct, response=field.zero_hr_contract_direct_care_pct with path length 5.5
-2020-11-26 16:47:01 : INFO : preference is explanatory=field.zero_hr_contract_direct_care_pct, response=field.QoL_all with path length 4.1
-2020-11-26 16:47:01 : INFO : preference is explanatory=field.vacancies_direct_care_pct, response=field.QoL_all with path length 5.6
-2020-11-26 16:47:01 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
-2020-11-26 16:47:01 : WARNING : verde rule_02_data_precision is disabled in config
-2020-11-26 16:47:01 : INFO : applying verde rule 03 (custom ordinal sort order))
-2020-11-26 16:47:01 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:47:01 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:47:01 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:47:01 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
-2020-11-26 16:47:01 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
-2020-11-26 16:47:01 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:47:01 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
-2020-11-26 16:47:01 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
-2020-11-26 16:47:01 : INFO : applying verde rule 04 (colour)
-2020-11-26 16:47:01 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
-2020-11-26 16:47:01 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 14 explain edges
-2020-11-26 16:47:01 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
-2020-11-26 16:47:01 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
-2020-11-26 16:47:01 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
-2020-11-26 16:47:01 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
-2020-11-26 16:47:01 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
-2020-11-26 16:47:01 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_04_verde_schema_query.lp
-2020-11-26 16:47:01 : INFO : getting baseline draco visualisations for trial_06_st.exp_04
-2020-11-26 16:47:01 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_04_baseline_full.lp
-2020-11-26 16:47:01 : INFO : running draco for baseline
-2020-11-26 16:47:01 : INFO : processing results
-2020-11-26 16:47:08 : INFO : writing vega-lite specs
-2020-11-26 16:47:08 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:47:08 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_04_baseline_results.json
-2020-11-26 16:47:08 : INFO : getting verde draco visualisations for trial_06_st.exp_04 with verde base lp override
-2020-11-26 16:47:08 : INFO : overrode 3 base lp files and added 0 lp files
-2020-11-26 16:47:08 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_04_verde_full.lp
-2020-11-26 16:47:08 : INFO : running draco for verde
-2020-11-26 16:47:08 : INFO : processing results
-2020-11-26 16:47:14 : INFO : writing vega-lite specs
-2020-11-26 16:47:14 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
-2020-11-26 16:47:14 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_04_verde_results.json
-2020-11-26 16:47:14 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_all_vl.json
-2020-11-26 16:47:14 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
-2020-11-26 16:47:14 : INFO : successfully validated
-2020-11-26 16:47:14 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_all_vl.json
-2020-11-26 16:47:14 : INFO : 9 matching visualisations between baseline and verde 45.0%
-2020-11-26 16:47:14 : INFO : 12 baseline visualisations not in verde
-2020-11-26 16:47:14 : INFO : 11 verde visualisations not in verde
-2020-11-26 16:47:14 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare_match.csv
-2020-11-26 16:47:14 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare_model.csv
-2020-11-26 16:47:14 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare_violations.csv
-2020-11-26 16:47:14 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare_props.csv
-2020-11-26 16:47:14 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare.html
-2020-11-26 16:47:14 : WARNING : regression test disabled in config
-2020-11-26 16:47:14 : INFO : Completed experiments ['trial_06_st.exp_01a1', 'trial_06_st.exp_01a2', 'trial_06_st.exp_01b', 'trial_06_st.exp_01c1', 'trial_06_st.exp_01c2', 'trial_06_st.exp_02a', 'trial_06_st.exp_02b', 'trial_06_st.exp_03a', 'trial_06_st.exp_03b', 'trial_06_st.exp_04']
+2020-11-26 17:39:23 : INFO : validating ../laboratory/trial_06_st/trial.yaml against ../schemas/verde_trial_schema.json
+2020-11-26 17:39:23 : INFO : successfully validated
+2020-11-26 17:39:23 : INFO : loading trial config from ../laboratory/trial_06_st/trial.yaml
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_01a1
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_01a2
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_01b
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_01c1
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_01c2
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_02a
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_02b
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_03a
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_03b
+2020-11-26 17:39:23 : INFO : creating experiment trial_06_st.exp_04
+2020-11-26 17:39:23 : INFO : *** running trial trial_06_st ***
+2020-11-26 17:39:23 : INFO : *** running experiment trial_06_st.exp_01a1 ***
+2020-11-26 17:39:23 : INFO : deleting experiment output files trial_06_st.exp_01a1* recursively from ../laboratory/trial_06_st
+2020-11-26 17:39:23 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:39:23 : INFO : successfully validated
+2020-11-26 17:39:23 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:39:24 : INFO : successfully validated
+2020-11-26 17:39:24 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01a1_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:39:24 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01a1_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:39:24 : INFO : fixing query field names
+2020-11-26 17:39:24 : INFO : creating baseline schema and query lp
+2020-11-26 17:39:25 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01a1_baseline_schema_query.lp
+2020-11-26 17:39:25 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01a1_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:39:25 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:39:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:25 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:25 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:25 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:25 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01a1.graphml
+2020-11-26 17:39:25 : INFO : preference is explanatory=field.region, response=field.zero_hr_contract_all_pct with path length 7.0
+2020-11-26 17:39:25 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:39:25 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:39:25 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:39:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:25 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:25 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:25 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:39:25 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:25 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:25 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:25 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:25 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:25 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:25 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:25 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:25 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:25 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:25 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:25 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:25 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:25 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:25 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:25 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01a1_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:39:25 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:39:26 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:39:26 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:39:26 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:39:26 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:39:26 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:26 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:26 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:26 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:39:26 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:26 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:26 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:26 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:26 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:26 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:26 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:26 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:26 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:26 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:26 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:26 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:26 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:26 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:26 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:26 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour.lpt
+2020-11-26 17:39:26 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01a1_verde_schema_query.lp
+2020-11-26 17:39:26 : INFO : getting baseline draco visualisations for trial_06_st.exp_01a1
+2020-11-26 17:39:26 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01a1_baseline_full.lp
+2020-11-26 17:39:26 : INFO : running draco for baseline
+2020-11-26 17:39:26 : INFO : processing results
+2020-11-26 17:39:33 : INFO : writing vega-lite specs
+2020-11-26 17:39:33 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:39:33 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01a1_baseline_results.json
+2020-11-26 17:39:33 : INFO : getting verde draco visualisations for trial_06_st.exp_01a1 with verde base lp override
+2020-11-26 17:39:33 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:39:33 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01a1_verde_full.lp
+2020-11-26 17:39:33 : INFO : running draco for verde
+2020-11-26 17:39:33 : INFO : processing results
+2020-11-26 17:39:40 : INFO : writing vega-lite specs
+2020-11-26 17:39:40 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:39:40 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01a1_verde_results.json
+2020-11-26 17:39:40 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_all_vl.json
+2020-11-26 17:39:40 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:39:40 : INFO : successfully validated
+2020-11-26 17:39:40 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_all_vl.json
+2020-11-26 17:39:40 : INFO : 20 matching visualisations between baseline and verde 100.0%
+2020-11-26 17:39:40 : INFO : 0 baseline visualisations not in verde
+2020-11-26 17:39:40 : INFO : 0 verde visualisations not in verde
+2020-11-26 17:39:40 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare_match.csv
+2020-11-26 17:39:40 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare_model.csv
+2020-11-26 17:39:40 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare_violations.csv
+2020-11-26 17:39:40 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare_props.csv
+2020-11-26 17:39:40 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a1_view_compare.html
+2020-11-26 17:39:41 : INFO : *** running experiment trial_06_st.exp_01a2 ***
+2020-11-26 17:39:41 : INFO : deleting experiment output files trial_06_st.exp_01a2* recursively from ../laboratory/trial_06_st
+2020-11-26 17:39:41 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:39:41 : INFO : successfully validated
+2020-11-26 17:39:41 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:39:41 : INFO : successfully validated
+2020-11-26 17:39:41 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01a2_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:39:41 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01a2_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:39:41 : INFO : fixing query field names
+2020-11-26 17:39:41 : INFO : creating baseline schema and query lp
+2020-11-26 17:39:41 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01a2_baseline_schema_query.lp
+2020-11-26 17:39:41 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01a2_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:39:41 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:39:41 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:41 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:41 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01a2.graphml
+2020-11-26 17:39:41 : INFO : preference is explanatory=field.region, response=field.zero_hr_contract_all_pct with path length 7.0
+2020-11-26 17:39:41 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:39:41 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:39:41 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:39:41 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:41 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:41 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:41 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01a2_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:39:41 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:39:41 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:39:41 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:39:41 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:39:41 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:39:41 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:41 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:41 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:41 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:41 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:41 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:41 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:39:42 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01a2_verde_schema_query.lp
+2020-11-26 17:39:42 : INFO : getting baseline draco visualisations for trial_06_st.exp_01a2
+2020-11-26 17:39:42 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01a2_baseline_full.lp
+2020-11-26 17:39:42 : INFO : running draco for baseline
+2020-11-26 17:39:42 : INFO : processing results
+2020-11-26 17:39:48 : INFO : writing vega-lite specs
+2020-11-26 17:39:48 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:39:48 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01a2_baseline_results.json
+2020-11-26 17:39:48 : INFO : getting verde draco visualisations for trial_06_st.exp_01a2 with verde base lp override
+2020-11-26 17:39:48 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:39:48 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01a2_verde_full.lp
+2020-11-26 17:39:48 : INFO : running draco for verde
+2020-11-26 17:39:48 : INFO : processing results
+2020-11-26 17:39:55 : INFO : writing vega-lite specs
+2020-11-26 17:39:55 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:39:55 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01a2_verde_results.json
+2020-11-26 17:39:55 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_all_vl.json
+2020-11-26 17:39:55 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:39:55 : INFO : successfully validated
+2020-11-26 17:39:55 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_all_vl.json
+2020-11-26 17:39:55 : INFO : 24 matching visualisations between baseline and verde 120.0%
+2020-11-26 17:39:55 : INFO : 1 baseline visualisations not in verde
+2020-11-26 17:39:55 : INFO : 0 verde visualisations not in verde
+2020-11-26 17:39:55 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare_match.csv
+2020-11-26 17:39:55 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare_model.csv
+2020-11-26 17:39:55 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare_violations.csv
+2020-11-26 17:39:55 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare_props.csv
+2020-11-26 17:39:55 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01a2_view_compare.html
+2020-11-26 17:39:55 : INFO : *** running experiment trial_06_st.exp_01b ***
+2020-11-26 17:39:55 : INFO : deleting experiment output files trial_06_st.exp_01b* recursively from ../laboratory/trial_06_st
+2020-11-26 17:39:55 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:39:55 : INFO : successfully validated
+2020-11-26 17:39:55 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:39:55 : INFO : successfully validated
+2020-11-26 17:39:55 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:39:55 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:39:55 : INFO : fixing query field names
+2020-11-26 17:39:55 : INFO : creating baseline schema and query lp
+2020-11-26 17:39:56 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01b_baseline_schema_query.lp
+2020-11-26 17:39:56 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:39:56 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:39:56 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:56 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:56 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:56 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01b.graphml
+2020-11-26 17:39:56 : INFO : preference is explanatory=field.region, response=field.vacancies_all_pct with path length 7.5
+2020-11-26 17:39:56 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:39:56 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:39:56 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:39:56 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:56 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:56 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:56 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01b_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:39:56 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:39:56 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:39:56 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:39:56 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:39:56 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:39:56 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:39:56 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:39:56 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:39:56 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:39:56 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:39:56 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:39:56 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:39:56 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01b_verde_schema_query.lp
+2020-11-26 17:39:56 : INFO : getting baseline draco visualisations for trial_06_st.exp_01b
+2020-11-26 17:39:56 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01b_baseline_full.lp
+2020-11-26 17:39:56 : INFO : running draco for baseline
+2020-11-26 17:39:56 : INFO : processing results
+2020-11-26 17:40:03 : INFO : writing vega-lite specs
+2020-11-26 17:40:03 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:40:03 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01b_baseline_results.json
+2020-11-26 17:40:03 : INFO : getting verde draco visualisations for trial_06_st.exp_01b with verde base lp override
+2020-11-26 17:40:03 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:40:03 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01b_verde_full.lp
+2020-11-26 17:40:03 : INFO : running draco for verde
+2020-11-26 17:40:03 : INFO : processing results
+2020-11-26 17:40:09 : INFO : writing vega-lite specs
+2020-11-26 17:40:09 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:40:09 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01b_verde_results.json
+2020-11-26 17:40:09 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_all_vl.json
+2020-11-26 17:40:09 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:40:09 : INFO : successfully validated
+2020-11-26 17:40:09 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_all_vl.json
+2020-11-26 17:40:09 : INFO : 23 matching visualisations between baseline and verde 115.0%
+2020-11-26 17:40:09 : INFO : 1 baseline visualisations not in verde
+2020-11-26 17:40:09 : INFO : 1 verde visualisations not in verde
+2020-11-26 17:40:09 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare_match.csv
+2020-11-26 17:40:09 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare_model.csv
+2020-11-26 17:40:09 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare_violations.csv
+2020-11-26 17:40:09 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare_props.csv
+2020-11-26 17:40:10 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01b_view_compare.html
+2020-11-26 17:40:10 : INFO : *** running experiment trial_06_st.exp_01c1 ***
+2020-11-26 17:40:10 : INFO : deleting experiment output files trial_06_st.exp_01c1* recursively from ../laboratory/trial_06_st
+2020-11-26 17:40:10 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:40:10 : INFO : successfully validated
+2020-11-26 17:40:10 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:40:10 : INFO : successfully validated
+2020-11-26 17:40:10 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01c1_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:40:10 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01c1_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:40:10 : INFO : fixing query field names
+2020-11-26 17:40:10 : INFO : creating baseline schema and query lp
+2020-11-26 17:40:10 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01c1_baseline_schema_query.lp
+2020-11-26 17:40:10 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01c1_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:40:10 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:40:10 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:10 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:10 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:10 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:10 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01c1.graphml
+2020-11-26 17:40:10 : INFO : preference is explanatory=field.region, response=field.QoL_all with path length 7.1
+2020-11-26 17:40:10 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:40:10 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:40:10 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:40:10 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:10 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:10 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:10 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:40:10 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:10 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:10 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:10 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:10 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:10 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:10 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:10 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:10 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:10 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:10 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:10 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:10 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:10 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:10 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:10 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01c1_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:40:10 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:40:11 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:40:11 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:40:11 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:40:11 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:40:11 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:11 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:11 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:11 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:40:11 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:11 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:11 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:11 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:11 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:11 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:11 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:11 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:11 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:11 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:11 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:11 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:11 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:11 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:11 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:11 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:40:11 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01c1_verde_schema_query.lp
+2020-11-26 17:40:11 : INFO : getting baseline draco visualisations for trial_06_st.exp_01c1
+2020-11-26 17:40:11 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01c1_baseline_full.lp
+2020-11-26 17:40:11 : INFO : running draco for baseline
+2020-11-26 17:40:11 : INFO : processing results
+2020-11-26 17:40:17 : INFO : writing vega-lite specs
+2020-11-26 17:40:17 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:40:17 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01c1_baseline_results.json
+2020-11-26 17:40:17 : INFO : getting verde draco visualisations for trial_06_st.exp_01c1 with verde base lp override
+2020-11-26 17:40:17 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:40:17 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01c1_verde_full.lp
+2020-11-26 17:40:17 : INFO : running draco for verde
+2020-11-26 17:40:17 : INFO : processing results
+2020-11-26 17:40:24 : INFO : writing vega-lite specs
+2020-11-26 17:40:24 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:40:24 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01c1_verde_results.json
+2020-11-26 17:40:24 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_all_vl.json
+2020-11-26 17:40:24 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:40:24 : INFO : successfully validated
+2020-11-26 17:40:24 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_all_vl.json
+2020-11-26 17:40:24 : INFO : 24 matching visualisations between baseline and verde 120.0%
+2020-11-26 17:40:24 : INFO : 0 baseline visualisations not in verde
+2020-11-26 17:40:24 : INFO : 0 verde visualisations not in verde
+2020-11-26 17:40:24 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare_match.csv
+2020-11-26 17:40:24 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare_model.csv
+2020-11-26 17:40:24 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare_violations.csv
+2020-11-26 17:40:24 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare_props.csv
+2020-11-26 17:40:24 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c1_view_compare.html
+2020-11-26 17:40:24 : INFO : *** running experiment trial_06_st.exp_01c2 ***
+2020-11-26 17:40:24 : INFO : deleting experiment output files trial_06_st.exp_01c2* recursively from ../laboratory/trial_06_st
+2020-11-26 17:40:24 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:40:24 : INFO : successfully validated
+2020-11-26 17:40:24 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:40:24 : INFO : successfully validated
+2020-11-26 17:40:24 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_01c2_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:40:24 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_01c2_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:40:24 : INFO : fixing query field names
+2020-11-26 17:40:24 : INFO : creating baseline schema and query lp
+2020-11-26 17:40:25 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01c2_baseline_schema_query.lp
+2020-11-26 17:40:25 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_01c2_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:40:25 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:40:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:25 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:25 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:25 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_01c2.graphml
+2020-11-26 17:40:25 : INFO : preference is explanatory=field.region, response=field.QoL_all with path length 7.1
+2020-11-26 17:40:25 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:40:25 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:40:25 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:40:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:25 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:25 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:25 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_01c2_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:40:25 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:40:25 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:40:25 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:40:25 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:40:25 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:40:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:25 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:25 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:25 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:25 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:25 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:40:25 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:40:25 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_01c2_verde_schema_query.lp
+2020-11-26 17:40:25 : INFO : getting baseline draco visualisations for trial_06_st.exp_01c2
+2020-11-26 17:40:25 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_01c2_baseline_full.lp
+2020-11-26 17:40:25 : INFO : running draco for baseline
+2020-11-26 17:40:25 : INFO : processing results
+2020-11-26 17:40:32 : INFO : writing vega-lite specs
+2020-11-26 17:40:32 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:40:32 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_01c2_baseline_results.json
+2020-11-26 17:40:32 : INFO : getting verde draco visualisations for trial_06_st.exp_01c2 with verde base lp override
+2020-11-26 17:40:32 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:40:32 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_01c2_verde_full.lp
+2020-11-26 17:40:32 : INFO : running draco for verde
+2020-11-26 17:40:32 : INFO : processing results
+2020-11-26 17:40:38 : INFO : writing vega-lite specs
+2020-11-26 17:40:38 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:40:38 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_01c2_verde_results.json
+2020-11-26 17:40:38 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_all_vl.json
+2020-11-26 17:40:38 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:40:39 : INFO : successfully validated
+2020-11-26 17:40:39 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_all_vl.json
+2020-11-26 17:40:39 : INFO : 22 matching visualisations between baseline and verde 110.0%
+2020-11-26 17:40:39 : INFO : 2 baseline visualisations not in verde
+2020-11-26 17:40:39 : INFO : 2 verde visualisations not in verde
+2020-11-26 17:40:39 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare_match.csv
+2020-11-26 17:40:39 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare_model.csv
+2020-11-26 17:40:39 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare_violations.csv
+2020-11-26 17:40:39 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare_props.csv
+2020-11-26 17:40:39 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_01c2_view_compare.html
+2020-11-26 17:40:39 : INFO : *** running experiment trial_06_st.exp_02a ***
+2020-11-26 17:40:39 : INFO : deleting experiment output files trial_06_st.exp_02a* recursively from ../laboratory/trial_06_st
+2020-11-26 17:40:39 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:40:39 : INFO : successfully validated
+2020-11-26 17:40:39 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:40:39 : INFO : successfully validated
+2020-11-26 17:40:39 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_02a_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_colfix.csv
+2020-11-26 17:40:39 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_02a_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping_colfix.json
+2020-11-26 17:40:39 : INFO : fixing query field names
+2020-11-26 17:40:39 : INFO : creating baseline schema and query lp
+2020-11-26 17:40:39 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_02a_baseline_schema_query.lp
+2020-11-26 17:40:39 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_02a_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping_colfix.json
+2020-11-26 17:40:39 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:40:39 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:39 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:39 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:39 : INFO : role is mapped to ['provider.workforce_management']
+2020-11-26 17:40:39 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:40 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_02a.graphml
+2020-11-26 17:40:40 : INFO : preference is explanatory=field.region, response=field.role with path length 6.5
+2020-11-26 17:40:40 : INFO : preference is explanatory=field.region, response=field.vacancies_pct with path length 7.5
+2020-11-26 17:40:40 : INFO : found the same finite path length, so arbitrarily explanatory=field.role, response=field.vacancies_pct
+2020-11-26 17:40:40 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:40:40 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:40:40 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:40:40 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:40 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:40 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:40 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:40:40 : INFO : role is mapped to ['provider.workforce_management']
+2020-11-26 17:40:40 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:40 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:40 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_02a_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_colfix.csv
+2020-11-26 17:40:40 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:40:40 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:40:40 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:40:40 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:40:40 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:40:40 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:40 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:40 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:40 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:40:40 : INFO : role is mapped to ['provider.workforce_management']
+2020-11-26 17:40:40 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:40 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:40 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:40:40 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_02a_verde_schema_query.lp
+2020-11-26 17:40:40 : INFO : getting baseline draco visualisations for trial_06_st.exp_02a
+2020-11-26 17:40:40 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_02a_baseline_full.lp
+2020-11-26 17:40:40 : INFO : running draco for baseline
+2020-11-26 17:40:40 : INFO : processing results
+2020-11-26 17:40:46 : INFO : writing vega-lite specs
+2020-11-26 17:40:46 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:40:46 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_02a_baseline_results.json
+2020-11-26 17:40:46 : INFO : getting verde draco visualisations for trial_06_st.exp_02a with verde base lp override
+2020-11-26 17:40:46 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:40:46 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_02a_verde_full.lp
+2020-11-26 17:40:46 : INFO : running draco for verde
+2020-11-26 17:40:46 : INFO : processing results
+2020-11-26 17:40:53 : INFO : writing vega-lite specs
+2020-11-26 17:40:53 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:40:53 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_02a_verde_results.json
+2020-11-26 17:40:53 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_all_vl.json
+2020-11-26 17:40:53 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:40:53 : INFO : successfully validated
+2020-11-26 17:40:53 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_all_vl.json
+2020-11-26 17:40:53 : INFO : 27 matching visualisations between baseline and verde 135.0%
+2020-11-26 17:40:53 : INFO : 1 baseline visualisations not in verde
+2020-11-26 17:40:53 : INFO : 1 verde visualisations not in verde
+2020-11-26 17:40:53 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare_match.csv
+2020-11-26 17:40:53 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare_model.csv
+2020-11-26 17:40:53 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare_violations.csv
+2020-11-26 17:40:53 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare_props.csv
+2020-11-26 17:40:53 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02a_view_compare.html
+2020-11-26 17:40:53 : INFO : *** running experiment trial_06_st.exp_02b ***
+2020-11-26 17:40:53 : INFO : deleting experiment output files trial_06_st.exp_02b* recursively from ../laboratory/trial_06_st
+2020-11-26 17:40:53 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:40:53 : INFO : successfully validated
+2020-11-26 17:40:53 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:40:53 : INFO : successfully validated
+2020-11-26 17:40:53 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_02b_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_colfix.csv
+2020-11-26 17:40:53 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_02b_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping_colfix.json
+2020-11-26 17:40:53 : INFO : fixing query field names
+2020-11-26 17:40:53 : INFO : creating baseline schema and query lp
+2020-11-26 17:40:54 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_02b_baseline_schema_query.lp
+2020-11-26 17:40:54 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_02b_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_mapping_colfix.json
+2020-11-26 17:40:54 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:40:54 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:54 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:54 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:54 : INFO : role is mapped to ['provider.workforce_management']
+2020-11-26 17:40:54 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:54 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_02b.graphml
+2020-11-26 17:40:54 : INFO : preference is explanatory=field.region, response=field.role with path length 6.5
+2020-11-26 17:40:54 : INFO : preference is explanatory=field.region, response=field.zero_hr_contract_pct with path length 7.0
+2020-11-26 17:40:54 : INFO : preference is explanatory=field.zero_hr_contract_pct, response=field.role with path length 2.1
+2020-11-26 17:40:54 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:40:54 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:40:54 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:40:54 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:54 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:54 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:54 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:40:54 : INFO : role is mapped to ['provider.workforce_management']
+2020-11-26 17:40:54 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:54 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:54 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_02b_WDS_3_3_4_11_ASCOF_1A_tidy_role_vac_zero_colfix.csv
+2020-11-26 17:40:54 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:40:54 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:40:54 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:40:54 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:40:54 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:40:54 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:40:54 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:40:54 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:40:54 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:40:54 : INFO : role is mapped to ['provider.workforce_management']
+2020-11-26 17:40:54 : INFO : zero_hr_contract_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:40:54 : INFO : vacancies_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:40:54 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:40:54 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_02b_verde_schema_query.lp
+2020-11-26 17:40:54 : INFO : getting baseline draco visualisations for trial_06_st.exp_02b
+2020-11-26 17:40:54 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_02b_baseline_full.lp
+2020-11-26 17:40:54 : INFO : running draco for baseline
+2020-11-26 17:40:54 : INFO : processing results
+2020-11-26 17:41:01 : INFO : writing vega-lite specs
+2020-11-26 17:41:01 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:41:01 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_02b_baseline_results.json
+2020-11-26 17:41:01 : INFO : getting verde draco visualisations for trial_06_st.exp_02b with verde base lp override
+2020-11-26 17:41:01 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:41:01 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_02b_verde_full.lp
+2020-11-26 17:41:01 : INFO : running draco for verde
+2020-11-26 17:41:01 : INFO : processing results
+2020-11-26 17:41:08 : INFO : writing vega-lite specs
+2020-11-26 17:41:08 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:41:08 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_02b_verde_results.json
+2020-11-26 17:41:08 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_all_vl.json
+2020-11-26 17:41:08 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:41:08 : INFO : successfully validated
+2020-11-26 17:41:08 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_all_vl.json
+2020-11-26 17:41:08 : INFO : 27 matching visualisations between baseline and verde 135.0%
+2020-11-26 17:41:08 : INFO : 1 baseline visualisations not in verde
+2020-11-26 17:41:08 : INFO : 1 verde visualisations not in verde
+2020-11-26 17:41:08 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare_match.csv
+2020-11-26 17:41:08 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare_model.csv
+2020-11-26 17:41:08 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare_violations.csv
+2020-11-26 17:41:08 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare_props.csv
+2020-11-26 17:41:08 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_02b_view_compare.html
+2020-11-26 17:41:08 : INFO : *** running experiment trial_06_st.exp_03a ***
+2020-11-26 17:41:08 : INFO : deleting experiment output files trial_06_st.exp_03a* recursively from ../laboratory/trial_06_st
+2020-11-26 17:41:08 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:41:08 : INFO : successfully validated
+2020-11-26 17:41:08 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:41:08 : INFO : successfully validated
+2020-11-26 17:41:08 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_03a_WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_colfix.csv
+2020-11-26 17:41:08 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_03a_WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping_colfix.json
+2020-11-26 17:41:08 : INFO : fixing query field names
+2020-11-26 17:41:08 : INFO : creating baseline schema and query lp
+2020-11-26 17:41:09 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_03a_baseline_schema_query.lp
+2020-11-26 17:41:09 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_03a_WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_mapping_colfix.json
+2020-11-26 17:41:09 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:41:09 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:09 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:09 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:41:09 : INFO : gender is mapped to ['user.demographics.gender']
+2020-11-26 17:41:09 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:09 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_03a.graphml
+2020-11-26 17:41:09 : INFO : preference is explanatory=field.gender, response=field.region with path length 7.1
+2020-11-26 17:41:09 : INFO : preference is explanatory=field.region, response=field.QoL with path length 7.1
+2020-11-26 17:41:09 : INFO : found the same finite path length, so arbitrarily explanatory=field.gender, response=field.QoL
+2020-11-26 17:41:09 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:41:09 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:41:09 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:41:09 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:09 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:09 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:41:09 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:41:09 : INFO : gender is mapped to ['user.demographics.gender']
+2020-11-26 17:41:09 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:09 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_03a_WDS_3_3_4_11_ASCOF_1A_tidy_gender_qol_colfix.csv
+2020-11-26 17:41:09 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:41:09 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:41:09 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:41:09 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:41:09 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:41:09 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:09 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:09 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:41:09 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:41:09 : INFO : gender is mapped to ['user.demographics.gender']
+2020-11-26 17:41:09 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:09 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:41:09 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_03a_verde_schema_query.lp
+2020-11-26 17:41:09 : INFO : getting baseline draco visualisations for trial_06_st.exp_03a
+2020-11-26 17:41:09 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_03a_baseline_full.lp
+2020-11-26 17:41:09 : INFO : running draco for baseline
+2020-11-26 17:41:09 : INFO : processing results
+2020-11-26 17:41:16 : INFO : writing vega-lite specs
+2020-11-26 17:41:16 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:41:16 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_03a_baseline_results.json
+2020-11-26 17:41:16 : INFO : getting verde draco visualisations for trial_06_st.exp_03a with verde base lp override
+2020-11-26 17:41:16 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:41:16 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_03a_verde_full.lp
+2020-11-26 17:41:16 : INFO : running draco for verde
+2020-11-26 17:41:16 : INFO : processing results
+2020-11-26 17:41:23 : INFO : writing vega-lite specs
+2020-11-26 17:41:23 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:41:23 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_03a_verde_results.json
+2020-11-26 17:41:23 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_all_vl.json
+2020-11-26 17:41:23 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:41:23 : INFO : successfully validated
+2020-11-26 17:41:23 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_all_vl.json
+2020-11-26 17:41:23 : INFO : 19 matching visualisations between baseline and verde 95.0%
+2020-11-26 17:41:23 : INFO : 1 baseline visualisations not in verde
+2020-11-26 17:41:23 : INFO : 1 verde visualisations not in verde
+2020-11-26 17:41:23 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare_match.csv
+2020-11-26 17:41:23 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare_model.csv
+2020-11-26 17:41:23 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare_violations.csv
+2020-11-26 17:41:23 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare_props.csv
+2020-11-26 17:41:24 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03a_view_compare.html
+2020-11-26 17:41:24 : INFO : *** running experiment trial_06_st.exp_03b ***
+2020-11-26 17:41:24 : INFO : deleting experiment output files trial_06_st.exp_03b* recursively from ../laboratory/trial_06_st
+2020-11-26 17:41:24 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:41:24 : INFO : successfully validated
+2020-11-26 17:41:24 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:41:24 : INFO : successfully validated
+2020-11-26 17:41:24 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_03b_WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_colfix.csv
+2020-11-26 17:41:24 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_03b_WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping_colfix.json
+2020-11-26 17:41:24 : INFO : fixing query field names
+2020-11-26 17:41:24 : INFO : creating baseline schema and query lp
+2020-11-26 17:41:25 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_03b_baseline_schema_query.lp
+2020-11-26 17:41:25 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_03b_WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_mapping_colfix.json
+2020-11-26 17:41:25 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:41:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:25 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:25 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:41:25 : INFO : age_band is mapped to ['user.demographics.age']
+2020-11-26 17:41:25 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:25 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_03b.graphml
+2020-11-26 17:41:25 : INFO : preference is explanatory=field.age_band, response=field.region with path length 5.1
+2020-11-26 17:41:25 : INFO : preference is explanatory=field.region, response=field.QoL with path length 7.1
+2020-11-26 17:41:25 : INFO : preference is explanatory=field.age_band, response=field.QoL with path length 4.2
+2020-11-26 17:41:25 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:41:25 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:41:25 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:41:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:25 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:25 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:41:25 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:41:25 : INFO : age_band is mapped to ['user.demographics.age']
+2020-11-26 17:41:25 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:25 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_03b_WDS_3_3_4_11_ASCOF_1A_tidy_age_qol_colfix.csv
+2020-11-26 17:41:25 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:41:25 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:41:25 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:41:25 : INFO : using WordNet to sort ['working (18 to 64)', '65 and over'] based on ['younger working age 18 to 64', 'older over 65']
+2020-11-26 17:41:25 : INFO : proposed sort order is ['working (18 to 64)', '65 and over']
+2020-11-26 17:41:25 : INFO : adding custom sort for field age_band due to node user.demographics.age with order ['working (18 to 64)', '65 and over']
+2020-11-26 17:41:25 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:41:25 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:41:25 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:25 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:25 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:41:25 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:41:25 : INFO : age_band is mapped to ['user.demographics.age']
+2020-11-26 17:41:25 : INFO : QoL is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:25 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:41:25 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_03b_verde_schema_query.lp
+2020-11-26 17:41:25 : INFO : getting baseline draco visualisations for trial_06_st.exp_03b
+2020-11-26 17:41:25 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_03b_baseline_full.lp
+2020-11-26 17:41:25 : INFO : running draco for baseline
+2020-11-26 17:41:25 : INFO : processing results
+2020-11-26 17:41:32 : INFO : writing vega-lite specs
+2020-11-26 17:41:32 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:41:32 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_03b_baseline_results.json
+2020-11-26 17:41:32 : INFO : getting verde draco visualisations for trial_06_st.exp_03b with verde base lp override
+2020-11-26 17:41:32 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:41:32 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_03b_verde_full.lp
+2020-11-26 17:41:32 : INFO : running draco for verde
+2020-11-26 17:41:32 : INFO : processing results
+2020-11-26 17:41:39 : INFO : writing vega-lite specs
+2020-11-26 17:41:39 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:41:39 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_03b_verde_results.json
+2020-11-26 17:41:39 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_all_vl.json
+2020-11-26 17:41:39 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:41:39 : INFO : successfully validated
+2020-11-26 17:41:39 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_all_vl.json
+2020-11-26 17:41:39 : INFO : 19 matching visualisations between baseline and verde 95.0%
+2020-11-26 17:41:39 : INFO : 1 baseline visualisations not in verde
+2020-11-26 17:41:39 : INFO : 1 verde visualisations not in verde
+2020-11-26 17:41:39 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare_match.csv
+2020-11-26 17:41:39 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare_model.csv
+2020-11-26 17:41:39 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare_violations.csv
+2020-11-26 17:41:39 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare_props.csv
+2020-11-26 17:41:40 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_03b_view_compare.html
+2020-11-26 17:41:40 : INFO : *** running experiment trial_06_st.exp_04 ***
+2020-11-26 17:41:40 : INFO : deleting experiment output files trial_06_st.exp_04* recursively from ../laboratory/trial_06_st
+2020-11-26 17:41:40 : INFO : validating ../schemas/verde_asc_domain_schema_complex.json against ../schemas/verde_meta_schema.json
+2020-11-26 17:41:40 : INFO : successfully validated
+2020-11-26 17:41:40 : INFO : validating ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json against ../schemas/verde_asc_domain_mapping_schema_complex.json
+2020-11-26 17:41:40 : INFO : successfully validated
+2020-11-26 17:41:40 : INFO : fixing csv column headers (special chars disallowed by clingo) in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv to ../laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:41:40 : INFO : fixing map file column names in ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json to ../laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:41:40 : INFO : fixing query field names
+2020-11-26 17:41:40 : INFO : creating baseline schema and query lp
+2020-11-26 17:41:40 : INFO : writing baseline schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_04_baseline_schema_query.lp
+2020-11-26 17:41:40 : INFO : creating verde rules lp based on ../schemas/verde_asc_domain_schema_complex.json and ../laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_mapping_colfix.json
+2020-11-26 17:41:40 : INFO : applying verde rule 01 (causal relationships)
+2020-11-26 17:41:40 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:40 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:40 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:40 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:40 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:40 : INFO : writing graph to ../laboratory/trial_06_st/trial_06_st.exp_04.graphml
+2020-11-26 17:41:40 : INFO : preference is explanatory=field.zero_hr_contract_direct_care_pct, response=field.vacancies_direct_care_pct with path length 3.1
+2020-11-26 17:41:40 : INFO : preference is explanatory=field.zero_hr_contract_direct_care_pct, response=field.QoL_all with path length 4.1
+2020-11-26 17:41:40 : INFO : preference is explanatory=field.vacancies_direct_care_pct, response=field.QoL_all with path length 5.6
+2020-11-26 17:41:40 : INFO : loading rule template file ../asp/verde_rule_templates/rule_01_causal_alt.lpt
+2020-11-26 17:41:40 : WARNING : verde rule_02_data_precision is disabled in config
+2020-11-26 17:41:40 : INFO : applying verde rule 03 (custom ordinal sort order))
+2020-11-26 17:41:40 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:40 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:40 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:41:40 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:41:40 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:40 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:40 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:40 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:40 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:40 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:40 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:40 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:40 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:40 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:40 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:40 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:40 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:40 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:40 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:40 : INFO : getting unique values of fields in ../laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv
+2020-11-26 17:41:40 : INFO : using WordNet to sort ['England', 'East Midlands', 'Eastern', 'London', 'North East', 'North West', 'South East', 'South West', 'West Midlands', 'Yorkshire and the Humber'] based on ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'Eastern', 'South West', 'South East', 'London']
+2020-11-26 17:41:41 : INFO : proposed sort order is ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:41:41 : INFO : adding custom sort for field region due to node funder.org_unit.local_authority.region_name with order ['England', 'North West', 'North East', 'Yorkshire and the Humber', 'West Midlands', 'East Midlands', 'South West', 'South East', 'Eastern', 'London']
+2020-11-26 17:41:41 : INFO : loading rule template file ../asp/verde_rule_templates/rule_03_sort.lpt
+2020-11-26 17:41:41 : INFO : applying verde rule 04 (colour)
+2020-11-26 17:41:41 : INFO : building graph from properties in schema ../schemas/verde_asc_domain_schema_complex.json
+2020-11-26 17:41:41 : INFO : found 119 nodes, 113 property edges, 5 composition edges and 15 explain edges
+2020-11-26 17:41:41 : INFO : region is mapped to ['funder.org_unit.local_authority.region_name']
+2020-11-26 17:41:41 : INFO : region_code is mapped to ['funder.org_unit.local_authority.region_code']
+2020-11-26 17:41:41 : INFO : zero_hr_contract_all_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:41 : INFO : zero_hr_contract_managerial_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:41 : INFO : zero_hr_contract_reg_prof_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:41 : INFO : zero_hr_contract_direct_care_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:41 : INFO : zero_hr_contract_other_pct is mapped to ['workforce.employment_status']
+2020-11-26 17:41:41 : INFO : vacancies_all_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:41 : INFO : vacancies_managerial_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:41 : INFO : vacancies_reg_prof_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:41 : INFO : vacancies_direct_care_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:41 : INFO : vacancies_other_pct is mapped to ['provider.workforce_management.vacancies']
+2020-11-26 17:41:41 : INFO : QoL_all is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:41 : INFO : QoL_male is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:41 : INFO : QoL_female is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:41 : INFO : QoL_18_64 is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:41 : INFO : QoL_65_over is mapped to ['user.quality_of_life.well-being']
+2020-11-26 17:41:41 : INFO : loading rule template file ../asp/verde_rule_templates/rule_04_colour_alt.lpt
+2020-11-26 17:41:41 : INFO : writing verde full schema and query lp to ../laboratory/trial_06_st/trial_06_st.exp_04_verde_schema_query.lp
+2020-11-26 17:41:41 : INFO : getting baseline draco visualisations for trial_06_st.exp_04
+2020-11-26 17:41:41 : INFO : writing baseline full lp to ../laboratory/trial_06_st/trial_06_st.exp_04_baseline_full.lp
+2020-11-26 17:41:41 : INFO : running draco for baseline
+2020-11-26 17:41:41 : INFO : processing results
+2020-11-26 17:41:48 : INFO : writing vega-lite specs
+2020-11-26 17:41:48 : INFO : writing baseline vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:41:48 : INFO : writing baseline results to ../laboratory/trial_06_st/trial_06_st.exp_04_baseline_results.json
+2020-11-26 17:41:48 : INFO : getting verde draco visualisations for trial_06_st.exp_04 with verde base lp override
+2020-11-26 17:41:48 : INFO : overrode 3 base lp files and added 0 lp files
+2020-11-26 17:41:48 : INFO : writing verde full lp to ../laboratory/trial_06_st/trial_06_st.exp_04_verde_full.lp
+2020-11-26 17:41:48 : INFO : running draco for verde
+2020-11-26 17:41:48 : INFO : processing results
+2020-11-26 17:41:55 : INFO : writing vega-lite specs
+2020-11-26 17:41:55 : INFO : writing verde vega-lite specs to ../laboratory/trial_06_st/vegalite
+2020-11-26 17:41:55 : INFO : writing verde results to ../laboratory/trial_06_st/trial_06_st.exp_04_verde_results.json
+2020-11-26 17:41:55 : INFO : writing concatenated vega-lite spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_all_vl.json
+2020-11-26 17:41:55 : INFO : validating ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_all_vl.json against ../schemas/vega_lite_v3_schema.json
+2020-11-26 17:41:55 : INFO : successfully validated
+2020-11-26 17:41:55 : INFO : writing vega-embed for the concatenated spec to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_all_vl.json
+2020-11-26 17:41:55 : INFO : 6 matching visualisations between baseline and verde 30.0%
+2020-11-26 17:41:55 : INFO : 14 baseline visualisations not in verde
+2020-11-26 17:41:55 : INFO : 14 verde visualisations not in verde
+2020-11-26 17:41:55 : INFO : writing comparison matches to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare_match.csv
+2020-11-26 17:41:55 : INFO : writing comparison models to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare_model.csv
+2020-11-26 17:41:55 : INFO : writing comparison violations to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare_violations.csv
+2020-11-26 17:41:55 : INFO : writing comparison props to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare_props.csv
+2020-11-26 17:41:55 : INFO : writing comparison visualisation to ../laboratory/trial_06_st/vegalite/trial_06_st.exp_04_view_compare.html
+2020-11-26 17:41:55 : INFO : Comparing outputs against regression baseline in ../laboratory/trial_06_st
+2020-11-26 17:41:55 : INFO : comparing files in trial root directory
+2020-11-26 17:41:55 : INFO : comparing files in trial vegalite sub-directory
+2020-11-26 17:41:56 : INFO : comparing files in trial data sub-directory
+2020-11-26 17:41:56 : INFO : Completed experiments ['trial_06_st.exp_01a1', 'trial_06_st.exp_01a2', 'trial_06_st.exp_01b', 'trial_06_st.exp_01c1', 'trial_06_st.exp_01c2', 'trial_06_st.exp_02a', 'trial_06_st.exp_02b', 'trial_06_st.exp_03a', 'trial_06_st.exp_03b', 'trial_06_st.exp_04']

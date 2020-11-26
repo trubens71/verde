@@ -468,7 +468,12 @@
           "$ref": "#/definitions/demographics"
         },
         "employment_status": {
-          "type": "boolean"
+          "type": "boolean",
+          "verde_rule_directive": {
+            "explains": [{
+              "$ref": "#/properties/provider/properties/workforce_management"
+            }]
+          }
         },
         "qualifications": {
           "type": "boolean"

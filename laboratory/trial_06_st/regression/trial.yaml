@@ -137,7 +137,7 @@
     # QoL versus vacancies and zero hour contracts, for direct care roles, by region (from wide data)
     - experiment_id: exp_04
       do: true
-      experiment_desc: univariate overview of zero hour contracts for all roles
+      experiment_desc: zero hour contracts versus vacancies versus QoL
       input_data_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide.csv
       input_mapping_file: ../asc_data/processed/set_03/WDS_3_3_4_11_ASCOF_1A_wide_mapping.json
       query:
@@ -145,4 +145,4 @@
         - field('vacancies_direct_care_pct', scale='zero')
         - field('QoL_all', scale='no_zero')
   regression_test:
-    do: false
+    do: true
