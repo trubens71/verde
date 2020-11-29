@@ -1,0 +1,10 @@
+@startuml
+() "zere hours contracts" as zero
+() "vacancies" as vacancies
+() "quality of life" as qol
+
+zero --> vacancies
+vacancies --> qol
+zero --> qol
+
+@enduml

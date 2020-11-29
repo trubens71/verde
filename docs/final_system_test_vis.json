@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/trubens71/verde/master/laboratory/trial_06_st/data/trial_06_st.exp_04_WDS_3_3_4_11_ASCOF_1A_wide_colfix.csv"
+  },
+  "mark": {"type": "circle", "stroke": "grey", "size": 500},
+  "transform": [
+    {"calculate": "datum.QoL_all", "as": "quality of life"},
+    {
+      "calculate": "datum.vacancies_direct_care_pct",
+      "as": "% of direct care role vacancies"
+    },
+    {
+      "calculate": "datum.zero_hr_contract_direct_care_pct",
+      "as": "% of direct care roles with zero hours contracts"
+    },
+    {
+    "sort": [
+      {"field": "QoL_all", "order": "descending"}
+    ],
+    "window": [{
+      "op": "rank",
+      "as": "quality of life rank"
+    }]
+    }
+  ],
+  "encoding": {
+    "color": {
+      "type": "ordinal",
+      "field": "quality of life rank",
+      "scale": {"scheme": "purples", "reverse": "true"}
+    },
+    "y": {
+      "type": "quantitative",
+      "field": "% of direct care role vacancies",
+      "scale": {"zero": false}
+    },
+    "x": {
+      "type": "quantitative",
+      "field": "% of direct care roles with zero hours contracts",
+      "scale": {"zero": false}
+    },
+    "tooltip": [
+      {"type": "nominal", "field": "region"},
+      {"type": "quantitative", "field": "quality of life rank"},
+      {"type": "quantitative", "field": "quality of life"}
+    ]
+  },
+  "title": "Impact of direct care role employment on user quality of life",
+  "width": 400,
+  "height": 400
+}
