@@ -1,0 +1,35 @@
+@startuml
+<style>
+ganttDiagram {
+	task {
+		FontName Helvetica
+		FontColor black
+		FontSize 12
+		FontStyle normal
+		BackGroundColor LightYellow
+		LineColor gray
+	}
+}
+</style>
+printscale weekly
+Project starts the 15th of June 2020
+[establish technical context and environment] lasts 8 weeks
+[establish domain context] lasts 1 week
+[establish organisation context] lasts 5 weeks
+--
+[build technical framework] starts 20th July 2020 and lasts 6 weeks
+[build technical framework] is colored in gold/black
+[data architecture] starts 20th July 2020 and lasts 3 weeks
+[trial configuration and execution] starts 3rd August 2020 and lasts 3 weeks
+[results evaluation] starts 17th August 2020 and lasts 2 weeks
+--
+[develop domain specific rules] starts 3rd August 2020 and lasts 13 weeks
+[develop domain specific rules] is colored in gold/black
+[identify rules] starts 3rd August 2020 and lasts 4 weeks
+[implement rules] starts 10th August 2020 and lasts 9 weeks
+[unit test rules] starts 17th August 2020 and lasts 9 weeks
+[integration test] starts 19th October 2020 and lasts 1 week
+[system test] starts 26ht October 2020 and lasts 1 week
+--
+[write report] starts 2nd Novemeber 2020 and lasts 4 weeks
+@enduml
