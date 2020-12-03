@@ -1,13 +1,14 @@
 @startuml
-() "v 000\nb 001" as v0b1
-() "b 000" as b0
-() "b 002" as b2
-() "b 003" as b3
-() "b 004" as b4
-() "b 005" as b5
+skinparam nodesep 80
+() "verde 000\nbaseline 001" as v0b1
+() "baseline 000" as b0
+() "baseline 002" as b2
+() "baseline 003" as b3
+() "baseline 004" as b4
+() "baseline 005" as b5
 
-() "v 001\nb 009" as v0b9
-() "b 006" as b6
+() "verde 001\nbaseline 009" as v0b9
+() "baseline 006" as b6
 
 () "verde 002\nbaseline 015" as vnbm
 
@@ -19,7 +20,7 @@ b4 -r-> b5
 
 v0b1 -d-> v0b9
 v0b9 -r..-> b6
-v0b9 -d..-> vnbm
+v0b9 -d.-> vnbm
 
 note top of v0b1
 The most effective group
@@ -27,7 +28,10 @@ of visualisations uses the x,y
 and size channels. This vis is
 presented first because we are
 confident in the causal relationships
-between the query fields.
+between the query fields across all
+three channels. The lowest strength
+field encodes the least precise
+channel (size).
 end note
 
 note top of b0
@@ -35,26 +39,13 @@ This vis may be preferable
 because quality of life has
 high cardinality so may be better
 suited to a positional channel.
+The x and y encodings preserve
+causal relationships.
 end note
 
 note bottom of b2
-we've just flipped
-the x and y axes.
-end note
-
-note top of b3
-expenditure is now
-on the size channel
-end note
-
-note bottom of b4
-quality of life encodes the
-size channel.
-end note
-
-note top of b5
-expenditure encodes the
-size channel.
+The x and y channels
+are swapped...
 end note
 
 note left of v0b9
@@ -62,10 +53,13 @@ The second most effective
 group encodes the colour
 channel instead of the
 size channel. This vis is
-presented first because
-we are confident in the
-causal relationships
-between the query fields.
+presented first because we are
+confident in the causal
+relationships between the
+query fields across all
+three channels. The lowest
+strength field encodes the
+least precise channel (colour).
 end note
 
 

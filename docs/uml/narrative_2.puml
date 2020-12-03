@@ -1,0 +1,38 @@
+@startuml
+skinparam nodesep 120
+() "group 001\nverde 001" as v0b1
+() "group 001\nsubtractive 002\n(explains/precision)..." as b0
+() "group 001\ndecorative 002\n(colour)" as c1
+
+() "group 002\nverde 001..." as v0b9
+
+
+
+v0b1 -r.-> b0
+
+
+v0b1 -d.-> v0b9
+
+
+
+
+v0b1 -u-> c1
+
+
+
+note top of v0b1
+...the marks are black
+because each one
+represents a local
+authority
+end note
+
+note left of c1
+... the marks are purple
+because they encode quality
+of life which is a property
+of user.
+end note
+
+
+@enduml
