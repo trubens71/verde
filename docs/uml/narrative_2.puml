@@ -6,19 +6,9 @@ skinparam nodesep 120
 
 () "group 002\nverde 001..." as v0b9
 
-
-
 v0b1 -r.-> b0
-
-
 v0b1 -d.-> v0b9
-
-
-
-
 v0b1 -u-> c1
-
-
 
 note top of v0b1
 ...the marks are black
