@@ -1,0 +1,21 @@
+@startuml
+'scale 0.5
+skinparam shadowing false
+skinparam ComponentBorderColor gray
+allow_mixing
+
+scale 0.6
+
+artifact "(1) Domain Schema\n(e.g. Adult Social Care)" as domain_schema #honeydew
+artifact "(2) Verde Meta-Schema" as meta_schema #honeydew
+artifact "(3) Input CSV file" as input_file #lavender
+artifact "(4) Mapping Document" as mapping_doc #honeydew
+artifact "(5) Domain Mapping Schema" as mapping_schema #honeydew
+
+domain_schema ..> meta_schema : validated by
+mapping_doc ..> input_file : maps from
+mapping_doc ..> domain_schema : maps to
+mapping_doc ..> mapping_schema : validated by
+mapping_schema ..> domain_schema : references
+
+@enduml
